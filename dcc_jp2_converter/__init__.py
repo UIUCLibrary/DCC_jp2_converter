@@ -1,2 +1,4 @@
-from dcc_jp2_converter.exiv2Driver.director import Director as exiv2CommandBuilder
-from dcc_jp2_converter.ImagemagickDriver.director import Director as ImagemagickCommandBuilder
+from dcc_jp2_converter.exiv2Driver.exiv2commandbuilder import Exiv2CommandBuilder
+from dcc_jp2_converter.exiv2Driver import exic2CommandBuilders
+from dcc_jp2_converter.ImagemagickDriver.imagemagickcommandbuilder import ImagemagickCommandBuilder
+from dcc_jp2_converter.ImagemagickDriver import imagemagickCommandBuilders

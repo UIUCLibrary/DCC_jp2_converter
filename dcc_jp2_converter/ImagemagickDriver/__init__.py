@@ -1,0 +1,1 @@
+from .imagemagickcommandbuilder import ImagemagickCommandBuilder
