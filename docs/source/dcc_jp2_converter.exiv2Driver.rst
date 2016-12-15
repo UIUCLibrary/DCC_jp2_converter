@@ -3,16 +3,16 @@ dcc_jp2_converter.exiv2Driver package
 
 
 
-dcc_jp2_converter.exiv2Driver.config module
--------------------------------------------
+config module
+-------------
 
 .. automodule:: dcc_jp2_converter.exiv2Driver.config
     :members:
     :undoc-members:
     :show-inheritance:
 
-dcc_jp2_converter.exiv2Driver.Exiv2CommandBuilder
--------------------------------------------------
+Exiv2CommandBuilder
+-------------------
 
 .. autoclass:: dcc_jp2_converter.exiv2Driver.exiv2commandbuilder.Exiv2CommandBuilder
     :members:

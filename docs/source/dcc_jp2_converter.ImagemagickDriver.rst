@@ -1,9 +1,8 @@
 dcc_jp2_converter.ImagemagickDriver package
 ===========================================
 
-
-dcc_jp2_converter.ImagemagickDriver.config module
--------------------------------------------------
+config module
+-------------
 
 .. automodule:: dcc_jp2_converter.ImagemagickDriver.config
     :members:
