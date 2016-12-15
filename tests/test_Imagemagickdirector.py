@@ -8,12 +8,12 @@ from dcc_jp2_converter import ImagemagickDriver
 @pytest.fixture
 def default_builder(monkeypatch):
     """Test to make sure that a default command is generated in the case no other preset builder is made"""
-    ImagemagickDriver.IMAGEMAGICK = "/usr/bin/convert"
+    IMAGEMAGICK = "/usr/bin/convert"
 
     # Because the location of imagemagick is faked for this example, we need to ignore the checks
     monkeypatch.setattr(os.path, "exists", lambda x: True)
 
-    command = ImagemagickDriver.Director(program_path=ImagemagickDriver.IMAGEMAGICK)
+    command = ImagemagickDriver.ImagemagickCommandBuilder(program_path=IMAGEMAGICK)
     return command
 
 
