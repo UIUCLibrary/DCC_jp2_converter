@@ -1,6 +1,7 @@
 import os
-import exiv2Driver
-from exiv2Driver import commandBuilders
+
+from dcc_jp2_converter.exiv2Driver import commandBuilders
+from dcc_jp2_converter import exiv2Driver
 
 
 def test_extract_command_builder(monkeypatch):

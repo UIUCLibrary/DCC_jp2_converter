@@ -1,6 +1,8 @@
 import os
-import ImagemagickDriver
+
 import pytest
+
+from dcc_jp2_converter import ImagemagickDriver
 
 
 @pytest.fixture

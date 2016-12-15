@@ -9,10 +9,7 @@ all:
 clean:
 	@$(PYTHON) setup.py clean
 
-	@if [ -d docs/build ]; then \
-	    	echo 'deleting generated documentation'; \
-		rm -R docs/build; \
-    	fi
+	cd docs && make clean
 
 	@if [ -d build ]; then \
 	    	echo 'deleting build'; \
