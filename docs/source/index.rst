@@ -6,6 +6,9 @@
 Welcome to DCC JP2 Generator's documentation!
 =============================================
 
+User Documentation
+------------------
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
