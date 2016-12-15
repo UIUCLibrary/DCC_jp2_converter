@@ -1,0 +1,46 @@
+dcc_jp2_converter.exiv2Driver.exic2CommandBuilders package
+==========================================================
+
+Submodules
+----------
+
+dcc_jp2_converter.exiv2Driver.exic2CommandBuilders.abs_builder module
+---------------------------------------------------------------------
+
+.. automodule:: dcc_jp2_converter.exiv2Driver.exic2CommandBuilders.abs_builder
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dcc_jp2_converter.exiv2Driver.exic2CommandBuilders.copy_IPTC_command module
+---------------------------------------------------------------------------
+
+.. automodule:: dcc_jp2_converter.exiv2Driver.exic2CommandBuilders.copy_IPTC_command
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dcc_jp2_converter.exiv2Driver.exic2CommandBuilders.extract_IPTC_command module
+------------------------------------------------------------------------------
+
+.. automodule:: dcc_jp2_converter.exiv2Driver.exic2CommandBuilders.extract_IPTC_command
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dcc_jp2_converter.exiv2Driver.exic2CommandBuilders.insert_IPTC_command module
+-----------------------------------------------------------------------------
+
+.. automodule:: dcc_jp2_converter.exiv2Driver.exic2CommandBuilders.insert_IPTC_command
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: dcc_jp2_converter.exiv2Driver.exic2CommandBuilders
+    :members:
+    :undoc-members:
+    :show-inheritance:
