@@ -1,7 +1,6 @@
 import os
 
-from dcc_jp2_converter import exic2CommandBuilders
-from dcc_jp2_converter import Exiv2CommandBuilder
+from dcc_jp2_converter import exic2CommandBuilders, Exiv2CommandBuilder
 
 
 def test_extract_command_builder(monkeypatch):
