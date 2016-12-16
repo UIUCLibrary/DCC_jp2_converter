@@ -1,1 +1,2 @@
 from .imagemagickcommandbuilder import ImagemagickCommandBuilder
+from .config import get_imagemagick_path
