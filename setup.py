@@ -5,7 +5,7 @@ setup(
     version='0.0.1a0',
     packages=['dcc_jp2_converter', 'dcc_jp2_converter.exiv2Driver',
               'dcc_jp2_converter.ImagemagickDriver'],
-    scripts=['scripts/convert.py'],
+    scripts=['scripts/cli_convert.py'],
     entry_points={
         'console_scripts': ['makejp2=convert:main']
     },
