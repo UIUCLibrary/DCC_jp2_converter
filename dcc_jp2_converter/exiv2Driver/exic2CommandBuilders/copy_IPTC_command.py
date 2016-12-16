@@ -2,7 +2,13 @@ from .abs_builder import AbsBuilder
 
 
 class CopyIPTCCommand(AbsBuilder):
-    """Copies metadata from the source to the arg(destination file) """
+    """Copies metadata from the source to the arg(destination file).
+
+    The equivalent exiv2 command might look like this::
+
+        exiv2 -it img1.jpg img2.jpg
+
+    """
 
     def build_program_command(self):
         self._exiv_command.append(self.program_command)
