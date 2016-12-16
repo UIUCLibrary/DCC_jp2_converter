@@ -9,6 +9,18 @@ from dcc_jp2_converter import ImagemagickCommandBuilder, exic2CommandBuilders, E
 
 
 def _cleanup_multiple(real_name, path):
+    """
+    This is a hack that I had to write  because imagemagick makes mulitple files when there is an embedded thumbnail in
+    the tiff file. This function looks for any files that contain the "real name" in it and renames the largest one to
+    that name it was supposed to have from the start.
+
+    Args:
+        real_name: the name of the file it supposed to be saved as
+        path: the path were the multiple version of the file are stored.
+
+    Returns:
+
+    """
     name, ext = os.path.splitext(os.path.basename(real_name))
     duplicates = []
 
@@ -22,7 +34,7 @@ def _cleanup_multiple(real_name, path):
     # TODO: Determine the larger of the two.
     sorted_size = sorted(duplicates, key=lambda file: os.path.getsize(file))
     largest = sorted_size[-1]
-    assert os.path.getsize(largest) > os.path.getsize(sorted_size[0])
+    assert os.path.getsize(largest) >= os.path.getsize(sorted_size[0])
     os.rename(largest, os.path.join(path, real_name))
 
 
