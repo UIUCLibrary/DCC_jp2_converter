@@ -2,11 +2,11 @@ from .abs_builder import AbsBuilder
 
 
 class ExtractIPTCCommand(AbsBuilder):
-    """Extract IPTC dataset into a XMP sidecar file with extension .xmp.
+    """Extract all embedded into a XMP sidecar file with extension .xmp.
 
     The equivalent exiv2 command might look like this::
 
-        exiv2 -eiX image.jpg
+        exiv2 -eaX image.jpg
 
     """
 
@@ -15,7 +15,7 @@ class ExtractIPTCCommand(AbsBuilder):
         pass
 
     def build_option(self):
-        self._exiv_command.append("-eiX")
+        self._exiv_command.append("-eaX")
         pass
 
     def build_arg(self, arg):
