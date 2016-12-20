@@ -6,7 +6,7 @@ from dcc_jp2_converter import exic2CommandBuilders, Exiv2CommandBuilder
 def test_extract_command_builder(monkeypatch):
     DUMMY_EXIV2_PATH = "/usr/bin/exiv2"
     src_file = "/Users/Documents/sample.tif"
-    expected_cmd = ['/usr/bin/exiv2', '-eiX', '/Users/Documents/sample.tif']
+    expected_cmd = ['/usr/bin/exiv2', '-eaX', '/Users/Documents/sample.tif']
 
     # Because the location of exiv2 is faked for this example, we need to ignore the checks
     monkeypatch.setattr(os.path, "exists", lambda x: True)
@@ -22,7 +22,7 @@ def test_extract_command_builder(monkeypatch):
 def test_insert_command_builder(monkeypatch):
     DUMMY_EXIV2_PATH = "/usr/bin/exiv2"
     src_file = "/Users/Documents/sample.jp2"
-    expected_cmd = ['/usr/bin/exiv2', '-iixX', '/Users/Documents/sample.jp2']
+    expected_cmd = ['/usr/bin/exiv2', '-iaX', '/Users/Documents/sample.jp2']
 
     # Because the location of exiv2 is faked for this example, we need to ignore the checks
     monkeypatch.setattr(os.path, "exists", lambda x: True)
