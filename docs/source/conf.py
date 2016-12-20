@@ -166,6 +166,3 @@ texinfo_documents = [
      author, 'DCCJP2Generator', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-
