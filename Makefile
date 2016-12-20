@@ -6,6 +6,12 @@ current_dir = $(shell pwd)
 all:
 	$(PYTHON) setup.py build
 
+install:
+	$(PYTHON) setup.py install
+
+uninstall:
+	$(PIP) uninstall DCC-jp2-converter -y
+
 clean:
 	@$(PYTHON) setup.py clean
 
