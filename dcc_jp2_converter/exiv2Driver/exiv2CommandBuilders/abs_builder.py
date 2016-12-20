@@ -20,7 +20,8 @@ class AbsBuilder(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def build_program_command(self):
         """
-        Abstract: Sets the full path to executable program, such as Imagemagicks's "convert" command.
+        Abstract: Sets the full path to executable program, such as
+         Imagemagicks's "convert" command.
 
         """
 
