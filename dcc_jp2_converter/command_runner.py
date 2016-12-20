@@ -1,4 +1,7 @@
 import subprocess
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class CommandRunner:
@@ -6,6 +9,7 @@ class CommandRunner:
     stdout = None
 
     def run(self, command: list):
+        logger.debug("Running command \"{}\"".format(" ".join(command)))
         p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         stdout, stderr = p.communicate()
         self.stderr = stderr.strip()
