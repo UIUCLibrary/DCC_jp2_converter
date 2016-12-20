@@ -1,20 +1,25 @@
+"""High-level logic for orchestrating a conversion job."""
+
 import os
 
-from tempfile import TemporaryDirectory
-import shutil
 import logging
+import shutil
+from tempfile import TemporaryDirectory
+
 from .file_manager import get_tiffs
 from .command_runner import CommandRunner
-from dcc_jp2_converter import ImagemagickCommandBuilder, exic2CommandBuilders, Exiv2CommandBuilder
+from dcc_jp2_converter import ImagemagickCommandBuilder, Exiv2CommandBuilder
+from dcc_jp2_converter import exiv2CommandBuilders as exi2_cb
 
 logger = logging.getLogger(__name__)
 
 
 def _cleanup_multiple(real_name, path):
     """
-    This is a hack that I had to write because imagemagick makes multiple files when it finds an embedded thumbnail in
-    the tiff file. This function looks for any files that contain the "real name" in it and renames the largest one to
-    that name it was supposed to have from the start.
+    This is a hack that I had to write because imagemagick makes multiple
+    files when it finds an embedded thumbnail in the tiff file. This function
+    looks for any files that contain the "real name" in it and renames the
+    largest one to that name it was supposed to have from the start.
 
     Args:
         real_name: the name of the file it supposed to be saved as
@@ -39,18 +44,20 @@ def _cleanup_multiple(real_name, path):
 
 def convert_tiff_access_folder(path: str, overwrite_existing=True):
     """
-    Converts all tiff files located in that folder into JP2000 .jp2 files and migrated all the metadata from the tiff
-    file into the newly produced jp2 file. All new files are saved in the same place that as their source files.
+    Converts all tiff files located in that folder into JP2000 .jp2 files and
+    migrated all the metadata from the tiff file into the newly produced jp2
+    file. All new files are saved in the same place that as their source files.
 
     Args:
         path: The path to the folder containing tiff files to be converter.
-        overwrite_existing: If an existing jp2 file already exists in the same folder, overwrite it with a new file.
+        overwrite_existing: If an existing jp2 file already exists in the same
+         folder, overwrite it with a new file.
 
 
     """
     image_convert_command = ImagemagickCommandBuilder()
-    metadata_extractor = Exiv2CommandBuilder(exic2CommandBuilders.ExtractIPTCCommand())
-    metadata_injector = Exiv2CommandBuilder(exic2CommandBuilders.InsertIPTCCommand())
+    metadata_extractor = Exiv2CommandBuilder(exi2_cb.ExtractIPTCCommand())
+    metadata_injector = Exiv2CommandBuilder(exi2_cb.InsertIPTCCommand())
 
     with TemporaryDirectory() as tmp_folder:
         command_runner = CommandRunner()
@@ -58,26 +65,37 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True):
         for i, tiff in enumerate(tiffs):
             tmp_access_tif = os.path.join(tmp_folder, os.path.basename(tiff))
             tmp_access_jp2 = os.path.splitext(tmp_access_tif)[0] + ".jp2"
-            final_access_jp2 = os.path.join(path, os.path.basename(tmp_access_jp2))
+            final_access_jp2 = os.path.join(
+                path, os.path.basename(tmp_access_jp2))
+
             if not overwrite_existing:
                 if os.path.exists(final_access_jp2):
-                    logger.warning("{} already exists. skipping".format(final_access_jp2))
+                    logger.warning(
+                        "{} already exists. skipping".format(final_access_jp2))
                     continue
 
-            logger.info("Converting part {} of {}: From {} to {} ".format(i + 1, len(tiffs), os.path.basename(tiff),
-                                                                          os.path.basename(final_access_jp2)))
+            logger.info("Converting part {} of {}: From {} to {} ".format(
+                i + 1, len(tiffs), os.path.basename(tiff),
+                os.path.basename(final_access_jp2)))
 
-            logger.debug("Copying \"{}\" to temp folder \"{}\"".format(tiff, path))
+            logger.debug(
+                "Copying \"{}\" to temp folder \"{}\"".format(tiff, path))
+
             shutil.copy2(tiff, tmp_access_tif)
 
-            logger.debug("Using \"{}\" to create \"{}\"".format(tmp_access_tif, tmp_access_jp2))
-            im_command = image_convert_command.build_command(tmp_access_tif, tmp_access_jp2)
+            logger.debug(
+                "Using \"{}\" to create \"{}\"".format(
+                    tmp_access_tif, tmp_access_jp2))
+
+            im_command = image_convert_command.build_command(
+                tmp_access_tif, tmp_access_jp2)
+
             try:
 
                 command_runner.run(im_command)
 
             except RuntimeError as e:
-                logger.fatal(e)
+                logger.error(e)
                 exit(1)
             finally:
                 stdout, stderr = command_runner.get_output()
@@ -86,17 +104,20 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True):
                 if stderr:
                     logger.warning(stderr)
 
-            # HACK: Clean up from Imagemagick because it seems to have a problem with embedded thumbnails
+            # HACK: Clean up from Imagemagick because it seems to have a
+            # problem with embedded thumbnails
             _cleanup_multiple(os.path.basename(tmp_access_jp2), tmp_folder)
 
             # Create sidecar metadata files
-            logger.debug("Extracting metadata from \"{}\"".format(tmp_access_tif))
+            logger.debug(
+                "Extracting metadata from \"{}\"".format(tmp_access_tif))
+
             mde_command = metadata_extractor.build_command(tmp_access_tif)
             try:
                 command_runner.run(mde_command)
 
             except RuntimeError as e:
-                logger.fatal(e)
+                logger.error(e)
                 exit(1)
             finally:
                 stdout, stderr = command_runner.get_output()
@@ -106,13 +127,15 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True):
                     logger.warning(stderr)
 
             # Insert sidecar metadata files into jp2
-            logger.debug("Injecting metadata into \"{}\"".format(tmp_access_jp2))
+            logger.debug(
+                "Injecting metadata into \"{}\"".format(tmp_access_jp2))
+
             mdi_command = metadata_injector.build_command(tmp_access_jp2)
             try:
                 command_runner.run(mdi_command)
 
             except RuntimeError as e:
-                logger.fatal(e)
+                logger.error(e)
                 exit(1)
             finally:
                 stdout, stderr = command_runner.get_output()
@@ -121,5 +144,6 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True):
                 if stderr:
                     logger.warning(stderr)
 
-            logger.debug("Moving \"{}\" into \"{}\"".format(tmp_access_jp2, path))
+            logger.debug(
+                "Moving \"{}\" into \"{}\"".format(tmp_access_jp2, path))
             shutil.move(tmp_access_jp2, final_access_jp2)
