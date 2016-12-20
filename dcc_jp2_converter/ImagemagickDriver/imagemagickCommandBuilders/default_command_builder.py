@@ -2,8 +2,8 @@ from .abs_builder import AbsBuilder
 
 
 class DefaultCommandBuilder(AbsBuilder):
-    """Default command builder. Passes no arguments to Imagemagick so imagemagick infers the output based on the
-    file extension.
+    """Default command builder. Passes no arguments to Imagemagick so
+    imagemagick infers the output based on the file extension.
 
     """
 
@@ -15,5 +15,3 @@ class DefaultCommandBuilder(AbsBuilder):
 
     def get_program_command(self):
         self._imagemagick_command._program = self.program_command
-
-

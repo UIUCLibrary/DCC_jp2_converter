@@ -2,9 +2,7 @@ from .abs_builder import AbsBuilder
 
 
 class Jp2AccessCommandBuilder(AbsBuilder):
-    """
-    Command builder for making access JPEG2000 .jp2 files for medusa.
-    """
+    """Command builder for making access JPEG2000 .jp2 files for medusa."""
 
     def get_dst_args(self):
         self._imagemagick_command._dst_args = []

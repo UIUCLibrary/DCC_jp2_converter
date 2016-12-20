@@ -16,7 +16,6 @@ class AbsBuilder(metaclass=abc.ABCMeta):
     def new_command(self):
         self._imagemagick_command = ImagemagickCommand()
 
-
     def set_src(self, filename):
         self._imagemagick_command.src = filename
 
@@ -26,21 +25,15 @@ class AbsBuilder(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def get_program_command(self):
         """
-        Abstract: Sets the full path to executable program, such as Imagemagicks's "convert" command.
+        Abstract: Sets the full path to executable program, such as
+        Imagemagicks's "convert" command.
 
         """
 
     @abc.abstractmethod
     def get_src_args(self):
-        """
-        Abstract: Sets any commandline arguments for the source file.
-
-        """
-        pass
+        """Abstract: Sets any commandline arguments for the source file."""
 
     @abc.abstractmethod
     def get_dst_args(self):
-        """
-        Abstract: Sets any command line arguments for the source file.
-
-        """
+        """Abstract: Sets any command line arguments for the source file."""
