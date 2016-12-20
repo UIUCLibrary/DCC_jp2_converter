@@ -1,4 +1,4 @@
-dcc_jp2_converter.exiv2Driver.exic2CommandBuilders package
+dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders package
 ==========================================================
 
 Abstract class
@@ -7,7 +7,7 @@ Abstract class
 abs_builder class
 ^^^^^^^^^^^^^^^^^
 
-.. autoclass:: dcc_jp2_converter.exiv2Driver.exic2CommandBuilders.abs_builder.AbsBuilder
+.. autoclass:: dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder
     :members:
 
 Concrete classes
@@ -16,20 +16,20 @@ Concrete classes
 CopyIPTCCommand class
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: dcc_jp2_converter.exiv2Driver.exic2CommandBuilders.CopyIPTCCommand
+.. autoclass:: dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.CopyIPTCCommand
     :members:
     :show-inheritance:
 
 ExtractIPTCCommand class
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: dcc_jp2_converter.exiv2Driver.exic2CommandBuilders.ExtractIPTCCommand
+.. autoclass:: dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.ExtractIPTCCommand
     :members:
     :show-inheritance:
 
 InsertIPTCCommand class
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: dcc_jp2_converter.exiv2Driver.exic2CommandBuilders.InsertIPTCCommand
+.. autoclass:: dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.InsertIPTCCommand
     :members:
     :show-inheritance:
