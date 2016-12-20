@@ -1,24 +1,24 @@
 import os
 
-from .utils import logger
-from .file_manager import get_tiffs
 from tempfile import TemporaryDirectory
 import shutil
+import logging
+from .file_manager import get_tiffs
 from .command_runner import CommandRunner
 from dcc_jp2_converter import ImagemagickCommandBuilder, exic2CommandBuilders, Exiv2CommandBuilder
+
+logger = logging.getLogger(__name__)
 
 
 def _cleanup_multiple(real_name, path):
     """
-    This is a hack that I had to write  because imagemagick makes mulitple files when there is an embedded thumbnail in
+    This is a hack that I had to write because imagemagick makes multiple files when it finds an embedded thumbnail in
     the tiff file. This function looks for any files that contain the "real name" in it and renames the largest one to
     that name it was supposed to have from the start.
 
     Args:
         real_name: the name of the file it supposed to be saved as
         path: the path were the multiple version of the file are stored.
-
-    Returns:
 
     """
     name, ext = os.path.splitext(os.path.basename(real_name))
@@ -31,29 +31,41 @@ def _cleanup_multiple(real_name, path):
         if name in file.name:
             duplicates.append(file.path)
 
-    # TODO: Determine the larger of the two.
-    sorted_size = sorted(duplicates, key=lambda file: os.path.getsize(file))
+    sorted_size = sorted(duplicates, key=lambda f: os.path.getsize(f))
     largest = sorted_size[-1]
     assert os.path.getsize(largest) >= os.path.getsize(sorted_size[0])
     os.rename(largest, os.path.join(path, real_name))
 
 
-def convert_tiff_access_folder(path):
+def convert_tiff_access_folder(path: str, overwrite_existing=True):
+    """
+    Converts all tiff files located in that folder into JP2000 .jp2 files and migrated all the metadata from the tiff
+    file into the newly produced jp2 file. All new files are saved in the same place that as their source files.
+
+    Args:
+        path: The path to the folder containing tiff files to be converter.
+        overwrite_existing: If an existing jp2 file already exists in the same folder, overwrite it with a new file.
+
+
+    """
     image_convert_command = ImagemagickCommandBuilder()
     metadata_extractor = Exiv2CommandBuilder(exic2CommandBuilders.ExtractIPTCCommand())
     metadata_injector = Exiv2CommandBuilder(exic2CommandBuilders.InsertIPTCCommand())
 
     with TemporaryDirectory() as tmp_folder:
         command_runner = CommandRunner()
-        for tiff in get_tiffs(path):
+        tiffs = list(get_tiffs(path))
+        for i, tiff in enumerate(tiffs):
             tmp_access_tif = os.path.join(tmp_folder, os.path.basename(tiff))
             tmp_access_jp2 = os.path.splitext(tmp_access_tif)[0] + ".jp2"
             final_access_jp2 = os.path.join(path, os.path.basename(tmp_access_jp2))
-            if os.path.exists(final_access_jp2):
-                logger.warning("{} already exists. skipping".format(final_access_jp2))
-                continue
+            if not overwrite_existing:
+                if os.path.exists(final_access_jp2):
+                    logger.warning("{} already exists. skipping".format(final_access_jp2))
+                    continue
 
-            logger.info("Converting {}".format(os.path.basename(tiff)))
+            logger.info("Converting part {} of {}: From {} to {} ".format(i + 1, len(tiffs), os.path.basename(tiff),
+                                                                          os.path.basename(final_access_jp2)))
 
             logger.debug("Copying \"{}\" to temp folder \"{}\"".format(tiff, path))
             shutil.copy2(tiff, tmp_access_tif)
@@ -61,7 +73,9 @@ def convert_tiff_access_folder(path):
             logger.debug("Using \"{}\" to create \"{}\"".format(tmp_access_tif, tmp_access_jp2))
             im_command = image_convert_command.build_command(tmp_access_tif, tmp_access_jp2)
             try:
+
                 command_runner.run(im_command)
+
             except RuntimeError as e:
                 logger.fatal(e)
                 exit(1)
@@ -80,6 +94,7 @@ def convert_tiff_access_folder(path):
             mde_command = metadata_extractor.build_command(tmp_access_tif)
             try:
                 command_runner.run(mde_command)
+
             except RuntimeError as e:
                 logger.fatal(e)
                 exit(1)
@@ -95,6 +110,7 @@ def convert_tiff_access_folder(path):
             mdi_command = metadata_injector.build_command(tmp_access_jp2)
             try:
                 command_runner.run(mdi_command)
+
             except RuntimeError as e:
                 logger.fatal(e)
                 exit(1)
