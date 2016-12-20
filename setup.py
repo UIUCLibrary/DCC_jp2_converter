@@ -3,11 +3,15 @@ from setuptools import setup
 setup(
     name='DCC_jp2_converter',
     version='0.0.1a0',
-    packages=['dcc_jp2_converter', 'dcc_jp2_converter.exiv2Driver',
-              'dcc_jp2_converter.ImagemagickDriver'],
+    packages=['dcc_jp2_converter',
+              'dcc_jp2_converter.exiv2Driver',
+              'dcc_jp2_converter.exiv2Driver.exic2CommandBuilders',
+              'dcc_jp2_converter.ImagemagickDriver',
+              'dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders',
+              ],
     scripts=['scripts/cli_convert.py'],
     entry_points={
-        'console_scripts': ['makejp2=convert:main']
+        'console_scripts': ['makejp2=cli_convert:main']
     },
     test_suite="tests",
     setup_requires=['pytest-runner'],
