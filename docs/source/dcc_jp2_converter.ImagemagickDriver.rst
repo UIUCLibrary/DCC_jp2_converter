@@ -1,5 +1,5 @@
-dcc_jp2_converter.ImagemagickDriver package
-===========================================
+ImagemagickDriver package
+=========================
 
 config module
 -------------

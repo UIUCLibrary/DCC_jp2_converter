@@ -1,19 +1,24 @@
 import os
 
-import pytest
+from dcc_jp2_converter import ImagemagickDriver as driver
 
-from dcc_jp2_converter import ImagemagickDriver
+import pytest
 
 
 @pytest.fixture
 def default_builder(monkeypatch):
-    """Test to make sure that a default command is generated in the case no other preset builder is made"""
+    """
+    Test to make sure that a default command is generated in the case no
+    other preset builder is made
+
+    """
     IMAGEMAGICK = "/usr/bin/convert"
 
-    # Because the location of imagemagick is faked for this example, we need to ignore the checks
+    # Because the location of imagemagick is faked for this example,
+    # we need to ignore the checks
     monkeypatch.setattr(os.path, "exists", lambda x: True)
 
-    command = ImagemagickDriver.ImagemagickCommandBuilder(program_path=IMAGEMAGICK)
+    command = driver.ImagemagickCommandBuilder(program_path=IMAGEMAGICK)
     return command
 
 

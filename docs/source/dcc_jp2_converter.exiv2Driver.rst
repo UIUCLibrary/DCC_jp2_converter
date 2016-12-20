@@ -1,5 +1,5 @@
-dcc_jp2_converter.exiv2Driver package
-=====================================
+exiv2Driver package
+===================
 
 
 
@@ -23,4 +23,4 @@ Command Builders
 
 .. toctree::
 
-    dcc_jp2_converter.exiv2Driver.exic2CommandBuilders
+    dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders
