@@ -1,3 +1,9 @@
+"""DCC_jp2_converter.
+
+Script to create JP2 access images with embedded metadata from tiff access
+masters to be used by the Digital Library.
+
+"""
 from setuptools import setup
 
 setup(
@@ -5,7 +11,7 @@ setup(
     version='0.0.1a0',
     packages=['dcc_jp2_converter',
               'dcc_jp2_converter.exiv2Driver',
-              'dcc_jp2_converter.exiv2Driver.exic2CommandBuilders',
+              'dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders',
               'dcc_jp2_converter.ImagemagickDriver',
               'dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders',
               ],
