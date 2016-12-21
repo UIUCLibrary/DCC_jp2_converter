@@ -26,7 +26,7 @@ setup(
         ('settings', ['settings/settings.ini']),
     ],
     zip_safe=False,
-    url='',
+    url='https://github.com/UIUCLibrary/DCC_jp2_converter',
     license='',
     author='Henry Borchers',
     author_email='hborcher@illinois.edu',
