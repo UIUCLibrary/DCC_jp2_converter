@@ -1,3 +1,4 @@
+#!groovy
 node {
     stage('Pulling from Github'){
         checkout scm
