@@ -4,7 +4,7 @@ Script to create JP2 access images with embedded metadata from tiff access maste
 
 Project Developers:
 ===================
-* `Henry Borchers <hborcher@illinois.edu>`
+* `Henry Borchers <hborcher@illinois.edu>`_.
 
 Stakeholders:
 -------------
