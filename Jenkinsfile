@@ -14,7 +14,7 @@ node {
         env.PATH = "${env.PYTHON3}/..:${env.PATH}"
         unstash 'pysource'
         sh '$TOX -e py35'
-        junit '**/junit-*.xml'
+        junit '**/reports/junit-*.xml'
 
 
     }
@@ -22,11 +22,11 @@ node {
 
 parallel flake8: {
         echo "Running flake8 report"
-        runTox("flake8", ".", 'flake8.html', "Flake8 Report")
+        runTox("flake8", "reports", 'flake8.html', "Flake8 Report")
 
     }, coverage: {
     echo "Running Coverage report"
-    runTox("coverage", "htmlcov", 'index.html', "Coverage Report")
+    runTox("coverage", "reports/coverage", 'index.html', "Coverage Report")
     }
 
 
