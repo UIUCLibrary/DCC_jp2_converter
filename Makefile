@@ -1,7 +1,12 @@
 PYTHON      ?= python
 PIP         ?= pip
 TOX         ?= tox
+
+
 current_dir = $(shell pwd)
+SUBDIRS = build dist reports .cache .tox .eggs DCC_jp2_converter.egg-info
+
+.PHONY: docs
 
 all:
 	$(PYTHON) setup.py build
@@ -12,41 +17,21 @@ install:
 uninstall:
 	$(PIP) uninstall DCC-jp2-converter -y
 
-clean:
+clean: cleanpython cleanextrafolders cleandocs
+
+cleanpython:
 	@$(PYTHON) setup.py clean
 
+cleandocs:
 	cd docs && make clean
 
-	@if [ -d build ]; then \
-	    	echo 'deleting build'; \
-    		rm -R build; \
-    	fi
+cleanextrafolders:
+	@for f in $(SUBDIRS); do \
+		if [ -d $$f ]; then \
+			echo "removing " $$f; \
+			rm -R $$f; \
+        fi; \
+	done
 
-	@if [ -d dist ]; then \
-		echo 'deleting dist'; \
-		rm -R dist; \
-	fi
-
-	@if [ -d .cache ]; then \
-		echo 'deleting cache'; \
-		rm -R .cache; \
-	fi
-
-	@if [ -d .tox ]; then \
-		echo 'deleting tox cache'; \
-		rm -R .tox; \
-	fi
-
-	@if [ -d .eggs ]; then \
-		echo 'deleting .egg cache'; \
-		rm -R .eggs; \
-	fi
-
-	@if [ -d .cache ]; then \
-		rm -R .cache; \
-	fi
-
-	@if [ -d DCC_jp2_converter.egg-info ]; then \
-		echo 'Deleting DCC_jp2_converter.egg-info.'; \
-		rm -R DCC_jp2_converter.egg-info; \
-	fi
+docs:
+	cd docs && make html
