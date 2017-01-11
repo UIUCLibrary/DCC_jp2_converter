@@ -6,22 +6,19 @@
 Welcome to DCC JP2 Generator's documentation!
 =============================================
 
-User Documentation
-------------------
+Documentation
+-------------
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: User Documentation:
 
    about
    installation
 
-API Documentation
------------------
-
 .. toctree::
-   :maxdepth: 4
-   :caption: Contents:
+   :maxdepth: 1
+   :caption: API Documentation:
 
    scripts
    modules
