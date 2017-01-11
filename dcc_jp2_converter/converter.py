@@ -10,6 +10,7 @@ from .file_manager import get_tiffs
 from .command_runner import CommandRunner
 from dcc_jp2_converter import ImagemagickCommandBuilder, Exiv2CommandBuilder
 from dcc_jp2_converter import exiv2CommandBuilders as exi2_cb
+from dcc_jp2_converter import imagemagickCommandBuilders as im_cb
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +56,7 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True):
 
 
     """
-    image_convert_command = ImagemagickCommandBuilder()
+    image_convert_command = ImagemagickCommandBuilder(builder=im_cb.IgnoreExif())
     metadata_extractor = Exiv2CommandBuilder(exi2_cb.ExtractIPTCCommand())
     metadata_injector = Exiv2CommandBuilder(exi2_cb.InsertIPTCCommand())
 
