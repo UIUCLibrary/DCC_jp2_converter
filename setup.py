@@ -23,7 +23,7 @@ setup(
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     data_files=[
-        ('settings', ['settings/settings.ini']),
+        ('settings', ['settings/command_paths.ini']),
     ],
     zip_safe=False,
     url='https://github.com/UIUCLibrary/DCC_jp2_converter',
