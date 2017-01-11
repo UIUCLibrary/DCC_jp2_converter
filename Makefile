@@ -4,9 +4,9 @@ TOX         ?= tox
 
 
 current_dir = $(shell pwd)
-SUBDIRS = build dist reports .cache .tox .eggs DCC_jp2_converter.egg-info
+SUBDIRS = build dist .cache .tox .eggs DCC_jp2_converter.egg-info
 
-.PHONY: docs
+.PHONY: docs tests cleanpython cleandocs cleanextrafolders cleanreports
 
 all:
 	$(PYTHON) setup.py build
@@ -17,7 +17,20 @@ install:
 uninstall:
 	$(PIP) uninstall DCC-jp2-converter -y
 
-clean: cleanpython cleanextrafolders cleandocs
+docs:
+	cd docs && make html
+
+tests:
+	$(TOX) --skip-missing-interpreters
+
+reports: tests
+	$(TOX) --skip-missing-interpreters -e reports
+
+clean: cleanpython cleanextrafolders cleandocs cleanreports
+	@if [ -a .coverage ] ; \
+	then \
+		rm .coverage; \
+	fi;
 
 cleanpython:
 	@$(PYTHON) setup.py clean
@@ -33,5 +46,7 @@ cleanextrafolders:
         fi; \
 	done
 
-docs:
-	cd docs && make html
+cleanreports:
+	@echo 'cleaning reports'
+	@rm -fR reports/*
+
