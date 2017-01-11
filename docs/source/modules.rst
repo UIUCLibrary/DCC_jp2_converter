@@ -1,5 +1,5 @@
-dcc_jp2_converter package
-=========================
+Modules and Packages
+====================
 
 Subpackages
 -----------
