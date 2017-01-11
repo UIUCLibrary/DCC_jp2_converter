@@ -1,7 +1,7 @@
 import configparser
 import shutil
 
-from dcc_jp2_converter.utils import get_config_file
+from dcc_jp2_converter.utils import get_config_files
 
 
 def get_exiv2_path():
@@ -16,7 +16,8 @@ def get_exiv2_path():
     """
     config = configparser.ConfigParser()
     try:
-        config.read(get_config_file())
+        for config_file in get_config_files():
+            config.read(config_file)
         return config['commands'].get('exiv2', shutil.which("exiv2"))
     except KeyError:
         return shutil.which("exiv2")

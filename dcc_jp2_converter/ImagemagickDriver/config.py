@@ -1,7 +1,7 @@
 import configparser
 import shutil
 
-from dcc_jp2_converter.utils import get_config_file
+from dcc_jp2_converter.utils import get_config_files
 
 
 def get_imagemagick_path():
@@ -16,9 +16,9 @@ def get_imagemagick_path():
     """
     config = configparser.ConfigParser()
     try:
-        config.read(get_config_file())
-        imgmagick_path = config['commands'].get(
-            'convert', shutil.which("convert"))
+        for config_file in get_config_files():
+            config.read(config_file)
+        return config['commands'].get('convert', shutil.which("convert"))
 
     except KeyError:
         imgmagick_path = shutil.which("convert")
