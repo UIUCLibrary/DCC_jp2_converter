@@ -42,4 +42,4 @@ class CommandRunner:
             Tuple: standard out, standard error
 
         """
-        return self.stdout.decode("utf8"), self.stderr.decode("utf8")
+        return str(self.stdout), str(self.stderr)
