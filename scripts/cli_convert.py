@@ -8,6 +8,8 @@ import argparse
 
 import dcc_jp2_converter
 from dcc_jp2_converter import converter
+from dcc_jp2_converter.ImagemagickDriver import get_imagemagick_path
+from dcc_jp2_converter.exiv2Driver import get_exiv2_path
 from dcc_jp2_converter.logging import InfoFilter
 
 
@@ -26,7 +28,7 @@ def get_args():
     parser = argparse.ArgumentParser(
         description="Create JP2 files from tiffs for digital Library",
         epilog="Settings for this script can be configured at {}: ".format(
-            dcc_jp2_converter.get_config_file()))
+            dcc_jp2_converter.get_config_files()))
 
     parser.add_argument('path', help="Path to the submission package")
 
@@ -50,6 +52,66 @@ def get_args():
     return args
 
 
+def is_executable(path):
+    if sys.platform == "win32":
+        if os.path.splitext(path)[1].lower() == ".exe":
+            return True
+        else:
+            return False
+
+    # Unix based
+    else:
+        return os.access(path, os.X_OK)
+
+
+def find_settings_errors():
+    """
+    Looks for any configuration errors to make sure that the script can operate properly
+    with the given settings by the default path lookup or any changes provided by a
+    command_paths.ini file.
+
+    Returns:
+        Returns a list of error messages if any. Returns an empty list if found no errors.
+
+    """
+    errors = []
+    missing_programs = []
+
+    not_found_message = "The following required programs were not found: \"{}\". Please make sure they installed " \
+                        "on the path or command_paths.ini file is configured to point to their location in your home " \
+                        "folder."
+
+    ########################
+    # Imagemagick settings #
+    ########################
+    imagemagick_path = get_imagemagick_path()
+
+    # check exists
+    if not os.path.exists(imagemagick_path):
+        missing_programs.append("Imagemagick's convert command")
+
+    # Check if found Windows "convert FAL to NTFS command" by mistake and if the item is executable
+    if "System32" in imagemagick_path or not is_executable(imagemagick_path):
+        errors.append("Imagemagick's convert command, \"{}\",is invalid. Check command_paths.ini file.".format(imagemagick_path))
+
+    ##################
+    # exiv2 settings #
+    ##################
+    exiv2_path = get_exiv2_path()
+
+    # check exists
+    if not os.path.exists(exiv2_path):
+        missing_programs.append("exiv2")
+
+    # check is executable
+    if not is_executable(exiv2_path):
+        errors.append("exiv2 command, \"{}\", is invalid. Check command_paths.ini file.".format(exiv2_path))
+    if missing_programs:
+        errors.append(not_found_message.format("\", \"".join(missing_programs)))
+
+    return errors
+
+
 def find_arg_errors(args):
     """
     Perform error check on command line arguments passed in in args to see if
@@ -69,7 +131,7 @@ def configure_logger(debug_mode=False, log_file=None):
     Configure the settings for the logger.
 
     Args:
-        debug_mode: Set the package into debug more.
+        debug_mode: Set the package into debug mode.
         log_file: If a file name is given, all information presented to the
          screen with be saved into that file.
 
@@ -122,6 +184,13 @@ def main():
     logger.info(
         "Searching \"{}\" for object folders with access tiffs".format(
             args.path))
+
+    errors = find_settings_errors()
+    if errors:
+        for error in errors:
+            logger.error(error)
+        logger.error("Script terminated due to invalid settings.")
+        exit(1)
 
     folders = list(dcc_jp2_converter.find_access_folders(args.path))
     try:
