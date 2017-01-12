@@ -40,9 +40,9 @@ def test_default_builder_tiff2jpg(default_builder):
 
     command = default_builder.build_command(src=src_file, dst=dst_file)
 
-    assert command == ['/usr/bin/convert',
-                       '/Users/Documents/sample.tif',
-                       '/Users/Documents/output.jpg']
+    assert command == [IMAGEMAGICK,
+                       src_file,
+                       dst_file]
 
 
 def test_default_builder_tiff2jp2(default_builder):
@@ -56,10 +56,9 @@ def test_default_builder_tiff2jp2(default_builder):
 
     command = default_builder.build_command(src=src_file, dst=dst_file)
 
-    assert command == ['/usr/bin/convert',
-                       '/Users/Documents/sample.tif',
-                       '/Users/Documents/output.jp2']
-
+    assert command == [IMAGEMAGICK,
+                       src_file,
+                       dst_file]
 
 def test_ignore_exif_builder_tiff2jp2(monkeypatch):
     """
