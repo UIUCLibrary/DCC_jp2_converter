@@ -16,6 +16,18 @@ configuration file must be created.
 
 A command_paths.ini found in the home directory will override any default settings.
 
+
+.. admonition:: TLDR
+
+    - If Imagemagick 6 & exiv2 are on installed on the path, no configuration is necessary.
+
+    - To specify specific paths for these programs, create a command_paths.ini in your home directory.
+
+.. warning::
+
+    Only Imagemagick 6 will currently work. Imagemagick 7 made changes to the command and won't work.
+
+
 command_paths.ini format
 ''''''''''''''''''''''''
 
@@ -25,12 +37,12 @@ The command_paths.ini contains:
 
 - 2 optional keys: convert and exiv2
 
-=======   =============================
- Key       Value
-=======   =============================
-convert   Imagemagick 6 convert command
-exiv2     exiv2 command
-=======   =============================
+=======   ==============================  ==============
+ Key       Value                           Windows Name
+=======   ==============================  ==============
+convert   Imagemagick 6 convert command.  convert.exe
+exiv2     exiv2 command                   exiv2.exe
+=======   ==============================  ==============
 
 
 A example of this file would look like this::
