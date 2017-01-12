@@ -9,6 +9,7 @@ SUBDIRS = build dist .cache .tox .eggs DCC_jp2_converter.egg-info
 .PHONY: docs tests cleanpython cleandocs cleanextrafolders cleanreports
 
 all:
+	${PIP} -q install -r requirements.txt
 	$(PYTHON) setup.py build
 
 install:
