@@ -4,12 +4,12 @@ Script to create JP2 access images with embedded metadata from tiff access
 masters to be used by the Digital Library.
 
 """
-from dcc_jp2_converter import __version__
+
 from setuptools import setup
 
 setup(
     name='DCC_jp2_converter',
-    version=__version__,
+    version='0.0.1a1',
     packages=['dcc_jp2_converter',
               'dcc_jp2_converter.exiv2Driver',
               'dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders',
