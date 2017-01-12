@@ -6,12 +6,12 @@ Installation from the Command Line
 3) Open a command prompt/terminal and change to the directory you created when you uncompressed the file.
 4) Type the following command based on your operating system.
 
-    * Mac::
+    ============  ===================================
+     OS            Command
+    ============  ===================================
+    Mac or Linux  :command:`python3 setup.py install`
+    Windows:      :command:`py -3 setup.py install`
+    ============  ===================================
 
-        python3 setup.py install
-
-    * Windows::
-
-        py -3 setup.py install
 
 All finished! The package should now be installed on your system
