@@ -87,12 +87,12 @@ def find_settings_errors():
     imagemagick_path = get_imagemagick_path()
 
     # check exists
-    if not os.path.exists(imagemagick_path):
+    if imagemagick_path is None or not os.path.exists(imagemagick_path):
         missing_programs.append("Imagemagick's convert command")
-
-    # Check if found Windows "convert FAL to NTFS command" by mistake and if the item is executable
-    if "System32" in imagemagick_path or not is_executable(imagemagick_path):
-        errors.append("Imagemagick's convert command, \"{}\",is invalid. Check command_paths.ini file.".format(imagemagick_path))
+    else:
+        # Check if found Windows "convert FAL to NTFS command" by mistake and if the item is executable
+        if "system32" in imagemagick_path.lower() or not is_executable(imagemagick_path):
+            errors.append("Imagemagick's convert command, \"{}\",is invalid. Check command_paths.ini file.".format(imagemagick_path))
 
     ##################
     # exiv2 settings #
@@ -100,12 +100,13 @@ def find_settings_errors():
     exiv2_path = get_exiv2_path()
 
     # check exists
-    if not os.path.exists(exiv2_path):
+    if exiv2_path is None or not os.path.exists(exiv2_path):
         missing_programs.append("exiv2")
+    else:
 
-    # check is executable
-    if not is_executable(exiv2_path):
-        errors.append("exiv2 command, \"{}\", is invalid. Check command_paths.ini file.".format(exiv2_path))
+        # check is executable
+        if not is_executable(exiv2_path):
+            errors.append("exiv2 command, \"{}\", is invalid. Check command_paths.ini file.".format(exiv2_path))
     if missing_programs:
         errors.append(not_found_message.format("\", \"".join(missing_programs)))
 
