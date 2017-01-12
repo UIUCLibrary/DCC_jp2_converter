@@ -28,7 +28,7 @@ def get_args():
     parser = argparse.ArgumentParser(
         description="Create JP2 files from tiffs for digital Library",
         epilog="Settings for this script can be configured at {}: ".format(
-            dcc_jp2_converter.get_config_files()))
+            dcc_jp2_converter.get_config_files()[-1]))
 
     parser.add_argument('path', help="Path to the submission package")
 
