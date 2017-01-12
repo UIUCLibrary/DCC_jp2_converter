@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to DCC JP2 Generator's documentation!
-=============================================
+DCC JP2 Generator
+=================
 
 Documentation
 -------------
@@ -15,6 +15,7 @@ Documentation
 
    about
    installation
+   usage
 
 .. toctree::
    :maxdepth: 1
