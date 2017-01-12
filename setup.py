@@ -9,7 +9,7 @@ from setuptools import setup
 
 setup(
     name='DCC_jp2_converter',
-    version='0.0.1a1',
+    version='0.0.1b1',
     packages=['dcc_jp2_converter',
               'dcc_jp2_converter.exiv2Driver',
               'dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders',

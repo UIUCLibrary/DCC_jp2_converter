@@ -68,7 +68,7 @@ author = 'Henry Borchers'
 # built documents.
 #
 # The short X.Y version.
-version = '0.0.1a1'
+version = '0.0.1b1'
 # The full version, including alpha/beta/rc tags.
 release = '0.0.1a1'
 
