@@ -2,7 +2,7 @@ Configure
 ---------
 
 Since this script works by sending commands to external command line programs, the location of these external
-programs must be know to the script.
+programs must be known to the script.
 
 These programs are:
 
