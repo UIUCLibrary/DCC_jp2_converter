@@ -1,10 +1,16 @@
 import os
 
+import sys
+
 from dcc_jp2_converter import ImagemagickDriver as driver
 from dcc_jp2_converter import imagemagickCommandBuilders as builders
 
 import pytest
 
+if sys.platform == "win32":
+    IMAGEMAGICK = "C:\\Program Files\\ImageMagick-6\\bin\convert.exe"
+else:
+    IMAGEMAGICK = "/usr/bin/convert"
 
 @pytest.fixture
 def default_builder(monkeypatch):
@@ -13,7 +19,7 @@ def default_builder(monkeypatch):
     other preset builder is made
 
     """
-    IMAGEMAGICK = "/usr/bin/convert"
+
 
     # Because the location of imagemagick is faked for this example,
     # we need to ignore the checks
@@ -24,8 +30,13 @@ def default_builder(monkeypatch):
 
 
 def test_default_builder_tiff2jpg(default_builder):
-    src_file = "/Users/Documents/sample.tif"
-    dst_file = "/Users/Documents/output.jpg"
+    if sys.platform == "win32":
+        src_file = "E:\\mysource\\sample.tif"
+        dst_file = "E:\\mysource\\output.jpg"
+
+    else:
+        src_file = "/Users/Documents/sample.tif"
+        dst_file = "/Users/Documents/output.jpg"
 
     command = default_builder.build_command(src=src_file, dst=dst_file)
 
@@ -35,8 +46,13 @@ def test_default_builder_tiff2jpg(default_builder):
 
 
 def test_default_builder_tiff2jp2(default_builder):
-    src_file = "/Users/Documents/sample.tif"
-    dst_file = "/Users/Documents/output.jp2"
+    if sys.platform == "win32":
+        src_file = "E:\\mysource\\sample.tif"
+        dst_file = "E:\\mysource\\output.jp2"
+
+    else:
+        src_file = "/Users/Documents/sample.tif"
+        dst_file = "/Users/Documents/output.jp2"
 
     command = default_builder.build_command(src=src_file, dst=dst_file)
 
@@ -50,13 +66,19 @@ def test_ignore_exif_builder_tiff2jp2(monkeypatch):
     Test that the IgnoreExif builder works
 
     """
-    IMAGEMAGICK = "/usr/bin/convert"
-    src_file = "/Users/Documents/sample.tif"
-    dst_file = "/Users/Documents/output.jp2"
-    expected_cmd = ['/usr/bin/convert',
+
+    if sys.platform == "win32":
+        src_file = "E:\\mysource\\sample.tif"
+        dst_file = "E:\\mysource\\output.jpg"
+    else:
+        src_file = "/Users/Documents/sample.tif"
+        dst_file = "/Users/Documents/output.jpg"
+
+
+    expected_cmd = [IMAGEMAGICK,
                     '-define', 'tiff:exif-properties=false',
-                    '/Users/Documents/sample.tif',
-                    '/Users/Documents/output.jp2']
+                    src_file,
+                    dst_file]
     # Because the location of imagemagick is faked for this example,
     # we need to ignore the checks
     monkeypatch.setattr(os.path, "exists", lambda x: True)
