@@ -12,7 +12,8 @@ node {
   }
 
   try {
-    stage("Running Tox: Python 3.5 Unit tests"){
+    stage("Unit tests"){
+        echo "Running Tox: Python 3.5 Unit tests"
         env.PATH = "${env.PYTHON3}/..:${env.PATH}"
         sh '$TOX -e py35'
       }
@@ -50,7 +51,7 @@ node {
         }
     }
 
-    stage("Building source distribution"){
+    stage("Archiving source distribution"){
       echo 'Building source distribution'
         sh '$PYTHON3 setup.py sdist'
         archiveArtifacts artifacts: 'dist/*.tar.gz'
