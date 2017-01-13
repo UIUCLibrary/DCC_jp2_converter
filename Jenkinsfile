@@ -60,6 +60,16 @@ node {
     }
   } finally {
     junit '**/reports/junit-*.xml'
+
+    withEnv(['PYTHON=$PYTHON3']) {
+    try{
+      echo "Running clean"
+      sh 'make clean'
+    } catch(error) {
+        echo "WARNING: Unable to fully clean."
+    }
+
+  }
   }
 
 }
