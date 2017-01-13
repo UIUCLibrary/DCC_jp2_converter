@@ -1,7 +1,9 @@
 #!groovy
 node {
   checkout scm
-  sh 'make clean'
+  withEnv(['python=${env.PYTHON3}']) {
+      sh 'make clean'
+  }
 
   try {
     stage("Running Tox: Python 3.5 Unit tests"){
