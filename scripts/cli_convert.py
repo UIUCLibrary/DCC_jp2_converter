@@ -42,15 +42,22 @@ def get_args():
 
     parser = argparse.ArgumentParser(
         description="Create JP2 files from tiffs for digital Library",
+        usage='%(prog)s [path]',
         epilog="Settings for this script can be configured at {}: ".format(
             config_files[-1]))
 
     parser.add_argument('path', help="Path to the submission package")
 
     parser.add_argument(
+        '--version',
+        action='version',
+        version=dcc_jp2_converter.__version__)
+
+    parser.add_argument(
         '--overwrite',
         action="store_true",
         help="Overwrite any existing jp2 with new ones")
+
 
     parser.add_argument(
         '--logname',
@@ -172,11 +179,15 @@ def main():
 
         try:
             with open(ERROR_LOGGING_FILE, "w", encoding="utf8") as f:
+                f.write("File: {}\n".format(__file__))
+
+                f.write("Version: {}\n".format(dcc_jp2_converter.__version__))
+
+                args = str(get_args())
+                f.write("Args: {}\n\n".format(args))
+
                 f.write("Stacktrace:\n")
                 f.write(tb)
-                args = str(get_args())
-                f.write("\nArgs:\n")
-                f.write(args)
 
                 print("Detailed info about this error was saved to \"{}\"".format(ERROR_LOGGING_FILE), file=sys.stderr)
         finally:
