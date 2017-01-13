@@ -9,6 +9,7 @@ node {
         echo "WARNING: Unable to fully clean."
     }
 
+  }
 
   try {
     stage("Running Tox: Python 3.5 Unit tests"){
@@ -44,13 +45,9 @@ node {
               dir('docs'){
                 sh 'make clean'
               }
-          }
-
-
-
-      } catch(error) {
-          echo 'Unable to generate Sphinx documentation'
-      }
+          } catch(error) {
+            echo 'Unable to generate Sphinx documentation'
+        }
     }
 
     stage("Building source distribution"){
