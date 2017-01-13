@@ -42,7 +42,7 @@ def get_args():
 
     parser = argparse.ArgumentParser(
         description="Create JP2 files from tiffs for digital Library",
-        usage='%(prog)s [path]',
+        usage='%(prog)s path [options]',
         epilog="Settings for this script can be configured at {}: ".format(
             config_files[-1]))
 
