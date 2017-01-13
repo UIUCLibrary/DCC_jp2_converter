@@ -24,7 +24,7 @@ a command prompt to display the script usage instructions along with any additio
 .. code:: Shell
 
 
-    usage: makejp2 [-h] [--overwrite] [--logname LOGNAME] [--debug] path
+    usage: makejp2 usage: cli_convert.py [path]
 
     Create JP2 files from tiffs for digital Library
 
