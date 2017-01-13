@@ -2,7 +2,13 @@
 node {
   checkout scm
   withEnv(['PYTHON=$PYTHON3']) {
-    sh 'make clean'
+    try{
+      echo "Running clean"
+      sh 'make clean'
+    } catch(error) {
+        echo "WARNING: Unable to fully clean."
+    }
+
   }
 
   try {
@@ -33,12 +39,12 @@ node {
 
               dir('docs/build'){
                   stash includes: '**', name: 'sphinx_docs'
-          }
-
-          stage("Archiving Documentation"){
-              unstash 'sphinx_docs'
+                }
               sh 'tar -czvf sphinx_docs.tar.gz html'
               archiveArtifacts artifacts: 'sphinx_docs.tar.gz'
+              dir('docs'){
+                sh 'make clean'
+              }
           }
 
 
