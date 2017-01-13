@@ -42,8 +42,6 @@ node {
 
       } catch(error) {
           echo 'Unable to generate Sphinx documentation'
-      } finally {
-        sh 'deactivate'
       }
     }
 
