@@ -1,6 +1,7 @@
 #!groovy
 node {
   checkout scm
+  sh 'make clean'
 
   try {
     stage("Running Tox: Python 3.5 Unit tests"){
