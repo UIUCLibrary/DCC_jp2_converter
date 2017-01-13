@@ -68,7 +68,8 @@ author = 'Henry Borchers'
 # built documents.
 #
 # The short X.Y version.
-version = '0.0.1b1'
+from dcc_jp2_converter import __version__ as version
+# version = '0.0.1b1'
 # The full version, including alpha/beta/rc tags.
 release = '0.0.1b1'
 
