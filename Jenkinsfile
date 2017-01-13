@@ -53,8 +53,9 @@ node {
 
     stage("Archiving source distribution"){
       echo 'Building source distribution'
-        sh '$PYTHON3 setup.py sdist'
+        sh '$PYTHON3 setup.py sdist --formats=gztar,zip'
         archiveArtifacts artifacts: 'dist/*.tar.gz'
+        archiveArtifacts artifacts: 'dist/*.zip'
 
     }
   } finally {
