@@ -9,7 +9,6 @@ node {
         echo "WARNING: Unable to fully clean."
     }
 
-  }
 
   try {
     stage("Running Tox: Python 3.5 Unit tests"){
