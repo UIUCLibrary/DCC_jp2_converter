@@ -1,38 +1,30 @@
 dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders package
 ======================================================================
 
-Submodules
-----------
 
-dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.abs_builder module
----------------------------------------------------------------------------------
+Abstract class
+--------------
 
-.. automodule:: dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.abs_builder
+abs_builder class
+^^^^^^^^^^^^^^^^^
+
+.. autoclass:: dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.abs_builder
     :members:
-    :undoc-members:
+
+
+Concrete classes
+----------------
+
+DefaultCommandBuilder class
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.default_command_builder.DefaultCommandBuilder
+    :members:
     :show-inheritance:
 
-dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.default_command_builder module
----------------------------------------------------------------------------------------------
+Jp2AccessCommandBuilder class
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. automodule:: dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.default_command_builder
+.. autoclass:: dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.jp2_access_command_builder.Jp2AccessCommandBuilder
     :members:
-    :undoc-members:
-    :show-inheritance:
-
-dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.jp2_access_command_builder module
-------------------------------------------------------------------------------------------------
-
-.. automodule:: dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.jp2_access_command_builder
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders
-    :members:
-    :undoc-members:
     :show-inheritance:
