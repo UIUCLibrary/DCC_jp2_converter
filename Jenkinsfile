@@ -2,7 +2,8 @@
 node {
   checkout scm
   withEnv(['PYTHON=${env.PYTHON3}']) {
-      sh 'make clean'
+    sh 'ls'
+    sh 'make clean'
   }
 
   try {
