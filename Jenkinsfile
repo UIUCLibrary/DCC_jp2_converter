@@ -1,7 +1,7 @@
 #!groovy
 node {
   checkout scm
-  withEnv(['python=${env.PYTHON3}']) {
+  withEnv(['PYTHON=${env.PYTHON3}']) {
       sh 'make clean'
   }
 
