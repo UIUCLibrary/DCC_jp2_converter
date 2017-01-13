@@ -1,42 +1,27 @@
 #!groovy
 node {
-    stage('Pulling from Github'){
-        checkout scm
-        stash includes: '*', name: 'pysource'
-    }
-}
+  checkout scm
 
-
-
-node {
-
+  try {
     stage("Running Tox: Python 3.5 Unit tests"){
         env.PATH = "${env.PYTHON3}/..:${env.PATH}"
-        unstash 'pysource'
         sh '$TOX -e py35'
-        junit '**/reports/junit-*.xml'
+      }
 
-
-    }
-}
-
-parallel flake8: {
-        echo "Running flake8 report"
-        runTox("flake8", "reports", 'flake8.html', "Flake8 Report")
-
-    }, coverage: {
-    echo "Running Coverage report"
-    runTox("coverage", "reports/coverage", 'index.html', "Coverage Report")
+    stage("flake8"){
+      echo "Running flake8 report"
+      runTox("flake8", "reports", 'flake8.html', "Flake8 Report")
     }
 
+    stage("coverage"){
+      echo "Running Coverage report"
+      runTox("coverage", "reports/coverage", 'index.html', "Coverage Report")
 
+    }
 
-parallel documentation: {
-  node {
-    echo 'Building documentation'
+    stage("Documentation"){
+      echo 'Building documentation'
       try {
-          stage("Generating Documentation for Archive"){
-              unstash 'pysource'
               echo 'Creating virtualenv for generating docs'
               sh '$PYTHON3 -m virtualenv -p $PYTHON3 venv_doc'
               sh '. ./venv_doc/bin/activate && \
@@ -45,7 +30,6 @@ parallel documentation: {
 
               dir('docs/build'){
                   stash includes: '**', name: 'sphinx_docs'
-              }
           }
 
           stage("Archiving Documentation"){
@@ -58,35 +42,32 @@ parallel documentation: {
 
       } catch(error) {
           echo 'Unable to generate Sphinx documentation'
+      } finally {
+        sh 'deactivate'
       }
-  }
-}
-sourceDist: {
-    node{
-        echo 'Building source distribution'
-        stage("Building source distribution"){
-            unstash 'pysource'
-            sh '$PYTHON3 setup.py sdist'
-            archiveArtifacts artifacts: 'dist/*.tar.gz'
-
-        }
     }
+
+    stage("Building source distribution"){
+      echo 'Building source distribution'
+        sh '$PYTHON3 setup.py sdist'
+        archiveArtifacts artifacts: 'dist/*.tar.gz'
+
+    }
+  } finally {
+    junit '**/reports/junit-*.xml'
   }
+
+}
+
 
 def runTox(environment, reportDir, reportFiles, reportName)
 {
-    stage("Running ${reportName}"){
-      node {
-        checkout scm
-        git 'https://github.com/UIUCLibrary/DCC_jp2_converter.git'
-        sh "${env.TOX} -e ${environment}"
-        publishHTML([allowMissing: false,
-                     alwaysLinkToLastBuild: false,
-                     keepAll: false,
-                     reportDir: "${reportDir}",
-                     reportFiles: "${reportFiles}",
-                     reportName: "${reportName}"])
-      }
+      sh "${env.TOX} -e ${environment}"
+      publishHTML([allowMissing: false,
+                   alwaysLinkToLastBuild: false,
+                   keepAll: false,
+                   reportDir: "${reportDir}",
+                   reportFiles: "${reportFiles}",
+                   reportName: "${reportName}"])
 
-    }
 }
