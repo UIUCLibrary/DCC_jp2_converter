@@ -17,11 +17,16 @@ configuration file must be created.
 A command_paths.ini found in the home directory will override any default settings.
 
 
-.. admonition:: TLDR
+.. admonition:: TL;DR
 
     - If Imagemagick 6 & exiv2 are on installed on the path, no configuration is necessary.
 
     - To specify specific paths for these programs, create a command_paths.ini in your home directory.
+
+.. note::
+    Windows has a system level program called convert.exe, located in C:\\Windows\\System32\. This is for converting the
+    filesystem of a hard drive. **THIS IS NOT Imagemagick**. Do not configure the command_paths.ini settings files to use
+    this program. It will not work.
 
 .. warning::
 
@@ -45,7 +50,7 @@ exiv2     exiv2 command                   exiv2.exe
 =======   ==============================  ==============
 
 
-A example of this file would look like this::
+A example of this file on Windows would look like this::
 
     [commands]
     convert = C:\Users\hborcher\Downloads\ImageMagick-6.9.7-3-portable-Q16-x86\convert.exe
