@@ -42,7 +42,7 @@ def get_args():
 
     parser = argparse.ArgumentParser(
         description="Create JP2 files from tiffs for digital Library",
-        usage='%(prog)s path [options]',
+        usage='%(prog)s [path] [options]',
         epilog="Settings for this script can be configured at {}: ".format(
             config_files[-1]))
 
@@ -58,6 +58,10 @@ def get_args():
         action="store_true",
         help="Overwrite any existing jp2 with new ones")
 
+    parser.add_argument(
+        '--remove',
+        action="store_true",
+        help="Removes access tiff files after converting them.")
 
     parser.add_argument(
         '--logname',
@@ -156,7 +160,10 @@ def run():
 
             # Do the work!
             converter.convert_tiff_access_folder(
-                folder, overwrite_existing=args.overwrite)
+                folder,
+                overwrite_existing=args.overwrite,
+                remove_on_success=args.remove
+            )
 
         print("\n\nAll Done!\n")
     except KeyboardInterrupt:
