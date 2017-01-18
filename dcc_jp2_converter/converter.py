@@ -43,7 +43,7 @@ def _cleanup_multiple(real_name, path):
     os.rename(largest, os.path.join(path, real_name))
 
 
-def convert_tiff_access_folder(path: str, overwrite_existing=True):
+def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_success=False):
     """
     Converts all tiff files located in that folder into JP2000 .jp2 files and
     migrated all the metadata from the tiff file into the newly produced jp2
@@ -53,6 +53,7 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True):
         path: The path to the folder containing tiff files to be converter.
         overwrite_existing: If an existing jp2 file already exists in the same
          folder, overwrite it with a new file.
+        remove_on_success: Delete access tiff file afterwards if successfully converted.
 
 
     """
@@ -94,10 +95,14 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True):
             try:
 
                 command_runner.run(im_command)
+                if remove_on_success:
+                    logger.info("Deleting file, \"{}\".".format(tiff))
+                    os.remove(tiff)
 
             except RuntimeError as e:
                 logger.error(e)
-                exit(1)
+                raise
+                # exit(1)
             finally:
                 stdout, stderr = command_runner.get_output()
                 if stdout:
