@@ -103,12 +103,18 @@ programs must be known to the script.</p>
 programs are not found on the path or alternative version of these programs are desired a command_paths.ini
 configuration file must be created.</p>
 <p>A command_paths.ini found in the home directory will override any default settings.</p>
-<div class="admonition-tldr admonition">
-<p class="first admonition-title">TLDR</p>
+<div class="admonition-tl-dr admonition">
+<p class="first admonition-title">TL;DR</p>
 <ul class="last simple">
 <li>If Imagemagick 6 &amp; exiv2 are on installed on the path, no configuration is necessary.</li>
 <li>To specify specific paths for these programs, create a command_paths.ini in your home directory.</li>
 </ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Windows has a system level program called convert.exe, located in C:\Windows\System32. This is for converting the
+filesystem of a hard drive. <strong>THIS IS NOT Imagemagick</strong>. Do not configure the command_paths.ini settings files to use
+this program. It will not work.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -144,7 +150,7 @@ configuration file must be created.</p>
 </tr>
 </tbody>
 </table>
-<p>A example of this file would look like this:</p>
+<p>A example of this file on Windows would look like this:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">commands</span><span class="p">]</span>
 <span class="n">convert</span> <span class="o">=</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">hborcher</span>\<span class="n">Downloads</span>\<span class="n">ImageMagick</span><span class="o">-</span><span class="mf">6.9</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="n">portable</span><span class="o">-</span><span class="n">Q16</span><span class="o">-</span><span class="n">x86</span>\<span class="n">convert</span><span class="o">.</span><span class="n">exe</span>
 <span class="n">exiv2</span> <span class="o">=</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">hborcher</span>\<span class="n">Downloads</span>\<span class="n">exiv2</span><span class="o">-</span><span class="mf">0.25</span><span class="o">-</span><span class="n">win</span>\<span class="n">exiv2</span><span class="o">.</span><span class="n">exe</span>

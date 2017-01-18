@@ -22,7 +22,7 @@ Documentation
    :caption: API Documentation:
 
    scripts
-   modules
+   dcc_jp2_converter
 
 
 
