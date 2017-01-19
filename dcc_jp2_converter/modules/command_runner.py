@@ -4,7 +4,7 @@ import logging
 import subprocess
 from typing import Tuple
 
-logger = logging.getLogger(__package__)
+logger = logging.getLogger("dcc_jp2_converter")
 
 
 class CommandRunner:

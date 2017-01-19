@@ -6,12 +6,11 @@ import os
 import sys
 import traceback
 
-from dcc_jp2_converter.scripts import clean
-from dcc_jp2_converter.scripts.validation import find_settings_errors, find_arg_errors
-
 import dcc_jp2_converter
-from dcc_jp2_converter.modules.logging import InfoFilter
+from dcc_jp2_converter.scripts import clean
 from dcc_jp2_converter.scripts import convert
+from dcc_jp2_converter.scripts.logging_settings import InfoFilter
+from dcc_jp2_converter.scripts.validation import find_settings_errors, find_arg_errors
 
 ERROR_LOGGING_FILE = "errors.log"
 DEFAULT_LOG_FILE = "processing.log"
