@@ -12,14 +12,15 @@ setup(
     name='DCC_jp2_converter',
     version=version,
     packages=['dcc_jp2_converter',
-              'dcc_jp2_converter.exiv2Driver',
-              'dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders',
-              'dcc_jp2_converter.ImagemagickDriver',
-              'dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders',
-              'scripts'
+              'dcc_jp2_converter.modules',
+              'dcc_jp2_converter.modules.exiv2Driver',
+              'dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders',
+              'dcc_jp2_converter.modules.ImagemagickDriver',
+              'dcc_jp2_converter.modules.ImagemagickDriver.imagemagickCommandBuilders',
+              'dcc_jp2_converter.scripts'
               ],
     entry_points={
-        'console_scripts': ['makejp2=scripts.cli:main']
+        'console_scripts': ['makejp2=dcc_jp2_converter.scripts.cli:main']
     },
     test_suite="tests",
     setup_requires=['pytest-runner'],
