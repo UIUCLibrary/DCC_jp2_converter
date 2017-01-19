@@ -64,6 +64,8 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_suc
     with TemporaryDirectory() as tmp_folder:
         command_runner = CommandRunner()
         tiffs = list(get_tiffs(path))
+        total_files_converted = 0
+
         for i, tiff in enumerate(tiffs):
             tmp_access_tif = os.path.join(tmp_folder, os.path.basename(tiff))
             tmp_access_jp2 = os.path.splitext(tmp_access_tif)[0] + ".jp2"
@@ -153,3 +155,5 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_suc
             logger.debug(
                 "Moving \"{}\" into \"{}\"".format(tmp_access_jp2, path))
             shutil.move(tmp_access_jp2, final_access_jp2)
+            total_files_converted += 1
+        logger.info("Converted files {} in {}.".format(total_files_converted, path))
