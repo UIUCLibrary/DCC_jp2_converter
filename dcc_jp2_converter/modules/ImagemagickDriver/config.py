@@ -1,7 +1,7 @@
 import configparser
 import shutil
 
-from dcc_jp2_converter.utils import get_config_files
+from dcc_jp2_converter.modules.utils import get_config_files
 
 
 def get_imagemagick_path():

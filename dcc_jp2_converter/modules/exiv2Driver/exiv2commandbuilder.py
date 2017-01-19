@@ -40,7 +40,7 @@ class Exiv2CommandBuilder:
             Example 1: Extracts all metdata of a tiff file into an XMP
              sidecar file.
 
-            >>> from dcc_jp2_converter import exiv2CommandBuilders, Exiv2CommandBuilder
+            >>> from dcc_jp2_converter.modules.exiv2Driver import exiv2CommandBuilders            >>> from dcc_jp2_converter import Exiv2CommandBuilder
             >>> SOURCE_FILE_NAME = "/Documents/471223_037.tif"
             >>> command_builder = Exiv2CommandBuilder(builder=exiv2CommandBuilders.ExtractIPTCCommand())
             >>> command_builder.build_command(src=SOURCE_FILE_NAME)
@@ -48,7 +48,7 @@ class Exiv2CommandBuilder:
 
             Example 2: Copy Metadata from a tiff file to a jpg file
 
-            >>> from dcc_jp2_converter import exiv2CommandBuilders, Exiv2CommandBuilder
+            >>> from dcc_jp2_converter.modules.exiv2Driver import exiv2CommandBuilders            >>> from dcc_jp2_converter import Exiv2CommandBuilder
             >>> SOURCE_FILE_NAME = "/Documents/471223_037.tif"
             >>> DESTINATION_FILE_NAME = "/Documents/471223_037.jpg"
             >>> command_builder = Exiv2CommandBuilder(builder=exiv2CommandBuilders.CopyIPTCCommand())

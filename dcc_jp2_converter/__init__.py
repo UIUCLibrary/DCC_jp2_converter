@@ -2,11 +2,12 @@
 This module contains all the logic for managing and executing the task of
 converting jp2 tiff files into jp2 images for the digital library.
 """
-from .ImagemagickDriver import imagemagickCommandBuilders
-from .ImagemagickDriver import ImagemagickCommandBuilder
-from .exiv2Driver import exiv2CommandBuilders
-from .exiv2Driver import Exiv2CommandBuilder
-from .file_manager import find_access_folders, get_tiffs
-from .utils import get_config_files
+from .modules import file_manager
+from .modules.exiv2Driver import Exiv2CommandBuilder
+from .modules.exiv2Driver import exiv2CommandBuilders
+from .modules.ImagemagickDriver import imagemagickCommandBuilders
+from .modules.ImagemagickDriver import ImagemagickCommandBuilder
+from .modules import ImagemagickDriver
+from .modules import converter
 
-__version__ = "0.0.2b1"
+__version__ = "0.0.3b2"

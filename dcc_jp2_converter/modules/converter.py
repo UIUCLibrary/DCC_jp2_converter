@@ -1,16 +1,15 @@
 """High-level logic for orchestrating a conversion job."""
 
-import os
-
 import logging
+import os
 import shutil
 from tempfile import TemporaryDirectory
 
 from .file_manager import get_tiffs
 from .command_runner import CommandRunner
 from dcc_jp2_converter import ImagemagickCommandBuilder, Exiv2CommandBuilder
-from dcc_jp2_converter import exiv2CommandBuilders as exi2_cb
 from dcc_jp2_converter import imagemagickCommandBuilders as im_cb
+from dcc_jp2_converter import exiv2CommandBuilders as exi2_cb
 
 logger = logging.getLogger(__package__)
 
