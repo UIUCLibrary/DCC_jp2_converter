@@ -19,7 +19,7 @@ setup(
               'scripts'
               ],
     entry_points={
-        'console_scripts': ['makejp2=scripts.cli_convert:main']
+        'console_scripts': ['makejp2=scripts.cli:main']
     },
     test_suite="tests",
     setup_requires=['pytest-runner'],
