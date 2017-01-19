@@ -15,7 +15,7 @@ from dcc_jp2_converter.scripts import convert
 
 ERROR_LOGGING_FILE = "errors.log"
 DEFAULT_LOG_FILE = "processing.log"
-logger = logging.getLogger(__package__)
+logger = logging.getLogger("dcc_jp2_converter")
 
 DESCRIPTION = "Script for creating JP2 files from tiffs for the Medusa Digital Library."
 

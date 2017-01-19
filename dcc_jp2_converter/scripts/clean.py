@@ -1,7 +1,7 @@
 import logging
 import os
 from dcc_jp2_converter.modules.file_manager import find_converted_pair
-logger = logging.getLogger(__package__)
+logger = logging.getLogger("dcc_jp2_converter")
 
 
 def cleanup_path(path: str):
