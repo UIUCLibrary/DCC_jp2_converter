@@ -60,6 +60,32 @@ def test_default_builder_tiff2jp2(default_builder):
                        src_file,
                        dst_file]
 
+
+def test_default_builder_tiff2jp2_twoImages(default_builder):
+    if sys.platform == "win32":
+        src_file = "E:\\mysource\\sample.tif"
+        dst_file = "E:\\mysource\\output.jp2"
+        src_file2 = "E:\\mysource\\sample2.tif"
+        dst_file2 = "E:\\mysource\\output2.jp2"
+
+    else:
+        src_file = "/Users/Documents/sample.tif"
+        dst_file = "/Users/Documents/output.jp2"
+        src_file2 = "/Users/Documents/sample2.tif"
+        dst_file2 = "/Users/Documents/output2.jp2"
+
+    command = default_builder.build_command(src=src_file, dst=dst_file)
+
+    assert command == [IMAGEMAGICK,
+                       src_file,
+                       dst_file]
+
+    command = default_builder.build_command(src=src_file2, dst=dst_file2)
+    assert command == [IMAGEMAGICK,
+                       src_file2,
+                       dst_file2]
+
+
 def test_ignore_exif_builder_tiff2jp2(monkeypatch):
     """
     Test that the IgnoreExif builder works
