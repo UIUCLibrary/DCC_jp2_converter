@@ -1,9 +1,8 @@
 import os
 import sys
 
-from dcc_jp2_converter.modules.exiv2Driver import get_exiv2_path
-
-from dcc_jp2_converter.modules.ImagemagickDriver import get_imagemagick_path
+from dcc_jp2_converter import exiv2Driver
+from dcc_jp2_converter import ImagemagickDriver
 
 
 def is_executable(path):
@@ -38,7 +37,7 @@ def find_settings_errors():
     ########################
     # Imagemagick settings #
     ########################
-    imagemagick_path = get_imagemagick_path()
+    imagemagick_path = ImagemagickDriver.get_imagemagick_path()
 
     # check exists
     if imagemagick_path is None or not os.path.exists(imagemagick_path):
@@ -51,7 +50,7 @@ def find_settings_errors():
     ##################
     # exiv2 settings #
     ##################
-    exiv2_path = get_exiv2_path()
+    exiv2_path = exiv2Driver.get_exiv2_path()
 
     # check exists
     if exiv2_path is None or not os.path.exists(exiv2_path):
