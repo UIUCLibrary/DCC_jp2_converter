@@ -4,7 +4,7 @@ import logging
 import subprocess
 from typing import Tuple
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__package__)
 
 
 class CommandRunner:
