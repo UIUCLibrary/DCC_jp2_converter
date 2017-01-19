@@ -12,7 +12,7 @@ from dcc_jp2_converter import ImagemagickCommandBuilder, Exiv2CommandBuilder
 from dcc_jp2_converter import exiv2CommandBuilders as exi2_cb
 from dcc_jp2_converter import imagemagickCommandBuilders as im_cb
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__package__)
 
 
 def _cleanup_multiple(real_name, path):
