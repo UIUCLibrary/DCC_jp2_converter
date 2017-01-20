@@ -45,7 +45,8 @@ def find_settings_errors():
     else:
         # Check if found Windows "convert FAL to NTFS command" by mistake and if the item is executable
         if "system32" in imagemagick_path.lower() or not is_executable(imagemagick_path):
-            errors.append("Imagemagick's convert command, \"{}\",is invalid. Check command_paths.ini file.".format(imagemagick_path))
+            errors.append("Imagemagick's convert command, \"{}\",is invalid. Check command_paths.ini file.".format(
+                imagemagick_path))
 
     ##################
     # exiv2 settings #
@@ -73,8 +74,17 @@ def find_arg_errors(args):
     """
 
     errors = []
+
+    # You shouldn't be able to use both the remove and the clean option together.
+    if args.clean and args.remove:
+        errors.append("Invalid argument combination")
+
+    # Make sure that the source directory is valid
     if not os.path.exists(args.path):
         errors.append("Unable to find directory, \"{}\"".format(args.path))
+
+    # Make sure that a path is given, not a file
     if os.path.isfile(args.path):
         errors.append("\"{}\" is not a directory.".format(args.path))
+
     return errors
