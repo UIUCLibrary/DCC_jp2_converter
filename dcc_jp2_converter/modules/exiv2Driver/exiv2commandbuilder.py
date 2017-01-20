@@ -8,8 +8,7 @@ class Exiv2CommandBuilder:
     """Use this to generate commands for sending to exiv2. """
 
     def __init__(
-            self, builder: AbsBuilder, program_path: str=get_exiv2_path()):
-
+            self, builder: AbsBuilder, program_path: str = get_exiv2_path()):
         """Configure how the director should configure the builders.
 
         Args:
@@ -37,23 +36,41 @@ class Exiv2CommandBuilder:
             Returns a new command in list format.
 
         Examples:
-            Example 1: Extracts all metdata of a tiff file into an XMP
-             sidecar file.
+            Extract metadata:
 
-            >>> from dcc_jp2_converter.modules.exiv2Driver import exiv2CommandBuilders            >>> from dcc_jp2_converter import Exiv2CommandBuilder
-            >>> SOURCE_FILE_NAME = "/Documents/471223_037.tif"
-            >>> command_builder = Exiv2CommandBuilder(builder=exiv2CommandBuilders.ExtractIPTCCommand())
-            >>> command_builder.build_command(src=SOURCE_FILE_NAME)
-            ['/usr/local/bin/exiv2','-eaX', '/Documents/471223_037.tif']
+                .. code-block:: python
 
-            Example 2: Copy Metadata from a tiff file to a jpg file
+                    # Extract all metadata of a tiff file into an XMP sidecar file.
 
-            >>> from dcc_jp2_converter.modules.exiv2Driver import exiv2CommandBuilders            >>> from dcc_jp2_converter import Exiv2CommandBuilder
-            >>> SOURCE_FILE_NAME = "/Documents/471223_037.tif"
-            >>> DESTINATION_FILE_NAME = "/Documents/471223_037.jpg"
-            >>> command_builder = Exiv2CommandBuilder(builder=exiv2CommandBuilders.CopyIPTCCommand())
-            >>> command_builder.build_command(src=SOURCE_FILE_NAME, arg=DESTINATION_FILE_NAME)
-            ['/usr/local/bin/exiv2', '-it', '/Documents/471223_037.tif', '/Documents/471223_037.jpg']
+                    from dcc_jp2_converter import exiv2CommandBuilders
+                    from dcc_jp2_converter import Exiv2CommandBuilder
+
+                    SOURCE_FILE_NAME = "/Documents/471223_037.tif"
+
+                    command_builder = Exiv2CommandBuilder(builder=exiv2CommandBuilders.ExtractIPTCCommand())
+                    command_builder.build_command(src=SOURCE_FILE_NAME)
+
+
+                    # This returns the following value
+                    # ['/usr/local/bin/exiv2','-eaX', '/Documents/471223_037.tif']
+
+            Copy Metadata:
+
+                .. code-block:: python
+
+                    # Copy Metadata from a tiff file to a jpg file
+
+                    from dcc_jp2_converter import exiv2CommandBuilders
+                    from dcc_jp2_converter import Exiv2CommandBuilder
+
+                    SOURCE_FILE_NAME = "/Documents/471223_037.tif"
+                    DESTINATION_FILE_NAME = "/Documents/471223_037.jpg"
+
+                    command_builder = Exiv2CommandBuilder(builder=exiv2CommandBuilders.CopyIPTCCommand())
+                    command_builder.build_command(src=SOURCE_FILE_NAME, arg=DESTINATION_FILE_NAME)
+
+                    # This returns the following value
+                    ['/usr/local/bin/exiv2', '-it', '/Documents/471223_037.tif', '/Documents/471223_037.jpg']
 
         """
 

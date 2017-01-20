@@ -4,12 +4,19 @@ import logging
 logger = logging.getLogger(__package__)
 
 
-def convert_path(args):
+def convert_path(path: str, **kwargs):
+    """
+    High level. Run conversion.
+
+    Args:
+        path: Path to find items to search for directories and convert them
+
+    """
     logger.info(
         "Searching \"{}\" for object folders with access tiffs.".format(
-            args.path))
+            path))
 
-    folders = list(file_manager.find_access_folders(args.path))
+    folders = list(file_manager.find_access_folders(path))
     for i, folder in enumerate(folders):
         logger.info(
             "Folder: {} of {}: \"{}\"".format(i + 1, len(folders), folder))
@@ -17,6 +24,6 @@ def convert_path(args):
         # Do the work!
         converter.convert_tiff_access_folder(
             folder,
-            overwrite_existing=args.overwrite,
-            remove_on_success=args.remove
+            overwrite_existing=kwargs['overwrite'],
+            remove_on_success=kwargs['remove']
         )

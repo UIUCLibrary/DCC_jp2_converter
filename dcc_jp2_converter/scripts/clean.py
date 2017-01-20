@@ -5,6 +5,15 @@ logger = logging.getLogger("dcc_jp2_converter")
 
 
 def cleanup_path(path: str):
+    """
+    Command for removing access tiffs that have a matching access jp2.
+    Args:
+        path: Path to clean.
+
+    Note:
+        The command, cleanup_path(), scans the path recursively.
+
+    """
     logger.info("Deleting access tiffs found in \"{}\" that have already been converted into jp2 files.".format(path))
 
     total_files_removed = 0

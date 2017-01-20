@@ -3,13 +3,14 @@
 import logging
 import os
 import shutil
-from tempfile import TemporaryDirectory
-
+import tempfile
 from .file_manager import get_tiffs
 from .command_runner import CommandRunner
 from dcc_jp2_converter import ImagemagickCommandBuilder, Exiv2CommandBuilder
 from dcc_jp2_converter import imagemagickCommandBuilders as im_cb
 from dcc_jp2_converter import exiv2CommandBuilders as exi2_cb
+
+
 
 logger = logging.getLogger("dcc_jp2_converter")
 
@@ -60,7 +61,7 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_suc
     metadata_extractor = Exiv2CommandBuilder(exi2_cb.ExtractIPTCCommand())
     metadata_injector = Exiv2CommandBuilder(exi2_cb.InsertIPTCCommand())
 
-    with TemporaryDirectory() as tmp_folder:
+    with tempfile.TemporaryDirectory() as tmp_folder:
         command_runner = CommandRunner()
         tiffs = list(get_tiffs(path))
         total_files_converted = 0

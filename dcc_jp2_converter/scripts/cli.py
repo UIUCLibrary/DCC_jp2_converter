@@ -9,8 +9,9 @@ import traceback
 import dcc_jp2_converter
 from dcc_jp2_converter.scripts import clean
 from dcc_jp2_converter.scripts import convert
-from dcc_jp2_converter.scripts.logging_settings import InfoFilter
-from dcc_jp2_converter.scripts.validation import find_settings_errors, find_arg_errors
+from dcc_jp2_converter.scripts import logging_settings
+from dcc_jp2_converter.scripts import validation
+# find_settings_errors, find_arg_errors
 
 ERROR_LOGGING_FILE = "errors.log"
 DEFAULT_LOG_FILE = "processing.log"
@@ -115,7 +116,7 @@ def configure_logger(debug_mode=False, log_file=None):
 
     std_handler = logging.StreamHandler(sys.stdout)
     std_handler.setLevel(logging.INFO)
-    std_handler.addFilter(InfoFilter())
+    std_handler.addFilter(logging_settings.InfoFilter())
 
     err_handler = logging.StreamHandler()
     err_handler.setLevel(logging.WARNING)
@@ -151,7 +152,7 @@ def run():
     logger.debug("Validating command line arguments.")
 
     # Do error checking
-    errors = find_arg_errors(args)
+    errors = validation.find_arg_errors(args)
     if errors:
         for error in errors:
             logger.error(error)
@@ -160,7 +161,7 @@ def run():
         raise ValueError("{}\n{}".format(error_msg, "\n".join(errors)))
 
     logger.debug("Command line arguments are valid.")
-    errors = find_settings_errors()
+    errors = validation.find_settings_errors()
     if errors:
         for error in errors:
             logger.error(error)
@@ -174,7 +175,9 @@ def run():
         if args.clean:
             clean.cleanup_path(args.path)
         else:
-            convert.convert_path(args)
+            command_args = vars(args).copy()
+            del command_args['path']
+            convert.convert_path(args.path, **command_args)
 
         print("\n\nAll Done!\n")
     except KeyboardInterrupt:

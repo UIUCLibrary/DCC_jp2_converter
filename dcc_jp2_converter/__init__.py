@@ -12,3 +12,4 @@ from .modules.ImagemagickDriver import ImagemagickCommandBuilder
 from .modules import converter
 
 __version__ = "0.0.3b2"
+__all__ = ['modules']

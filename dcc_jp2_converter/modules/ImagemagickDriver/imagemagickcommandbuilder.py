@@ -49,12 +49,17 @@ class ImagemagickCommandBuilder:
             Exiv2CommandBuilder, Imagemagick with infers the desired type
             based on the file extension of the destination file.
 
+            .. code-block:: python
 
-            >>> SOURCE_FILE_NAME = "/Users/hborcher/Documents/471223_037.tif"
-            >>> DESTINATION_FILE_NAME = "/Users/hborcher/Documents/output.jpg"
-            >>> command_builder = ImagemagickCommandBuilder()
-            >>> command_builder.build_command(src=SOURCE_FILE_NAME, dst=DESTINATION_FILE_NAME)
-            ['/usr/local/bin/convert', '/Users/hborcher/Documents/471223_037.tif', '/Users/hborcher/Documents/output.jpg']
+                SOURCE_FILE_NAME = "/Users/hborcher/Documents/471223_037.tif"
+                DESTINATION_FILE_NAME = "/Users/hborcher/Documents/output.jpg"
+
+                command_builder = ImagemagickCommandBuilder()
+                command_builder.build_command(src=SOURCE_FILE_NAME, dst=DESTINATION_FILE_NAME)
+
+                # This returns the following value
+                # ['/usr/local/bin/convert', '/Users/hborcher/Documents/471223_037.tif', '/Users/hborcher/Documents/output.jpg']
+
 
         """
         self._builder.new_command()
