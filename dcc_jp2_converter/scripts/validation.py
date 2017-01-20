@@ -77,7 +77,7 @@ def find_arg_errors(args):
 
     # You shouldn't be able to use both the remove and the clean option together.
     if args.clean and args.remove:
-        errors.append("Invalid argument combination")
+        errors.append("You can't use --clean and --remove options at the same time.")
 
     # Make sure that the source directory is valid
     if not os.path.exists(args.path):
