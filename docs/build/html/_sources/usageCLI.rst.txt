@@ -20,7 +20,8 @@ Clean up extra files after converting
 After you've created all your access jp2 files from the access tiffs, you might want to remove the extra access tiffs.
 To do this, you can clean up this folder using the :command:`--clean` option flag.
 
-This option will look for access folders for matching jp2 and tiff files and delete the access tiff version.
+This option will look for access folders for matching jp2 and tiff files. It it finds a match, it will delete the
+access tiff but leave the jp2.
 
 
 For example:
