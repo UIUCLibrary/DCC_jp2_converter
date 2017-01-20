@@ -27,8 +27,8 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders package" href="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.html" />
-    <link rel="prev" title="dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders package" href="dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.html" />
+    <link rel="next" title="dcc_jp2_converter.exiv2CommandBuilders package" href="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.html" />
+    <link rel="prev" title="dcc_jp2_converter.modules.ImagemagickDriver.imagemagickCommandBuilders package" href="dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -46,11 +46,11 @@
             
   <div class="section" id="exiv2driver-package">
 <h1>exiv2Driver package<a class="headerlink" href="#exiv2driver-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-dcc_jp2_converter.exiv2Driver.config">
-<span id="config-module"></span><h2>config module<a class="headerlink" href="#module-dcc_jp2_converter.exiv2Driver.config" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-dcc_jp2_converter.modules.exiv2Driver.config">
+<span id="config-module"></span><h2>config module<a class="headerlink" href="#module-dcc_jp2_converter.modules.exiv2Driver.config" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="dcc_jp2_converter.exiv2Driver.config.get_exiv2_path">
-<code class="descclassname">dcc_jp2_converter.exiv2Driver.config.</code><code class="descname">get_exiv2_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.exiv2Driver.config.get_exiv2_path" title="Permalink to this definition">¶</a></dt>
+<dt id="dcc_jp2_converter.modules.exiv2Driver.config.get_exiv2_path">
+<code class="descclassname">dcc_jp2_converter.modules.exiv2Driver.config.</code><code class="descname">get_exiv2_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.modules.exiv2Driver.config.get_exiv2_path" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Attempts to retrieve the location to exiv2 command. If a path is</dt>
 <dd>specified in the settings ini file, that path will be used. Otherwise,
@@ -70,12 +70,12 @@ the function will search for it on the path.</dd>
 <div class="section" id="exiv2commandbuilder">
 <h2>Exiv2CommandBuilder<a class="headerlink" href="#exiv2commandbuilder" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="dcc_jp2_converter.exiv2Driver.exiv2commandbuilder.Exiv2CommandBuilder">
-<em class="property">class </em><code class="descclassname">dcc_jp2_converter.exiv2Driver.exiv2commandbuilder.</code><code class="descname">Exiv2CommandBuilder</code><span class="sig-paren">(</span><em>builder: dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder</em>, <em>program_path: str = 'C:\Users\hborcher\Downloads\exiv2-0.25-win\exiv2.exe'</em><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.exiv2Driver.exiv2commandbuilder.Exiv2CommandBuilder" title="Permalink to this definition">¶</a></dt>
+<dt id="dcc_jp2_converter.Exiv2CommandBuilder">
+<em class="property">class </em><code class="descclassname">dcc_jp2_converter.</code><code class="descname">Exiv2CommandBuilder</code><span class="sig-paren">(</span><em>builder: dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder</em>, <em>program_path: str = '/usr/local/bin/exiv2'</em><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.Exiv2CommandBuilder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use this to generate commands for sending to exiv2.</p>
 <dl class="method">
-<dt id="dcc_jp2_converter.exiv2Driver.exiv2commandbuilder.Exiv2CommandBuilder.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>builder: dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder</em>, <em>program_path: str = 'C:\\Users\\hborcher\\Downloads\\exiv2-0.25-win\\exiv2.exe'</em><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.exiv2Driver.exiv2commandbuilder.Exiv2CommandBuilder.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="dcc_jp2_converter.Exiv2CommandBuilder.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>builder: dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder</em>, <em>program_path: str = '/usr/local/bin/exiv2'</em><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.Exiv2CommandBuilder.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure how the director should configure the builders.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -92,8 +92,8 @@ the function will search for it on the path.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="dcc_jp2_converter.exiv2Driver.exiv2commandbuilder.Exiv2CommandBuilder.build_command">
-<code class="descname">build_command</code><span class="sig-paren">(</span><em>src: str</em>, <em>arg: str = None</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#dcc_jp2_converter.exiv2Driver.exiv2commandbuilder.Exiv2CommandBuilder.build_command" title="Permalink to this definition">¶</a></dt>
+<dt id="dcc_jp2_converter.Exiv2CommandBuilder.build_command">
+<code class="descname">build_command</code><span class="sig-paren">(</span><em>src: str</em>, <em>arg: str = None</em><span class="sig-paren">)</span> &rarr; list<a class="headerlink" href="#dcc_jp2_converter.Exiv2CommandBuilder.build_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds an exiv2 command</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -111,26 +111,42 @@ the function will search for it on the path.</dd>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<dl class="docutils">
-<dt>Example 1: Extracts all metdata of a tiff file into an XMP</dt>
-<dd>sidecar file.</dd>
-</dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dcc_jp2_converter</span> <span class="k">import</span> <span class="n">exiv2CommandBuilders</span><span class="p">,</span> <span class="n">Exiv2CommandBuilder</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">SOURCE_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;/Documents/471223_037.tif&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">command_builder</span> <span class="o">=</span> <span class="n">Exiv2CommandBuilder</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">exiv2CommandBuilders</span><span class="o">.</span><span class="n">ExtractIPTCCommand</span><span class="p">())</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">command_builder</span><span class="o">.</span><span class="n">build_command</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">SOURCE_FILE_NAME</span><span class="p">)</span>
-<span class="go">[&#39;/usr/local/bin/exiv2&#39;,&#39;-eaX&#39;, &#39;/Documents/471223_037.tif&#39;]</span>
+<p>Extract metadata:</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Extract all metadata of a tiff file into an XMP sidecar file.</span>
+
+<span class="kn">from</span> <span class="nn">dcc_jp2_converter</span> <span class="kn">import</span> <span class="n">exiv2CommandBuilders</span>
+<span class="kn">from</span> <span class="nn">dcc_jp2_converter</span> <span class="kn">import</span> <span class="n">Exiv2CommandBuilder</span>
+
+<span class="n">SOURCE_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;/Documents/471223_037.tif&quot;</span>
+
+<span class="n">command_builder</span> <span class="o">=</span> <span class="n">Exiv2CommandBuilder</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">exiv2CommandBuilders</span><span class="o">.</span><span class="n">ExtractIPTCCommand</span><span class="p">())</span>
+<span class="n">command_builder</span><span class="o">.</span><span class="n">build_command</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">SOURCE_FILE_NAME</span><span class="p">)</span>
+
+
+<span class="c1"># This returns the following value</span>
+<span class="c1"># [&#39;/usr/local/bin/exiv2&#39;,&#39;-eaX&#39;, &#39;/Documents/471223_037.tif&#39;]</span>
 </pre></div>
 </div>
-<p>Example 2: Copy Metadata from a tiff file to a jpg file</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dcc_jp2_converter</span> <span class="k">import</span> <span class="n">exiv2CommandBuilders</span><span class="p">,</span> <span class="n">Exiv2CommandBuilder</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">SOURCE_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;/Documents/471223_037.tif&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">DESTINATION_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;/Documents/471223_037.jpg&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">command_builder</span> <span class="o">=</span> <span class="n">Exiv2CommandBuilder</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">exiv2CommandBuilders</span><span class="o">.</span><span class="n">CopyIPTCCommand</span><span class="p">())</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">command_builder</span><span class="o">.</span><span class="n">build_command</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">SOURCE_FILE_NAME</span><span class="p">,</span> <span class="n">arg</span><span class="o">=</span><span class="n">DESTINATION_FILE_NAME</span><span class="p">)</span>
-<span class="go">[&#39;/usr/local/bin/exiv2&#39;, &#39;-it&#39;, &#39;/Documents/471223_037.tif&#39;, &#39;/Documents/471223_037.jpg&#39;]</span>
+</div></blockquote>
+<p>Copy Metadata:</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Copy Metadata from a tiff file to a jpg file</span>
+
+<span class="kn">from</span> <span class="nn">dcc_jp2_converter</span> <span class="kn">import</span> <span class="n">exiv2CommandBuilders</span>
+<span class="kn">from</span> <span class="nn">dcc_jp2_converter</span> <span class="kn">import</span> <span class="n">Exiv2CommandBuilder</span>
+
+<span class="n">SOURCE_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;/Documents/471223_037.tif&quot;</span>
+<span class="n">DESTINATION_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;/Documents/471223_037.jpg&quot;</span>
+
+<span class="n">command_builder</span> <span class="o">=</span> <span class="n">Exiv2CommandBuilder</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">exiv2CommandBuilders</span><span class="o">.</span><span class="n">CopyIPTCCommand</span><span class="p">())</span>
+<span class="n">command_builder</span><span class="o">.</span><span class="n">build_command</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">SOURCE_FILE_NAME</span><span class="p">,</span> <span class="n">arg</span><span class="o">=</span><span class="n">DESTINATION_FILE_NAME</span><span class="p">)</span>
+
+<span class="c1"># This returns the following value</span>
+<span class="p">[</span><span class="s1">&#39;/usr/local/bin/exiv2&#39;</span><span class="p">,</span> <span class="s1">&#39;-it&#39;</span><span class="p">,</span> <span class="s1">&#39;/Documents/471223_037.tif&#39;</span><span class="p">,</span> <span class="s1">&#39;/Documents/471223_037.jpg&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
+</div></blockquote>
 </dd></dl>
 
 </dd></dl>
@@ -140,7 +156,7 @@ the function will search for it on the path.</dd>
 <h2>Command Builders<a class="headerlink" href="#command-builders" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.html">dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.html">dcc_jp2_converter.exiv2CommandBuilders package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.html#abstract-class">Abstract class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.html#abs-builder-class">abs_builder class</a></li>
 </ul>
@@ -170,7 +186,7 @@ the function will search for it on the path.</dd>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">exiv2Driver package</a><ul>
-<li><a class="reference internal" href="#module-dcc_jp2_converter.exiv2Driver.config">config module</a></li>
+<li><a class="reference internal" href="#module-dcc_jp2_converter.modules.exiv2Driver.config">config module</a></li>
 <li><a class="reference internal" href="#exiv2commandbuilder">Exiv2CommandBuilder</a></li>
 <li><a class="reference internal" href="#command-builders">Command Builders</a></li>
 </ul>
@@ -180,9 +196,9 @@ the function will search for it on the path.</dd>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="dcc_jp2_converter.html">dcc_jp2_converter package</a><ul>
-      <li>Previous: <a href="dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.html" title="previous chapter">dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders package</a></li>
-      <li>Next: <a href="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.html" title="next chapter">dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders package</a></li>
+  <li><a href="modules.html">Modules</a><ul>
+      <li>Previous: <a href="dcc_jp2_converter.ImagemagickDriver.imagemagickCommandBuilders.html" title="previous chapter">dcc_jp2_converter.modules.ImagemagickDriver.imagemagickCommandBuilders package</a></li>
+      <li>Next: <a href="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.html" title="next chapter">dcc_jp2_converter.exiv2CommandBuilders package</a></li>
   </ul></li>
   </ul></li>
 </ul>

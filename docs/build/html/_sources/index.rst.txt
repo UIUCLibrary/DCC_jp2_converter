@@ -6,25 +6,30 @@
 DCC JP2 Generator |version|
 ===========================
 
-Documentation
--------------
+User Documentation
+------------------
 
 .. toctree::
    :maxdepth: 2
-   :caption: User Documentation:
 
    about
    installation
    usage
 
+API Documentation
+-----------------
 .. toctree::
    :maxdepth: 1
-   :caption: API Documentation:
 
    scripts
-   dcc_jp2_converter
+   modules
 
+Extras
+------
+.. toctree::
+   :maxdepth: 1
 
+   dependencies
 
 Indices and tables
 ==================

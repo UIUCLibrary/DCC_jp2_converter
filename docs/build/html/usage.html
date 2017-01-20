@@ -46,49 +46,61 @@
             
   <div class="section" id="usage">
 <span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="running-the-command-line-script">
-<h2>Running the Command Line Script<a class="headerlink" href="#running-the-command-line-script" title="Permalink to this headline">¶</a></h2>
-<p>To convert all the tiff images in the access folders, follow these steps.</p>
-<ol class="arabic simple">
-<li>Open a command prompt/terminal.</li>
-<li>Type <strong class="command">makejp2</strong> followed by the directory of the collection to convert.</li>
-</ol>
+<p>This is a command line script so you will need a terminal window open to use it.</p>
+<div class="section" id="create-access-jp2-files-from-access-tiffs">
+<h2>Create access jp2 files from access tiffs<a class="headerlink" href="#create-access-jp2-files-from-access-tiffs" title="Permalink to this headline">¶</a></h2>
+<p>To convert all the tiff images in the access folders, type <strong class="command">makejp2</strong> followed by the directory of the
+collection to convert.</p>
 <p>For example:</p>
 <blockquote>
-<div><strong class="command">makejp2 /Users/hborcher/Documents/dummy</strong></div></blockquote>
-<p>It&#8217;s that simple!</p>
+<div><strong class="command">makejp2 /Users/hborcher/Documents/dummyCollection</strong></div></blockquote>
 <p>The script will now generate access jp2 files for every tiff file found inside an access folder.</p>
 </div>
-<div class="section" id="additional-script-options">
-<h2>Additional Script Options<a class="headerlink" href="#additional-script-options" title="Permalink to this headline">¶</a></h2>
-<p>This script has a few optional parameters. Add any additional options to the end of the command after the path.</p>
-<p>For example the following command will remove the access tif files after it successfully produces a jpeg2000 file.</p>
-<div class="code Shell highlight-default"><div class="highlight"><pre><span></span><span class="n">makejp2</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">hborcher</span><span class="o">/</span><span class="n">Documents</span><span class="o">/</span><span class="n">dummy</span> <span class="o">--</span><span class="n">remove</span>
-</pre></div>
+<div class="section" id="clean-up-extra-files-after-converting">
+<h2>Clean up extra files after converting<a class="headerlink" href="#clean-up-extra-files-after-converting" title="Permalink to this headline">¶</a></h2>
+<p>After you&#8217;ve created all your access jp2 files from the access tiffs, you might want to remove the extra access tiffs.
+To do this, you can clean up this folder using the <strong class="command">--clean</strong> option flag.</p>
+<p>This option will look for access folders for matching jp2 and tiff files and delete the access tiff version.</p>
+<p>For example:</p>
+<blockquote>
+<div><strong class="command">makejp2 /Users/hborcher/Documents/dummyCollection --clean</strong></div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Any files not in a folder named &#8220;access&#8221; will be ignored.</p>
 </div>
-<p>To see the full list of options, use the help screen, explained below.</p>
+</div>
+<div class="section" id="delete-files-automatically-after-converting">
+<h2>Delete files automatically after converting<a class="headerlink" href="#delete-files-automatically-after-converting" title="Permalink to this headline">¶</a></h2>
+<p>You can also combine these steps so that the script automatically delete the access tiff file after it successfully
+generates a jp2 file. To do this, you can use the <strong class="command">--remove</strong> option flag.</p>
+<p>For example:</p>
+<blockquote>
+<div><strong class="command">makejp2 /Users/hborcher/Documents/dummyCollection --remove</strong></div></blockquote>
 </div>
 <div class="section" id="the-help-screen">
 <h2>The Help Screen<a class="headerlink" href="#the-help-screen" title="Permalink to this headline">¶</a></h2>
 <p>This documentation should be up to date. However, you can always type <strong class="command">makejp2 -h</strong> into
 a command prompt to display the script usage instructions along with any additional the options.</p>
 <p><strong class="command">makejp2 -h</strong></p>
-<div class="code Shell highlight-default"><div class="highlight"><pre><span></span>usage: makejp2 [path] [options]
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: makejp2 [path] [options]</span>
 
-Create JP2 files from tiffs for digital Library
+<span class="go">Create JP2 files from tiffs for digital Library</span>
 
-positional arguments:
-  path               Path to the submission package
+<span class="go">positional arguments:</span>
+<span class="go">  path               Path to the submission package</span>
 
-optional arguments:
-  -h, --help         show this help message and exit
-  --version          show program&#39;s version number and exit
-  --overwrite        Overwrite any existing jp2 with new ones
-  --remove           Removes access tiff files after converting them.
-  --logname LOGNAME  Change the log name.
-  --debug            Run script in debug mode`
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help         show this help message and exit</span>
+<span class="go">  --version          show program&#39;s version number and exit</span>
+<span class="go">  --overwrite        Overwrite any existing jp2 with new ones</span>
+<span class="go">  --clean            Clean up folders by removing any access tiff that have</span>
+<span class="go">                     already been converted into jp2</span>
+<span class="go">  --remove           Removes access tiff files after converting them.</span>
+<span class="go">  --logname LOGNAME  Change the log name.</span>
+<span class="go">  --debug            Run script in debug mode</span>
 </pre></div>
 </div>
+<p>It&#8217;s that simple!</p>
 </div>
 </div>
 
@@ -104,8 +116,9 @@ optional arguments:
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Usage</a><ul>
-<li><a class="reference internal" href="#running-the-command-line-script">Running the Command Line Script</a></li>
-<li><a class="reference internal" href="#additional-script-options">Additional Script Options</a></li>
+<li><a class="reference internal" href="#create-access-jp2-files-from-access-tiffs">Create access jp2 files from access tiffs</a></li>
+<li><a class="reference internal" href="#clean-up-extra-files-after-converting">Clean up extra files after converting</a></li>
+<li><a class="reference internal" href="#delete-files-automatically-after-converting">Delete files automatically after converting</a></li>
 <li><a class="reference internal" href="#the-help-screen">The Help Screen</a></li>
 </ul>
 </li>

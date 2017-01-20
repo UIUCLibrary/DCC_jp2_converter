@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders package &#8212; DCC JP2 Generator 0.0.1b1 documentation</title>
+    <title>dcc_jp2_converter.exiv2CommandBuilders package &#8212; DCC JP2 Generator 0.0.1b1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -27,6 +27,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting the Dependencies" href="dependencies.html" />
     <link rel="prev" title="exiv2Driver package" href="dcc_jp2_converter.exiv2Driver.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -43,31 +44,31 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="dcc-jp2-converter-exiv2driver-exiv2commandbuilders-package">
-<h1>dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders package<a class="headerlink" href="#dcc-jp2-converter-exiv2driver-exiv2commandbuilders-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="dcc-jp2-converter-exiv2commandbuilders-package">
+<h1>dcc_jp2_converter.exiv2CommandBuilders package<a class="headerlink" href="#dcc-jp2-converter-exiv2commandbuilders-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="abstract-class">
 <h2>Abstract class<a class="headerlink" href="#abstract-class" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="abs-builder-class">
 <h3>abs_builder class<a class="headerlink" href="#abs-builder-class" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
-<dt id="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder">
-<em class="property">class </em><code class="descclassname">dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.</code><code class="descname">AbsBuilder</code><a class="headerlink" href="#dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder" title="Permalink to this definition">¶</a></dt>
+<dt id="dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder">
+<em class="property">class </em><code class="descclassname">dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.</code><code class="descname">AbsBuilder</code><a class="headerlink" href="#dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract base class. Extend this class to create additional builders</p>
 <dl class="method">
-<dt id="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder.build_arg">
-<code class="descname">build_arg</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder.build_arg" title="Permalink to this definition">¶</a></dt>
+<dt id="dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder.build_arg">
+<code class="descname">build_arg</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder.build_arg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract: Sets any correct additional argument for exiv2.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder.build_option">
-<code class="descname">build_option</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder.build_option" title="Permalink to this definition">¶</a></dt>
+<dt id="dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder.build_option">
+<code class="descname">build_option</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder.build_option" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract: Sets any correct operating command for exiv2.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder.build_program_command">
-<code class="descname">build_program_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder.build_program_command" title="Permalink to this definition">¶</a></dt>
+<dt id="dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder.build_program_command">
+<code class="descname">build_program_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder.build_program_command" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Abstract: Sets the full path to executable program, such as</dt>
 <dd>Imagemagicks&#8217;s &#8220;convert&#8221; command.</dd>
@@ -83,9 +84,9 @@
 <div class="section" id="copyiptccommand-class">
 <h3>CopyIPTCCommand class<a class="headerlink" href="#copyiptccommand-class" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
-<dt id="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.CopyIPTCCommand">
-<em class="property">class </em><code class="descclassname">dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.</code><code class="descname">CopyIPTCCommand</code><a class="headerlink" href="#dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.CopyIPTCCommand" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder" title="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder"><code class="xref py py-class docutils literal"><span class="pre">dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder</span></code></a></p>
+<dt id="dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.CopyIPTCCommand">
+<em class="property">class </em><code class="descclassname">dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.</code><code class="descname">CopyIPTCCommand</code><a class="headerlink" href="#dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.CopyIPTCCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder" title="dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder"><code class="xref py py-class docutils literal"><span class="pre">dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder</span></code></a></p>
 <p>Copies metadata from the source to the arg(destination file).</p>
 <p>The equivalent exiv2 command might look like this:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">exiv2</span> <span class="o">-</span><span class="n">it</span> <span class="n">img1</span><span class="o">.</span><span class="n">jpg</span> <span class="n">img2</span><span class="o">.</span><span class="n">jpg</span>
@@ -97,9 +98,9 @@
 <div class="section" id="extractiptccommand-class">
 <h3>ExtractIPTCCommand class<a class="headerlink" href="#extractiptccommand-class" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
-<dt id="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.ExtractIPTCCommand">
-<em class="property">class </em><code class="descclassname">dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.</code><code class="descname">ExtractIPTCCommand</code><a class="headerlink" href="#dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.ExtractIPTCCommand" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder" title="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder"><code class="xref py py-class docutils literal"><span class="pre">dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder</span></code></a></p>
+<dt id="dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.ExtractIPTCCommand">
+<em class="property">class </em><code class="descclassname">dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.</code><code class="descname">ExtractIPTCCommand</code><a class="headerlink" href="#dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.ExtractIPTCCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder" title="dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder"><code class="xref py py-class docutils literal"><span class="pre">dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder</span></code></a></p>
 <p>Extract all embedded into a XMP sidecar file with extension .xmp.</p>
 <p>The equivalent exiv2 command might look like this:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">exiv2</span> <span class="o">-</span><span class="n">eaX</span> <span class="n">image</span><span class="o">.</span><span class="n">jpg</span>
@@ -111,9 +112,9 @@
 <div class="section" id="insertiptccommand-class">
 <h3>InsertIPTCCommand class<a class="headerlink" href="#insertiptccommand-class" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
-<dt id="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.InsertIPTCCommand">
-<em class="property">class </em><code class="descclassname">dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.</code><code class="descname">InsertIPTCCommand</code><a class="headerlink" href="#dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.InsertIPTCCommand" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder" title="dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder"><code class="xref py py-class docutils literal"><span class="pre">dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder</span></code></a></p>
+<dt id="dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.InsertIPTCCommand">
+<em class="property">class </em><code class="descclassname">dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.</code><code class="descname">InsertIPTCCommand</code><a class="headerlink" href="#dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.InsertIPTCCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder" title="dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder"><code class="xref py py-class docutils literal"><span class="pre">dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders.abs_builder.AbsBuilder</span></code></a></p>
 <p>Inserts all metadata from an XMP sidecar file into an image.</p>
 <p>The equivalent exiv2 command might look like this:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">exiv2</span> <span class="o">-</span><span class="n">iaX</span> <span class="n">image</span><span class="o">.</span><span class="n">jpg</span>
@@ -136,7 +137,7 @@
             </a></p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">dcc_jp2_converter.exiv2Driver.exiv2CommandBuilders package</a><ul>
+<li><a class="reference internal" href="#">dcc_jp2_converter.exiv2CommandBuilders package</a><ul>
 <li><a class="reference internal" href="#abstract-class">Abstract class</a><ul>
 <li><a class="reference internal" href="#abs-builder-class">abs_builder class</a></li>
 </ul>
@@ -154,9 +155,10 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="dcc_jp2_converter.html">dcc_jp2_converter package</a><ul>
+  <li><a href="modules.html">Modules</a><ul>
   <li><a href="dcc_jp2_converter.exiv2Driver.html">exiv2Driver package</a><ul>
       <li>Previous: <a href="dcc_jp2_converter.exiv2Driver.html" title="previous chapter">exiv2Driver package</a></li>
+      <li>Next: <a href="dependencies.html" title="next chapter">Getting the Dependencies</a></li>
   </ul></li>
   </ul></li>
   </ul></li>
