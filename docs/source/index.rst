@@ -22,7 +22,7 @@ API Documentation
    :maxdepth: 1
 
    scripts
-   dcc_jp2_converter
+   modules
 
 Extras
 ------

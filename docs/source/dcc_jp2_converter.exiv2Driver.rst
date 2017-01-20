@@ -6,7 +6,7 @@ exiv2Driver package
 config module
 -------------
 
-.. automodule:: dcc_jp2_converter.exiv2Driver.config
+.. automodule:: dcc_jp2_converter.modules.exiv2Driver.config
     :members:
     :undoc-members:
     :show-inheritance:
@@ -14,7 +14,7 @@ config module
 Exiv2CommandBuilder
 -------------------
 
-.. autoclass:: dcc_jp2_converter.exiv2Driver.exiv2commandbuilder.Exiv2CommandBuilder
+.. autoclass:: dcc_jp2_converter.Exiv2CommandBuilder
     :members:
 
 

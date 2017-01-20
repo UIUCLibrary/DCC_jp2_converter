@@ -1,5 +1,14 @@
-Modules and Packages
-====================
+Modules
+=======
+
+dcc_jp2_converter
+-----------------
+
+.. automodule:: dcc_jp2_converter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Subpackages
 -----------
@@ -10,30 +19,15 @@ Subpackages
     dcc_jp2_converter.ImagemagickDriver
     dcc_jp2_converter.exiv2Driver
 
-Module contents
----------------
-
-dcc_jp2_converter
-^^^^^^^^^^^^^^^^^
-
-.. automodule:: dcc_jp2_converter
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 command_runner
-^^^^^^^^^^^^^^
+--------------
 
-.. automodule:: dcc_jp2_converter.command_runner
-    :members:
-
-logging
-^^^^^^^
-
-.. automodule:: dcc_jp2_converter.logging
+.. automodule:: dcc_jp2_converter.modules.command_runner
     :members:
 
 file_manager
-^^^^^^^^^^^^
-.. automodule:: dcc_jp2_converter.file_manager
+------------
+
+.. automodule:: dcc_jp2_converter.modules.file_manager
     :members:
+    :exclude-members: CollectionPair

@@ -1,32 +1,46 @@
-Running the Command Line Script
--------------------------------
+This is a command line script so you will need a terminal window open to use it.
 
-To convert all the tiff images in the access folders, follow these steps.
 
-1) Open a command prompt/terminal.
-2) Type :command:`makejp2` followed by the directory of the collection to convert.
+Create access jp2 files from access tiffs
+-----------------------------------------
+
+To convert all the tiff images in the access folders, type :command:`makejp2` followed by the directory of the
+collection to convert.
 
 
 For example:
 
-    :command:`makejp2 /Users/hborcher/Documents/dummy`
-
-It's that simple!
+    :command:`makejp2 /Users/hborcher/Documents/dummyCollection`
 
 The script will now generate access jp2 files for every tiff file found inside an access folder.
 
-Additional Script Options
--------------------------
+Clean up extra files after converting
+-------------------------------------
 
-This script has a few optional parameters. Add any additional options to the end of the command after the path.
+After you've created all your access jp2 files from the access tiffs, you might want to remove the extra access tiffs.
+To do this, you can clean up this folder using the :command:`--clean` option flag.
 
-For example the following command will remove the access tif files after it successfully produces a jpeg2000 file.
+This option will look for access folders for matching jp2 and tiff files and delete the access tiff version.
 
-.. code:: Shell
 
-    makejp2 /Users/hborcher/Documents/dummy --remove
+For example:
 
-To see the full list of options, use the help screen, explained below.
+    :command:`makejp2 /Users/hborcher/Documents/dummyCollection --clean`
+
+.. note::
+
+    Any files not in a folder named "access" will be ignored.
+
+
+Delete files automatically after converting
+-------------------------------------------
+
+You can also combine these steps so that the script automatically delete the access tiff file after it successfully
+generates a jp2 file. To do this, you can use the :command:`--remove` option flag.
+
+For example:
+
+    :command:`makejp2 /Users/hborcher/Documents/dummyCollection --remove`
 
 
 The Help Screen
@@ -36,7 +50,7 @@ a command prompt to display the script usage instructions along with any additio
 
 :command:`makejp2 -h`
 
-.. code:: Shell
+.. code-block:: console
 
     usage: makejp2 [path] [options]
 
@@ -49,7 +63,11 @@ a command prompt to display the script usage instructions along with any additio
       -h, --help         show this help message and exit
       --version          show program's version number and exit
       --overwrite        Overwrite any existing jp2 with new ones
+      --clean            Clean up folders by removing any access tiff that have
+                         already been converted into jp2
       --remove           Removes access tiff files after converting them.
       --logname LOGNAME  Change the log name.
-      --debug            Run script in debug mode`
+      --debug            Run script in debug mode
 
+
+It's that simple!

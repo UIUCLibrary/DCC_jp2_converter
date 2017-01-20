@@ -4,7 +4,7 @@ ImagemagickDriver package
 config module
 -------------
 
-.. automodule:: dcc_jp2_converter.ImagemagickDriver.config
+.. automodule:: dcc_jp2_converter.modules.ImagemagickDriver.config
     :members:
     :undoc-members:
     :show-inheritance:
