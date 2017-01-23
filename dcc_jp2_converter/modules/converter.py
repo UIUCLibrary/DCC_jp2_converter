@@ -61,7 +61,7 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_suc
     metadata_extractor = Exiv2CommandBuilder(exi2_cb.ExtractIPTCCommand())
     metadata_injector = Exiv2CommandBuilder(exi2_cb.InsertIPTCCommand())
 
-    with tempfile.TemporaryDirectory() as tmp_folder:
+    with tempfile.TemporaryDirectory(prefix="convert_") as tmp_folder:
         command_runner = CommandRunner()
         tiffs = list(get_tiffs(path))
         total_files_converted = 0
@@ -85,7 +85,7 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_suc
             logger.debug(
                 "Copying \"{}\" to temp folder \"{}\"".format(tiff, path))
 
-            shutil.copy2(tiff, tmp_access_tif)
+            shutil.copyfile(tiff, tmp_access_tif)
 
             logger.debug(
                 "Using \"{}\" to create \"{}\"".format(
