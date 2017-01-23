@@ -11,5 +11,5 @@ from .modules.ImagemagickDriver import imagemagickCommandBuilders
 from .modules.ImagemagickDriver import ImagemagickCommandBuilder
 from .modules import converter
 
-__version__ = "0.0.3b4"
+__version__ = "0.0.3b5"
 __all__ = ['modules']
