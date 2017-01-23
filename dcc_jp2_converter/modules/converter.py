@@ -2,6 +2,7 @@
 
 import logging
 import os
+import stat
 import shutil
 import tempfile
 from .file_manager import get_tiffs
@@ -9,8 +10,6 @@ from .command_runner import CommandRunner
 from dcc_jp2_converter import ImagemagickCommandBuilder, Exiv2CommandBuilder
 from dcc_jp2_converter import imagemagickCommandBuilders as im_cb
 from dcc_jp2_converter import exiv2CommandBuilders as exi2_cb
-
-
 
 logger = logging.getLogger("dcc_jp2_converter")
 
@@ -98,6 +97,9 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_suc
 
                 command_runner.run(im_command)
                 if remove_on_success:
+                    # remove the read only attribute first
+                    os.chmod(tiff, stat.S_IWRITE)
+
                     logger.info("Deleting file, \"{}\".".format(tiff))
                     os.remove(tiff)
 
