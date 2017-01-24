@@ -56,7 +56,7 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_suc
 
 
     """
-    image_convert_command = ImagemagickCommandBuilder(builder=im_cb.IgnoreExif())
+    image_convert_command = ImagemagickCommandBuilder(builder=im_cb.Standard())
     metadata_extractor = Exiv2CommandBuilder(exi2_cb.ExtractIPTCCommand())
     metadata_injector = Exiv2CommandBuilder(exi2_cb.InsertIPTCCommand())
 
