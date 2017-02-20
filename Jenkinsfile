@@ -28,7 +28,7 @@ pipeline {
 
             post {
                 always {
-                    stash includes: "*.xml", name: "Linux junit"
+                    stash includes: "reports/*.xml", name: "Linux junit"
                 }
 
             }
@@ -47,7 +47,7 @@ pipeline {
             }
             post {
                 always {
-                    stash includes: "*.xml", name: "Linux junit"
+                    stash includes: "reports/*.xml", name: "Windows junit"
 
                 }
             }
