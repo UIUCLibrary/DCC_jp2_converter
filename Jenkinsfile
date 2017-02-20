@@ -17,19 +17,22 @@ pipeline {
         }
         stage("Unit tests on Linux") {
             agent any
-
-            environment {
-                PATH = "${env.PYTHON3}/..:${env.PATH}"
-            }
+//
+//            environment {
+//                PATH = "${env.PYTHON3}/..:${env.PATH}"
+//            }
 
             steps {
                 deleteDir()
                 unstash "Source"
                 echo "Running Tox: Unit tests"
 //                withEnv(['PYTHON=$PYTHON3']) {
-                echo "PATH = ${env.PATH}"
-                echo "Running: ${env.TOX}  --skip-missing-interpreters"
-                sh "${env.TOX}  --skip-missing-interpreters"
+                withEnv(['PATH=${env.PYTHON3}:${env.PATH}']) {
+
+                    echo "PATH = ${env.PATH}"
+                    echo "Running: ${env.TOX}  --skip-missing-interpreters"
+                    sh "${env.TOX}  --skip-missing-interpreters"
+                }
 //                }
 
             }
