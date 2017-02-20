@@ -33,6 +33,7 @@ pipeline {
                     echo "Running: ${env.TOX}  --skip-missing-interpreters"
                     sh "${env.TOX}  --skip-missing-interpreters"
                 }
+                junit "reports/*.xml"
 //                }
 
             }
@@ -135,9 +136,7 @@ pipeline {
     }
     post {
         always {
-            deleteDir()
-            unstash "Linux junit"
-            sh 'ls -R'
+
             echo "all done"
         }
     }
