@@ -1,6 +1,6 @@
 #!groovy
 pipeline {
-    agent none
+    agent any
 
     stages {
         stage("Cloning Source") {
@@ -21,7 +21,12 @@ pipeline {
                 deleteDir()
                 unstash "Source"
                 echo "Running Tox: Unit tests"
-                sh "${env.TOX}  --skip-missing-interpreters"
+                try {
+                    sh "${env.TOX}  --skip-missing-interpreters"
+                } finally {
+
+                    stash includes: "*.xml", name: "Linux junit"
+                }
 
             }
         }
@@ -34,7 +39,13 @@ pipeline {
                 deleteDir()
                 unstash "Source"
                 echo "Running Tox: Python 3.5 Unit tests"
-                bat "${env.TOX}  --skip-missing-interpreters"
+                try {
+
+                    bat "${env.TOX}  --skip-missing-interpreters"
+                } finally {
+
+                    stash includes: "*.xml", name: "Linux junit"
+                }
             }
 
         }
@@ -105,6 +116,11 @@ pipeline {
 //                } catch (error) {
 //                    echo 'Unable to generate Sphinx documentation'
             }
+        }
+    }
+    post {
+        always {
+            echo "all done"
         }
     }
 }
