@@ -125,6 +125,25 @@ pipeline {
                 deleteDir()
                 unstash "Source"
                 sh "${env.PYTHON3} setup.py sdist"
+            }
+
+            post{
+                success {
+                    archiveArtifacts artifacts: "dist/**", fingerprint: true
+                }
+            }
+
+        }
+
+        stage("Packaging Windows binary Wheel") {
+            agent {
+                label "Windows"
+            }
+
+            steps{
+                deleteDir()
+                unstash "Source"
+                sh "${env.PYTHON3} setup.py bdist/*.whl"
 
 
 
