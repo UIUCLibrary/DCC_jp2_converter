@@ -17,14 +17,17 @@ pipeline {
         }
         stage("Unit tests on Linux") {
             agent any
+
             steps {
                 deleteDir()
                 unstash "Source"
                 echo "Running Tox: Unit tests"
-                try {
-                    sh "${env.TOX}  --skip-missing-interpreters"
-                } finally {
+                sh "${env.TOX}  --skip-missing-interpreters"
 
+            }
+
+            post {
+                always {
                     stash includes: "*.xml", name: "Linux junit"
                 }
 
@@ -39,12 +42,13 @@ pipeline {
                 deleteDir()
                 unstash "Source"
                 echo "Running Tox: Python 3.5 Unit tests"
-                try {
+                bat "${env.TOX}  --skip-missing-interpreters"
 
-                    bat "${env.TOX}  --skip-missing-interpreters"
-                } finally {
-
+            }
+            post {
+                always {
                     stash includes: "*.xml", name: "Linux junit"
+
                 }
             }
 
