@@ -137,7 +137,7 @@ pipeline {
         always {
             deleteDir()
             unstash "Linux junit"
-            unstash "Window junit"
+            unstash "Windows junit"
             junit "reports/*.xml"
             echo "all done"
         }
