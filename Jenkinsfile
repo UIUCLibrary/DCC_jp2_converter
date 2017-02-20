@@ -15,52 +15,49 @@ pipeline {
             }
 
         }
-        stage("Unit tests") {
-            parallel linux: {
-                node {
-                    deleteDir()
-                    unstash "Source"
-                    echo "Running Tox: Unit tests"
-                    withEnv(["PATH=${env.PYTHON3}/..:${env.PATH}"]) {
+        stage("Unit tests on Linux") {
+            agent any
 
-                        echo "PATH = ${env.PATH}"
-                        echo "Running: ${env.TOX}  --skip-missing-interpreters"
-                        sh "${env.TOX}  --skip-missing-interpreters"
-                        stash includes: "reports/*.xml", name: "Linux junit"
-                    }
+            steps {
+                deleteDir()
+                unstash "Source"
+                echo "Running Tox: Unit tests"
+                withEnv(["PATH=${env.PYTHON3}/..:${env.PATH}"]) {
+
+                    echo "PATH = ${env.PATH}"
+                    echo "Running: ${env.TOX}  --skip-missing-interpreters"
+                    sh "${env.TOX}  --skip-missing-interpreters"
                 }
-                windows:
-                {
-                    node("Windows") {
-                        deleteDir()
-                        unstash "Source"
-                        echo "Running Tox: Python 3.5 Unit tests"
-                        bat "${env.TOX}  --skip-missing-interpreters"
-                        stash includes: "reports/*.xml", name: "Windows junit"
-                    }
+
+            }
+
+            post {
+                always {
+                    stash includes: "reports/*.xml", name: "Linux junit"
                 }
+
             }
         }
-//        stage("Unit tests on Windows") {
-//            agent {
-//                label "Windows"
-//            }
-//
-//            steps {
-//                deleteDir()
-//                unstash "Source"
-//                echo "Running Tox: Python 3.5 Unit tests"
-//                bat "${env.TOX}  --skip-missing-interpreters"
-//
-//            }
-//            post {
-//                always {
-//                    stash includes: "reports/*.xml", name: "Windows junit"
-//
-//                }
-//            }
-//
-//        }
+        stage("Unit tests on Windows") {
+            agent {
+                label "Windows"
+            }
+
+            steps {
+                deleteDir()
+                unstash "Source"
+                echo "Running Tox: Python 3.5 Unit tests"
+                bat "${env.TOX}  --skip-missing-interpreters"
+
+            }
+            post {
+                always {
+                    stash includes: "reports/*.xml", name: "Windows junit"
+
+                }
+            }
+
+        }
         stage("flake8") {
             agent any
 
