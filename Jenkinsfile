@@ -135,6 +135,8 @@ pipeline {
     }
     post {
         always {
+            unstash "Linux junit"
+            sh 'ls -R'
             echo "all done"
         }
     }
