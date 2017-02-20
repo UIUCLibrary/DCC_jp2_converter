@@ -31,18 +31,16 @@ pipeline {
             }
 
             steps {
+                deleteDir()
                 unstash "Source"
-                steps {
-                    deleteDir()
-                    unstash "Source"
-                    echo "Running Tox: Python 3.5 Unit tests"
-                    bat "${env.TOX}  --skip-missing-interpreters"
-                }
+                echo "Running Tox: Python 3.5 Unit tests"
+                bat "${env.TOX}  --skip-missing-interpreters"
             }
 
         }
         stage("flake8") {
             agent any
+
             steps {
                 deleteDir()
                 unstash "Source"
