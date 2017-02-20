@@ -125,10 +125,14 @@ pipeline {
                 deleteDir()
                 unstash "Source"
                 sh "${env.PYTHON3} setup.py sdist"
-                archiveArtifacts artifacts: "dist/**", fingerprint: true
-//                stash includes: 'dist/*.*', name: "Source_Dist"
 
 
+
+            }
+            post{
+                success {
+                    archiveArtifacts artifacts: "dist/**", fingerprint: true
+                }
             }
 
         }
