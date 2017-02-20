@@ -120,13 +120,13 @@ pipeline {
                           pip install Sphinx && \
                           python setup.py build_sphinx'
 
-//                stash includes: 'docs/build/**', name: 'sphinx_docs'
-                sh "ls -R"
-                sh 'tar -czvf sphinx_docs.tar.gz html'
+//                sh "ls -R"
+                sh 'tar -czvf sphinx_docs.tar.gz docs/build/html'
+                stash includes: 'docs/build/**', name: 'sphinx_docs'
                 archiveArtifacts artifacts: 'sphinx_docs.tar.gz'
-                dir('docs') {
-                    sh 'make clean'
-                }
+//                dir('docs') {
+//                    sh 'make clean'
+//                }
 //                } catch (error) {
 //                    echo 'Unable to generate Sphinx documentation'
             }
