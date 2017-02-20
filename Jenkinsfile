@@ -17,7 +17,7 @@ pipeline {
         }
         stage("Unit tests") {
             parallel linux: {
-                node('all') {
+                node {
                     deleteDir()
                     unstash "Source"
                     echo "Running Tox: Unit tests"
