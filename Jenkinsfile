@@ -22,7 +22,11 @@ pipeline {
                 deleteDir()
                 unstash "Source"
                 echo "Running Tox: Unit tests"
+//                withEnv(['PYTHON=$PYTHON3']) {
+
+                env.PATH = "${env.PYTHON3}/..:${env.PATH}"
                 sh "${env.TOX}  --skip-missing-interpreters"
+//                }
 
             }
 
