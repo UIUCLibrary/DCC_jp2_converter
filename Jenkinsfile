@@ -27,6 +27,7 @@ pipeline {
                 unstash "Source"
                 echo "Running Tox: Unit tests"
 //                withEnv(['PYTHON=$PYTHON3']) {
+                echo "PATH = ${env.PATH}"
                 echo "Running: ${env.TOX}  --skip-missing-interpreters"
                 sh "${env.TOX}  --skip-missing-interpreters"
 //                }
