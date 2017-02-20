@@ -144,9 +144,6 @@ pipeline {
                 deleteDir()
                 unstash "Source"
                 sh "${env.PYTHON3} setup.py bdist_wheel --universal"
-
-
-
             }
             post{
                 success {
