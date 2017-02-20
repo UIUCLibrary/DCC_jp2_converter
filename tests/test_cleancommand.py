@@ -69,8 +69,8 @@ def test_pairs_found(completed_directory):
     ]
 
     for pair in file_manager.find_converted_pair("\ (^_^) /"):
-        assert os.path.normcase(pair.tiff) in expected_tiffs
-        assert os.path.normcase(pair.jp2) in expected_jp2s
+        assert os.path.normcase(pair.tiff) in [os.path.normcase(path) for path in expected_tiffs]
+        assert os.path.normcase(pair.jp2) in [os.path.normcase(path) for path in expected_jp2s]
 
 
 def test_pairs_match(completed_directory):
