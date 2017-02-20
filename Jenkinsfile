@@ -84,26 +84,26 @@ pipeline {
                 deleteDir()
                 unstash "Source"
                 echo 'Building documentation'
-                try {
-                    echo 'Creating virtualenv for generating docs'
-                    sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
-                    sh '. ./venv_doc/bin/activate && \
+//                try {
+                echo 'Creating virtualenv for generating docs'
+                sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
+                sh '. ./venv_doc/bin/activate && \
                           pip install Sphinx && \
                           python setup.py build_sphinx'
 
-                    dir('docs/build') {
-                        stash includes: '**', name: 'sphinx_docs'
-                    }
-                    sh 'tar -czvf sphinx_docs.tar.gz html'
-                    archiveArtifacts artifacts: 'sphinx_docs.tar.gz'
-                    dir('docs') {
-                        sh 'make clean'
-                    }
-                } catch (error) {
-                    echo 'Unable to generate Sphinx documentation'
+                dir('docs/build') {
+                    stash includes: '**', name: 'sphinx_docs'
                 }
+                sh 'tar -czvf sphinx_docs.tar.gz html'
+                archiveArtifacts artifacts: 'sphinx_docs.tar.gz'
+                dir('docs') {
+                    sh 'make clean'
+                }
+//                } catch (error) {
+//                    echo 'Unable to generate Sphinx documentation'
             }
         }
+    }
 
 //        stage("Archiving source distribution") {
 //            echo 'Building source distribution'
@@ -111,7 +111,7 @@ pipeline {
 //            archiveArtifacts artifacts: 'dist/*.tar.gz'
 //            archiveArtifacts artifacts: 'dist/*.zip'
 
-    }
+}
 }
 
 //}
