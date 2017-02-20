@@ -15,28 +15,6 @@ pipeline {
             }
 
         }
-        stage("Unit tests") {
-            parallel (
-                    "windows": {
-                        node("Windows") {
-                            deleteDir()
-                            unstash "Source"
-                            echo "Running Tox: Python 3.5 Unit tests"
-                            bat "${env.TOX}  --skip-missing-interpreters"
-                            stash includes: "reports/*.xml", name: "Windows junit"
-                        }
-                    },
-                    "windows2": {
-                        node("Windows") {
-                            deleteDir()
-                            unstash "Source"
-                            echo "Running Tox: Python 3.5 Unit tests"
-                            bat "${env.TOX}  --skip-missing-interpreters"
-                            stash includes: "reports/*.xml", name: "Windows junit"
-                        }
-                    }
-            )
-        }
         stage("Unit tests on Linux") {
             agent any
 
@@ -60,26 +38,26 @@ pipeline {
 
             }
         }
-//        stage("Unit tests on Windows") {
-//            agent {
-//                label "Windows"
-//            }
-//
-//            steps {
-//                deleteDir()
-//                unstash "Source"
-//                echo "Running Tox: Python 3.5 Unit tests"
-//                bat "${env.TOX}  --skip-missing-interpreters"
-//
-//            }
-//            post {
-//                always {
-//                    stash includes: "reports/*.xml", name: "Windows junit"
-//
-//                }
-//            }
-//
-//        }
+        stage("Unit tests on Windows") {
+            agent {
+                label "Windows"
+            }
+
+            steps {
+                deleteDir()
+                unstash "Source"
+                echo "Running Tox: Python 3.5 Unit tests"
+                bat "${env.TOX}  --skip-missing-interpreters"
+
+            }
+            post {
+                always {
+                    stash includes: "reports/*.xml", name: "Windows junit"
+
+                }
+            }
+
+        }
         stage("flake8") {
             agent any
 
