@@ -1,6 +1,6 @@
 #!groovy
 pipeline {
-    agent any
+    agent none
 
     stages {
         stage("Cloning Source") {
