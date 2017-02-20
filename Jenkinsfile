@@ -48,14 +48,15 @@ pipeline {
                 unstash "Source"
                 echo "Running flake8 report"
                 sh "${env.TOX} -e flake8"
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports', reportFiles: 'flake8.html', reportName: 'Flake8 Report'])
 
-//                publishHTML([allowMissing         : false,
-//                             alwaysLinkToLastBuild: false,
-//                             keepAll              : false,
-//                             reportDir            : "reports",
-//                             reportFiles          : "flake8.html",
-//                             reportName           : "Flake8 Report"])
+                publishHTML target: [
+                        allowMissing         : false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll              : true,
+                        reportDir            : "reports",
+                        reportFiles          : "flake8.html",
+                        reportName           : "Flake8 Report"
+                ]
 
             }
         }
