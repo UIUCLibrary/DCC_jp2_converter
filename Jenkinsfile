@@ -17,23 +17,17 @@ pipeline {
         }
         stage("Unit tests on Linux") {
             agent any
-//
-//            environment {
-//                PATH = "${env.PYTHON3}/..:${env.PATH}"
-//            }
 
             steps {
                 deleteDir()
                 unstash "Source"
                 echo "Running Tox: Unit tests"
-//                withEnv(['PYTHON=$PYTHON3']) {
                 withEnv(["PATH=${env.PYTHON3}/..:${env.PATH}"]) {
 
                     echo "PATH = ${env.PATH}"
                     echo "Running: ${env.TOX}  --skip-missing-interpreters"
                     sh "${env.TOX}  --skip-missing-interpreters"
                 }
-//                }
 
             }
 
@@ -102,7 +96,6 @@ pipeline {
                         reportName           : "Coverage Report"
                 ]
 
-//                runTox("coverage", "reports/coverage", 'index.html', "Coverage Report")
             }
         }
 
@@ -113,22 +106,15 @@ pipeline {
                 deleteDir()
                 unstash "Source"
                 echo 'Building documentation'
-//                try {
                 echo 'Creating virtualenv for generating docs'
                 sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
                 sh '. ./venv_doc/bin/activate && \
                           pip install Sphinx && \
                           python setup.py build_sphinx'
 
-//                sh "ls -R"
                 sh 'tar -czvf sphinx_docs.tar.gz docs/build/html'
                 stash includes: 'docs/build/**', name: 'sphinx_docs'
                 archiveArtifacts artifacts: 'sphinx_docs.tar.gz'
-//                dir('docs') {
-//                    sh 'make clean'
-//                }
-//                } catch (error) {
-//                    echo 'Unable to generate Sphinx documentation'
             }
         }
     }
@@ -142,91 +128,3 @@ pipeline {
         }
     }
 }
-//        stage("Archiving source distribution") {
-//            echo 'Building source distribution'
-//            sh '$PYTHON3 setup.py sdist --formats=gztar,zip'
-//            archiveArtifacts artifacts: 'dist/*.tar.gz'
-//            archiveArtifacts artifacts: 'dist/*.zip'
-
-//}
-//}
-
-//}
-
-//node {
-//
-//
-//    try {
-//        stage("Unit tests") {
-//            echo "Running Tox: Python 3.5 Unit tests"
-//            env.PATH = "${env.PYTHON3}/..:${env.PATH}"
-//            sh '$TOX -e py35'
-//        }
-//
-//        stage("flake8") {
-//            echo "Running flake8 report"
-//            sh "${env.TOX} -e flake8"
-//        }
-//
-//        stage("coverage") {
-//            echo "Running Coverage report"
-//            runTox("coverage", "reports/coverage", 'index.html', "Coverage Report")
-//
-//        }
-//
-//        stage("Documentation") {
-//            echo 'Building documentation'
-//            try {
-//                echo 'Creating virtualenv for generating docs'
-//                sh '$PYTHON3 -m virtualenv -p $PYTHON3 venv_doc'
-//                sh '. ./venv_doc/bin/activate && \
-//              pip install Sphinx && \
-//              python setup.py build_sphinx'
-//
-//                dir('docs/build') {
-//                    stash includes: '**', name: 'sphinx_docs'
-//                }
-//                sh 'tar -czvf sphinx_docs.tar.gz html'
-//                archiveArtifacts artifacts: 'sphinx_docs.tar.gz'
-//                dir('docs') {
-//                    sh 'make clean'
-//                }
-//            } catch (error) {
-//                echo 'Unable to generate Sphinx documentation'
-//            }
-//        }
-//
-//        stage("Archiving source distribution") {
-//            echo 'Building source distribution'
-//            sh '$PYTHON3 setup.py sdist --formats=gztar,zip'
-//            archiveArtifacts artifacts: 'dist/*.tar.gz'
-//            archiveArtifacts artifacts: 'dist/*.zip'
-//
-//        }
-//    } finally {
-//        junit '**/reports/junit-*.xml'
-//
-//        withEnv(['PYTHON=$PYTHON3']) {
-//            try {
-//                echo "Running clean"
-//                sh 'make clean'
-//            } catch (error) {
-//                echo "WARNING: Unable to fully clean."
-//            }
-//
-//        }
-//    }
-//
-//}
-//
-//
-//def runTox(environment, reportDir, reportFiles, reportName) {
-//    sh "${env.TOX} -e ${environment}"
-//    publishHTML([allowMissing         : false,
-//                 alwaysLinkToLastBuild: false,
-//                 keepAll              : false,
-//                 reportDir            : "${reportDir}",
-//                 reportFiles          : "${reportFiles}",
-//                 reportName           : "${reportName}"])
-//
-//}
