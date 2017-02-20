@@ -143,7 +143,7 @@ pipeline {
             steps{
                 deleteDir()
                 unstash "Source"
-                sh "${env.PYTHON3} setup.py bdist_wheel --universal"
+                bat "${env.PYTHON3} setup.py bdist_wheel --universal"
             }
             post{
                 success {
