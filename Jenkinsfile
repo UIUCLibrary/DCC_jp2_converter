@@ -16,8 +16,17 @@ pipeline {
 
         }
         stage("Unit tests") {
-            parallel(
+            parallel (
                     "windows": {
+                        node("Windows") {
+                            deleteDir()
+                            unstash "Source"
+                            echo "Running Tox: Python 3.5 Unit tests"
+                            bat "${env.TOX}  --skip-missing-interpreters"
+                            stash includes: "reports/*.xml", name: "Windows junit"
+                        }
+                    },
+                    "windows2": {
                         node("Windows") {
                             deleteDir()
                             unstash "Source"
