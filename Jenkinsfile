@@ -69,12 +69,14 @@ pipeline {
                 unstash "Source"
                 echo "Running Coverage report"
                 sh "${env.TOX} -e coverage"
-                publishHTML([allowMissing         : false,
-                             alwaysLinkToLastBuild: false,
-                             keepAll              : false,
-                             reportDir            : "reports/coverage",
-                             reportFiles          : "index.html",
-                             reportName           : "Coverage Report"])
+                publishHTML target: [
+                        allowMissing         : false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll              : true,
+                        reportDir            : "reports/coverage",
+                        reportFiles          : "index.html",
+                        reportName           : "Coverage Report"
+                ]
 
 //                runTox("coverage", "reports/coverage", 'index.html', "Coverage Report")
             }
