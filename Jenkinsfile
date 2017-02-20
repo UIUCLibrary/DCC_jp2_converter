@@ -135,6 +135,7 @@ pipeline {
     }
     post {
         always {
+            deleteDir()
             unstash "Linux junit"
             sh 'ls -R'
             echo "all done"
