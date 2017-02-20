@@ -117,7 +117,23 @@ pipeline {
                 archiveArtifacts artifacts: 'sphinx_docs.tar.gz'
             }
         }
+
+        stage("Packaging source") {
+            agent any
+
+            steps{
+                deleteDir()
+                unstash "Source"
+                sh "${env.PYTHON3} setup.py sdist"
+                archiveArtifacts artifacts: "dist/**", fingerprint: true
+//                stash includes: 'dist/*.*', name: "Source_Dist"
+
+
+            }
+
+        }
     }
+
     post {
         always {
             deleteDir()
