@@ -1,5 +1,8 @@
 .idea/
+.eggs/
 __pycache__/
+build/
+venv_*/
 dcc_jp2_converter/ImagemagickDriver/__pycache__/
 dcc_jp2_converter/ImagemagickDriver/imagemagickCommandBuilders/__pycache__/
 dcc_jp2_converter/__pycache__/
