@@ -138,9 +138,12 @@ pipeline {
                             script: "git diff --exit-code docs/build/html/; echo \$?",
                             returnStdout: true
                     ).trim()
-                    echo "dif = ${dif}"
-                    input 'Update documentation?'
-                    sh """git diff --exit-code docs/build/html/; if [ \$? -eq 1 ] ; then git commit -m 'Build new documentation' -- docs/build/html; else echo 'No new documentation found'; fi"""
+                    if (dif != "0") {
+                        input 'Update documentation?'
+                        sh """git diff --exit-code docs/build/html/; if [ \$? -eq 1 ] ; then git commit -m 'Build new documentation' -- docs/build/html; else echo 'No new documentation found'; fi"""
+                    } else {
+                        echo 'No new documentation found'
+                    }
 
                 }
 
