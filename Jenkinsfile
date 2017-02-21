@@ -101,10 +101,7 @@ pipeline {
 //                          python setup.py build_sphinx'
                 stash includes: '**', name: "Documentation source", useDefaultExcludes: false
                 script {
-                    def ec = sh(
-                            script: "git diff --exit-code  docs/build/html/",
-                            returnStatus: true
-                    )
+
                     echo "ec = ${ec}"
                 }
                 echo "running git dif end"
@@ -146,8 +143,8 @@ pipeline {
                 script {
                     unstash "Documentation source"
                     def dif = sh(
-                            script: "git diff --exit-code docs/build/html/; echo \$?",
-                            returnStdout: true
+                            script: "git diff --quiet --exit-code docs/build/html/",
+                            returnStatus: true
                     ).trim()
 
                     if (dif != "0") {
