@@ -177,13 +177,13 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            deleteDir()
-//            unstash "Linux junit"
-//            unstash "Windows junit"
-//            junit "reports/*.xml"
-            echo "all done"
-        }
-    }
+//    post {
+//        always {
+//            deleteDir()
+////            unstash "Linux junit"
+////            unstash "Windows junit"
+////            junit "reports/*.xml"
+//            echo "all done"
+//        }
+//    }
 }
