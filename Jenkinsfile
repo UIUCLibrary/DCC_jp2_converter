@@ -98,6 +98,9 @@ pipeline {
                           pip install Sphinx==1.5.1 && \
                           python setup.py build_sphinx'
                 stash includes: '**', name: "Documentation source", useDefaultExcludes: false
+                echo "running git dif"
+                sh "git diff --exit-code docs/build/html/; echo \$?"
+                echo "running git dif end"
 
 
             }
