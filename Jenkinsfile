@@ -140,42 +140,63 @@ pipeline {
                 archiveArtifacts artifacts: 'sphinx_docs.tar.gz'
             }
         }
-
-        stage("Packaging source") {
-            agent any
-
+        stage("Packaging") {
             steps {
-                deleteDir()
-                unstash "Source"
-                sh "${env.PYTHON3} setup.py sdist"
+                parallel(
+                        "Windows Wheel": {
+                            node(label: "Windows") {
+                                deleteDir()
+                                unstash "Source"
+                                bat "${env.PYTHON3} setup.py bdist_wheel --universal"
+                                archiveArtifacts artifacts: "dist/**", fingerprint: true
+                            }
+                        },
+                        "Source Release": {
+                            deleteDir()
+                            unstash "Source"
+                            sh "${env.PYTHON3} setup.py sdist"
+                            archiveArtifacts artifacts: "dist/**", fingerprint: true
+                        }
+                )
             }
-
-            post {
-                success {
-                    archiveArtifacts artifacts: "dist/**", fingerprint: true
-                }
-            }
-
-        }
-
-        stage("Packaging Windows binary Wheel") {
-            agent {
-                label "Windows"
-            }
-
-            steps {
-                deleteDir()
-                unstash "Source"
-                bat "${env.PYTHON3} setup.py bdist_wheel --universal"
-            }
-            post {
-                success {
-                    archiveArtifacts artifacts: "dist/**", fingerprint: true
-                }
-            }
-
         }
     }
+}
+//        stage("Packaging source") {
+//            agent any
+//
+//            steps {
+//                deleteDir()
+//                unstash "Source"
+//                sh "${env.PYTHON3} setup.py sdist"
+//            }
+//
+//            post {
+//                success {
+//                    archiveArtifacts artifacts: "dist/**", fingerprint: true
+//                }
+//            }
+//
+//        }
+//
+//        stage("Packaging Windows binary Wheel") {
+//            agent {
+//                label "Windows"
+//            }
+//
+//            steps {
+//                deleteDir()
+//                unstash "Source"
+//                bat "${env.PYTHON3} setup.py bdist_wheel --universal"
+//            }
+//            post {
+//                success {
+//                    archiveArtifacts artifacts: "dist/**", fingerprint: true
+//                }
+//            }
+//
+//        }
+//    }
 
 //    post {
 //        always {
@@ -186,4 +207,4 @@ pipeline {
 //            echo "all done"
 //        }
 //    }
-}
+//}
