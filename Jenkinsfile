@@ -88,15 +88,18 @@ pipeline {
             agent any
 
             steps {
-                deleteDir()
-                unstash "Source"
-                echo 'Building documentation'
-                echo 'Creating virtualenv for generating docs'
-                sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
-                sh '. ./venv_doc/bin/activate && \
-                          pip install Sphinx && \
-                          python setup.py build_sphinx'
-                stash includes: '**', name: "Documentation source", useDefaultExcludes: false
+                node(label: "!Windows") {
+
+                    deleteDir()
+                    unstash "Source"
+                    echo 'Building documentation'
+                    echo 'Creating virtualenv for generating docs'
+                    sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
+                    sh '. ./venv_doc/bin/activate && \
+                              pip install Sphinx && \
+                              python setup.py build_sphinx'
+                    stash includes: '**', name: "Documentation source", useDefaultExcludes: false
+                }
 
 
             }
@@ -127,7 +130,7 @@ pipeline {
                 )
             }
         }
-        stage("Deploy documentation") {
+        stage("Update online documentation") {
             agent any
 
             steps {
