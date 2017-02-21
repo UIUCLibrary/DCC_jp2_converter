@@ -128,9 +128,8 @@ pipeline {
             steps {
                 deleteDir()
                 unstash "Documentation source"
-                sh 'ls -R'
                 input 'Update documentation?'
-                sh "git commit -m 'Build new documentation' -- docs/build/html"
+                sh "git commit -m 'Build new documentation' -- docs"
             }
 
         }
