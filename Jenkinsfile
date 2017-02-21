@@ -97,7 +97,8 @@ pipeline {
                 sh '. ./venv_doc/bin/activate && \
                           pip install Sphinx==1.5.1 && \
                           make clean && \
-                          python setup.py build_sphinx'
+                          make docs'
+//                          python setup.py build_sphinx'
                 stash includes: '**', name: "Documentation source", useDefaultExcludes: false
                 echo "running git dif"
                 sh "ls -la docs/build/"
