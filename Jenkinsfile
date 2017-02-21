@@ -89,7 +89,7 @@ pipeline {
 
             steps {
                 deleteDir()
-//                unstash "Source"
+                unstash "Source"
                 echo 'Building documentation'
                 echo 'Creating virtualenv for generating docs'
                 sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
@@ -129,8 +129,8 @@ pipeline {
                 deleteDir()
                 checkout scm
                 sh 'ls -la'
-                input 'Update documentation?'
-                sh "git commit -m 'Build new documentation' -- docs"
+//                input 'Update documentation?'
+//                sh "git commit -m 'Build new documentation' -- docs"
             }
 
         }
