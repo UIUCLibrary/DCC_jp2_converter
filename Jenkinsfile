@@ -89,7 +89,9 @@ pipeline {
 
             steps {
                 deleteDir()
-                unstash "Source"
+//                unstash "Source"
+                checkout([$class: 'GitSCM', branches: [[name: '*/deploy']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'ccb29ea2-6d0f-4bfa-926d-6b4edd8995a8', url: 'https://github.com/UIUCLibrary/DCC_jp2_converter.git']]])
+
                 echo 'Building documentation'
                 echo 'Creating virtualenv for generating docs'
                 sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
@@ -140,7 +142,7 @@ pipeline {
                     ).trim()
                     if (dif != "0") {
                         input 'Update documentation?'
-                        sh """git diff --exit-code docs/build/html/; if [ \$? -eq 1 ] ; then git commit -m 'Build new documentation' -- docs/build/html; else echo 'No new documentation found'; fi"""
+                        sh "git commit -m 'Build new documentation' -- docs/build/html"
                     } else {
                         echo 'No new documentation found'
                     }
