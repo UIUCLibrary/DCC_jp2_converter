@@ -89,8 +89,7 @@ pipeline {
 
             steps {
                 deleteDir()
-//                unstash "Source"
-                checkout([$class: 'GitSCM', branches: [[name: '*/deploy']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'ccb29ea2-6d0f-4bfa-926d-6b4edd8995a8', url: 'https://github.com/UIUCLibrary/DCC_jp2_converter.git']]])
+                unstash "Source"
 
                 echo 'Building documentation'
                 echo 'Creating virtualenv for generating docs'
