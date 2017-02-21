@@ -132,9 +132,12 @@ pipeline {
 
             steps {
                 deleteDir()
-                unstash "Documentation source"
-                input 'Update documentation?'
-                sh """git diff --exit-code docs/build/html/; if [ \$? -eq 1 ] ; then git commit -m 'Build new documentation' -- docs/build/html; else echo 'No new documentation found'; fi"""
+                script {
+                    unstash "Documentation source"
+                    input 'Update documentation?'
+                    sh """git diff --exit-code docs/build/html/; if [ \$? -eq 1 ] ; then git commit -m 'Build new documentation' -- docs/build/html; else echo 'No new documentation found'; fi"""
+
+                }
 
 
             }
