@@ -100,10 +100,6 @@ pipeline {
                           make docs'
 //                          python setup.py build_sphinx'
                 stash includes: '**', name: "Documentation source", useDefaultExcludes: false
-                script {
-
-                    echo "ec = ${ec}"
-                }
                 echo "running git dif end"
 
 
