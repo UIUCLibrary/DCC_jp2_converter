@@ -99,6 +99,7 @@ pipeline {
 
                 sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
                 archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
+                stash includes: 'docs/build/html/**', name: "Documentation source"
             }
         }
         stage("Packaging") {
