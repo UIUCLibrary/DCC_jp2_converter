@@ -141,7 +141,7 @@ pipeline {
                     def dif = sh(
                             script: "git diff --quiet --exit-code docs/build/html/",
                             returnStatus: true
-                    ).trim()
+                    )
 
                     if (dif != "0") {
                         input 'Update documentation?'
