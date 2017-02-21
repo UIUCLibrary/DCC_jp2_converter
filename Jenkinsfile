@@ -146,6 +146,7 @@ pipeline {
                     if (dif != "0") {
                         input 'Update documentation?'
                         sh "git commit -m 'Build new documentation' -- docs/build/html"
+                        sh "git push origin master"
                     } else {
                         echo 'No new documentation found'
                     }
