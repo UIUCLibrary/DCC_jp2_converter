@@ -130,7 +130,7 @@ pipeline {
                 unstash "Documentation source"
                 sh 'ls -la'
                 input 'Update documentation?'
-                sh "git commit -m 'Build new documentation' -- docs"
+                sh "git commit -m 'Build new documentation' -- docs/build/html"
             }
 
         }
