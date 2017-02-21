@@ -96,7 +96,7 @@ pipeline {
                 sh '. ./venv_doc/bin/activate && \
                           pip install Sphinx && \
                           python setup.py build_sphinx'
-                sh "if [git diff --exit-code docs/build/html/] ; then git commit -m 'Build new documentation' -- docs/build/html; fi"
+                sh "git diff --exit-code docs/build/html/; if [ \$? -eq 1 ] ; then git commit -m 'Build new documentation' -- docs/build/html; fi"
                 stash includes: '**', name: "Documentation source", useDefaultExcludes: false
 
 
