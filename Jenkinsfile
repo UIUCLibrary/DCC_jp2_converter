@@ -126,7 +126,7 @@ pipeline {
             agent any
 
             steps {
-
+                deleteDir()
                 unstash "Documentation source"
                 input 'Update documentation?'
                 sh "commit -m 'Build new documentation' -- docs/build/html"
