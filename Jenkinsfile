@@ -97,9 +97,9 @@ pipeline {
                           pip install Sphinx && \
                           python setup.py build_sphinx'
 
+                stash includes: '**', name: "Documentation source"
                 sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
                 archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
-                stash includes: 'docs/build/html/**', name: "Documentation source"
             }
         }
         stage("Packaging") {
@@ -122,13 +122,13 @@ pipeline {
                 )
             }
         }
-        stage("Deploy documentation") {
-            agent any
-
-            steps {
-                input 'Update documentation?'
-            }
-
-        }
+//        stage("Deploy documentation") {
+//            agent any
+//
+//            steps {
+//                input 'Update documentation?'
+//            }
+//
+//        }
     }
 }
