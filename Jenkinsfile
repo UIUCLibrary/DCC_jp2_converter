@@ -122,5 +122,13 @@ pipeline {
                 )
             }
         }
+        stage("Deploy documentation") {
+            agent any
+
+            steps {
+                input 'Update documentation?'
+            }
+
+        }
     }
 }
