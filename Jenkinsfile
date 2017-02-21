@@ -82,45 +82,7 @@ pipeline {
             }
 
         }
-//        stage("flake8") {
-//            agent any
-//
-//            steps {
-//                deleteDir()
-//                unstash "Source"
-//                echo "Running flake8 report"
-//                sh "${env.TOX} -e flake8"
-//
-//                publishHTML target: [
-//                        allowMissing         : false,
-//                        alwaysLinkToLastBuild: false,
-//                        keepAll              : true,
-//                        reportDir            : "reports",
-//                        reportFiles          : "flake8.html",
-//                        reportName           : "Flake8 Report"
-//                ]
-//
-//            }
-//        }
 
-//        stage("coverage") {
-//            agent any
-//            steps {
-//                deleteDir()
-//                unstash "Source"
-//                echo "Running Coverage report"
-//                sh "${env.TOX} -e coverage"
-//                publishHTML target: [
-//                        allowMissing         : false,
-//                        alwaysLinkToLastBuild: false,
-//                        keepAll              : true,
-//                        reportDir            : "reports/coverage",
-//                        reportFiles          : "index.html",
-//                        reportName           : "Coverage Report"
-//                ]
-//
-//            }
-//        }
 
         stage("Documentation") {
             agent any
@@ -135,9 +97,8 @@ pipeline {
                           pip install Sphinx && \
                           python setup.py build_sphinx'
 
-                sh 'tar -czvf sphinx_docs.tar.gz docs/build/html'
-                stash includes: 'docs/build/**', name: 'sphinx_docs'
-                archiveArtifacts artifacts: 'sphinx_docs.tar.gz'
+                sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
+                archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
             }
         }
         stage("Packaging") {
