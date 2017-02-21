@@ -122,13 +122,16 @@ pipeline {
                 )
             }
         }
-//        stage("Deploy documentation") {
-//            agent any
-//
-//            steps {
-//                input 'Update documentation?'
-//            }
-//
-//        }
+        stage("Deploy documentation") {
+            agent any
+
+            steps {
+
+                unstash "Documentation source"
+                input 'Update documentation?'
+                sh "commit -m 'Build new documentation' -- docs/build/html"
+            }
+
+        }
     }
 }
