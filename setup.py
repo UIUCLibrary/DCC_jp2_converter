@@ -6,6 +6,7 @@ masters to be used by the Digital Library.
 """
 import os
 from setuptools import setup
+
 from dcc_jp2_converter import __version__ as version
 
 setup(

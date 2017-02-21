@@ -139,6 +139,7 @@ pipeline {
                             script: "git diff --exit-code docs/build/html/; echo \$?",
                             returnStdout: true
                     ).trim()
+
                     if (dif != "0") {
                         input 'Update documentation?'
                         sh "git commit -m 'Build new documentation' -- docs/build/html"
