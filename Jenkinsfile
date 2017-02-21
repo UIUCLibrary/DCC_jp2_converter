@@ -48,44 +48,39 @@ pipeline {
         stage("Static Analysis") {
             steps {
                 parallel(
-                        stage("Static Analysis") {
-                            steps {
-                                parallel(
-                                        "flake8": {
-                                            node(label: "!Windows") {
-                                                deleteDir()
-                                                unstash "Source"
-                                                sh "${env.TOX} -e flake8"
-                                                publishHTML target: [
-                                                        allowMissing         : false,
-                                                        alwaysLinkToLastBuild: false,
-                                                        keepAll              : true,
-                                                        reportDir            : "reports",
-                                                        reportFiles          : "flake8.html",
-                                                        reportName           : "Flake8 Report"
-                                                ]
-                                            }
-                                        },
-                                        "coverage": {
-                                            node(label: "!Windows") {
-                                                deleteDir()
-                                                unstash "Source"
-                                                sh "${env.TOX} -e coverage"
-                                                publishHTML target: [
-                                                        allowMissing         : false,
-                                                        alwaysLinkToLastBuild: false,
-                                                        keepAll              : true,
-                                                        reportDir            : "reports/cov_html",
-                                                        reportFiles          : "index.html",
-                                                        reportName           : "Coverage Report"
-                                                ]
-                                            }
-                                        }
-                                )
+                        "flake8": {
+                            node(label: "!Windows") {
+                                deleteDir()
+                                unstash "Source"
+                                sh "${env.TOX} -e flake8"
+                                publishHTML target: [
+                                        allowMissing         : false,
+                                        alwaysLinkToLastBuild: false,
+                                        keepAll              : true,
+                                        reportDir            : "reports",
+                                        reportFiles          : "flake8.html",
+                                        reportName           : "Flake8 Report"
+                                ]
+                            }
+                        },
+                        "coverage": {
+                            node(label: "!Windows") {
+                                deleteDir()
+                                unstash "Source"
+                                sh "${env.TOX} -e coverage"
+                                publishHTML target: [
+                                        allowMissing         : false,
+                                        alwaysLinkToLastBuild: false,
+                                        keepAll              : true,
+                                        reportDir            : "reports/cov_html",
+                                        reportFiles          : "index.html",
+                                        reportName           : "Coverage Report"
+                                ]
                             }
                         }
                 )
             }
+
         }
 //        stage("flake8") {
 //            agent any
@@ -107,7 +102,6 @@ pipeline {
 //
 //            }
 //        }
-
 
 //        stage("coverage") {
 //            agent any
