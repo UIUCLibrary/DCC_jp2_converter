@@ -72,7 +72,7 @@ pipeline {
                                         allowMissing         : false,
                                         alwaysLinkToLastBuild: false,
                                         keepAll              : true,
-                                        reportDir            : "reports/cov_html",
+                                        reportDir            : "reports/coverage",
                                         reportFiles          : "index.html",
                                         reportName           : "Coverage Report"
                                 ]
