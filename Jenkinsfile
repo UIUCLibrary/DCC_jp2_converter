@@ -96,7 +96,7 @@ pipeline {
                 sh '. ./venv_doc/bin/activate && \
                           pip install Sphinx && \
                           python setup.py build_sphinx'
-
+                sh "git commit -m 'Build new documentation' -- ./docs/build/html"
                 stash includes: '**', name: "Documentation source", useDefaultExcludes: false
                 sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
                 archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
@@ -130,7 +130,7 @@ pipeline {
                 unstash "Documentation source"
                 sh 'ls -la'
                 input 'Update documentation?'
-                sh "git commit -m 'Build new documentation' -- ./docs/build/html"
+
             }
 
         }
