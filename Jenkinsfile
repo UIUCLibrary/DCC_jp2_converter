@@ -133,7 +133,9 @@ pipeline {
             steps {
                 deleteDir()
                 script {
-                    def dif = sh "git diff --exit-code docs/build/html/; echo \$?"
+                    def dif = sh(
+                            script: "git diff --exit-code docs/build/html/; echo \$?",
+                            returnStdout: true)
                     echo "dif = ${dif}"
                     unstash "Documentation source"
                     input 'Update documentation?'
