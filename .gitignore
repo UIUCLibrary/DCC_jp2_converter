@@ -1,0 +1,10 @@
+.idea/
+__pycache__/
+dcc_jp2_converter/ImagemagickDriver/__pycache__/
+dcc_jp2_converter/ImagemagickDriver/imagemagickCommandBuilders/__pycache__/
+dcc_jp2_converter/__pycache__/
+dcc_jp2_converter/exiv2Driver/__pycache__/
+dcc_jp2_converter/exiv2Driver/exiv2CommandBuilders/__pycache__/
+scripts/__pycache__/
+scripts/processing.log
+tests/__pycache__/
