@@ -100,9 +100,7 @@ pipeline {
                           make docs'
 //                          python setup.py build_sphinx'
                 stash includes: '**', name: "Documentation source", useDefaultExcludes: false
-                echo "running git dif"
-                sh "ls -la docs/build/"
-                sh "git diff --exit-code docs/build/html/; echo \$?"
+                sh "git diff --exit-code --quiet docs/build/html/; echo \$?"
                 echo "running git dif end"
 
 
