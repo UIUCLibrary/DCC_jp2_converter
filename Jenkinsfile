@@ -10,7 +10,7 @@ pipeline {
                 deleteDir()
                 echo "Cloning source"
                 checkout scm
-                stash includes: '**', name: "Source"
+                stash includes: '**', name: "Source", useDefaultExcludes: false
 
             }
 
@@ -127,7 +127,7 @@ pipeline {
 
             steps {
                 deleteDir()
-                checkout scm
+                unstash "Source"
                 sh 'ls -la'
 //                input 'Update documentation?'
 //                sh "git commit -m 'Build new documentation' -- docs"
