@@ -96,9 +96,11 @@ pipeline {
                 sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
                 sh '. ./venv_doc/bin/activate && \
                           pip install Sphinx==1.5.1 && \
+                          make clean && \
                           python setup.py build_sphinx'
                 stash includes: '**', name: "Documentation source", useDefaultExcludes: false
                 echo "running git dif"
+                sh "ls -la docs/build/"
                 sh "git diff --exit-code docs/build/html/; echo \$?"
                 echo "running git dif end"
 
