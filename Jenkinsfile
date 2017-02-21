@@ -88,62 +88,57 @@ pipeline {
             agent any
 
             steps {
-
-
                 deleteDir()
                 unstash "Source"
                 echo 'Building documentation'
                 echo 'Creating virtualenv for generating docs'
                 sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
                 sh '. ./venv_doc/bin/activate && \
-                              pip install Sphinx && \
-                              python setup.py build_sphinx'
-//                    def changes = "sdsdsds"
-//                            sh 'git diff --exit-code docs/build/html/'
-//                    echo "checkout ${changes}"
-                sh "git diff --exit-code docs/build/html/; if [ \$? -eq 1 ] ; then git commit -m 'Build new documentation' -- docs/build/html; else echo 'No new documentation found'; fi"
+                          pip install Sphinx && \
+                          python setup.py build_sphinx'
                 stash includes: '**', name: "Documentation source", useDefaultExcludes: false
-            }
 
 
-        }
-        post {
-            success {
-                sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
-                archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
+            }
+            post {
+                success {
+                    sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
+                    archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
+                }
             }
         }
-    }
-    stage("Packaging") {
-        steps {
-            parallel(
-                    "Windows Wheel": {
-                        node(label: "Windows") {
+        stage("Packaging") {
+            steps {
+                parallel(
+                        "Windows Wheel": {
+                            node(label: "Windows") {
+                                deleteDir()
+                                unstash "Source"
+                                bat "${env.PYTHON3} setup.py bdist_wheel --universal"
+                                archiveArtifacts artifacts: "dist/**", fingerprint: true
+                            }
+                        },
+                        "Source Release": {
                             deleteDir()
                             unstash "Source"
-                            bat "${env.PYTHON3} setup.py bdist_wheel --universal"
+                            sh "${env.PYTHON3} setup.py sdist"
                             archiveArtifacts artifacts: "dist/**", fingerprint: true
                         }
-                    },
-                    "Source Release": {
-                        deleteDir()
-                        unstash "Source"
-                        sh "${env.PYTHON3} setup.py sdist"
-                        archiveArtifacts artifacts: "dist/**", fingerprint: true
-                    }
-            )
+                )
+            }
         }
-    }
-    stage("Update online documentation") {
-        agent any
+        stage("Update online documentation") {
+            agent any
 
-        steps {
-            deleteDir()
-            unstash "Documentation source"
-            input 'Update documentation?'
+            steps {
+                deleteDir()
+                unstash "Documentation source"
+                input 'Update documentation?'
+                sh """git diff --exit-code docs/build/html/; if [ \$? -eq 1 ] ; then git commit -m 'Build new documentation' -- docs/build/html; else echo 'No new documentation found'; fi"""
 
+
+            }
 
         }
-
     }
 }
