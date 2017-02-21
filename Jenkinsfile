@@ -16,7 +16,7 @@ pipeline {
 
         }
         stage("Unit tests") {
-            steps{
+            steps {
                 parallel(
                         "Windows": {
                             node(label: 'Windows') {
@@ -45,89 +45,88 @@ pipeline {
                 )
             }
         }
-//        stage("Unit tests on Linux") {
+        stage("Static Analysis") {
+            steps {
+                parallel(
+                        stage("Static Analysis") {
+                            steps {
+                                parallel(
+                                        "flake8": {
+                                            node(label: "!Windows") {
+                                                deleteDir()
+                                                unstash "Source"
+                                                sh "${env.TOX} -e flake8"
+                                                publishHTML target: [
+                                                        allowMissing         : false,
+                                                        alwaysLinkToLastBuild: false,
+                                                        keepAll              : true,
+                                                        reportDir            : "reports",
+                                                        reportFiles          : "flake8.html",
+                                                        reportName           : "Flake8 Report"
+                                                ]
+                                            }
+                                        },
+                                        "coverage": {
+                                            node(label: "!Windows") {
+                                                deleteDir()
+                                                unstash "Source"
+                                                sh "${env.TOX} -e coverage"
+                                                publishHTML target: [
+                                                        allowMissing         : false,
+                                                        alwaysLinkToLastBuild: false,
+                                                        keepAll              : true,
+                                                        reportDir            : "reports/cov_html",
+                                                        reportFiles          : "index.html",
+                                                        reportName           : "Coverage Report"
+                                                ]
+                                            }
+                                        }
+                                )
+                            }
+                        }
+                )
+            }
+        }
+//        stage("flake8") {
 //            agent any
 //
 //            steps {
 //                deleteDir()
 //                unstash "Source"
-//                echo "Running Tox: Unit tests"
-//                withEnv(["PATH=${env.PYTHON3}/..:${env.PATH}"]) {
+//                echo "Running flake8 report"
+//                sh "${env.TOX} -e flake8"
 //
-//                    echo "PATH = ${env.PATH}"
-//                    echo "Running: ${env.TOX}  --skip-missing-interpreters"
-//                    sh "${env.TOX}  --skip-missing-interpreters"
-//                }
-//
-//            }
-//
-//            post {
-//                always {
-//                    stash includes: "reports/*.xml", name: "Linux junit"
-//                }
+//                publishHTML target: [
+//                        allowMissing         : false,
+//                        alwaysLinkToLastBuild: false,
+//                        keepAll              : true,
+//                        reportDir            : "reports",
+//                        reportFiles          : "flake8.html",
+//                        reportName           : "Flake8 Report"
+//                ]
 //
 //            }
 //        }
-//        stage("Unit tests on Windows") {
-//            agent {
-//                label "Windows"
-//            }
-//
+
+
+//        stage("coverage") {
+//            agent any
 //            steps {
 //                deleteDir()
 //                unstash "Source"
-//                echo "Running Tox: Python 3.5 Unit tests"
-//                bat "${env.TOX}  --skip-missing-interpreters"
+//                echo "Running Coverage report"
+//                sh "${env.TOX} -e coverage"
+//                publishHTML target: [
+//                        allowMissing         : false,
+//                        alwaysLinkToLastBuild: false,
+//                        keepAll              : true,
+//                        reportDir            : "reports/coverage",
+//                        reportFiles          : "index.html",
+//                        reportName           : "Coverage Report"
+//                ]
 //
 //            }
-//            post {
-//                always {
-//                    stash includes: "reports/*.xml", name: "Windows junit"
-//
-//                }
-//            }
-//
 //        }
-        stage("flake8") {
-            agent any
-
-            steps {
-                deleteDir()
-                unstash "Source"
-                echo "Running flake8 report"
-                sh "${env.TOX} -e flake8"
-
-                publishHTML target: [
-                        allowMissing         : false,
-                        alwaysLinkToLastBuild: false,
-                        keepAll              : true,
-                        reportDir            : "reports",
-                        reportFiles          : "flake8.html",
-                        reportName           : "Flake8 Report"
-                ]
-
-            }
-        }
-
-
-        stage("coverage") {
-            agent any
-            steps {
-                deleteDir()
-                unstash "Source"
-                echo "Running Coverage report"
-                sh "${env.TOX} -e coverage"
-                publishHTML target: [
-                        allowMissing         : false,
-                        alwaysLinkToLastBuild: false,
-                        keepAll              : true,
-                        reportDir            : "reports/coverage",
-                        reportFiles          : "index.html",
-                        reportName           : "Coverage Report"
-                ]
-
-            }
-        }
 
         stage("Documentation") {
             agent any
@@ -151,13 +150,13 @@ pipeline {
         stage("Packaging source") {
             agent any
 
-            steps{
+            steps {
                 deleteDir()
                 unstash "Source"
                 sh "${env.PYTHON3} setup.py sdist"
             }
 
-            post{
+            post {
                 success {
                     archiveArtifacts artifacts: "dist/**", fingerprint: true
                 }
@@ -170,12 +169,12 @@ pipeline {
                 label "Windows"
             }
 
-            steps{
+            steps {
                 deleteDir()
                 unstash "Source"
                 bat "${env.PYTHON3} setup.py bdist_wheel --universal"
             }
-            post{
+            post {
                 success {
                     archiveArtifacts artifacts: "dist/**", fingerprint: true
                 }
@@ -187,9 +186,9 @@ pipeline {
     post {
         always {
             deleteDir()
-            unstash "Linux junit"
-            unstash "Windows junit"
-            junit "reports/*.xml"
+//            unstash "Linux junit"
+//            unstash "Windows junit"
+//            junit "reports/*.xml"
             echo "all done"
         }
     }
