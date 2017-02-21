@@ -96,10 +96,16 @@ pipeline {
                 sh '. ./venv_doc/bin/activate && \
                           pip install Sphinx && \
                           python setup.py build_sphinx'
-                sh "git commit -m 'Build new documentation' -- ./docs/build/html"
+                sh "if [git diff --exit-code docs/build/html/] ; then git commit -m 'Build new documentation' -- docs/build/html; fi"
                 stash includes: '**', name: "Documentation source", useDefaultExcludes: false
-                sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
-                archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
+
+
+            }
+            post {
+                success {
+                    sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
+                    archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
+                }
             }
         }
         stage("Packaging") {
@@ -128,8 +134,8 @@ pipeline {
             steps {
                 deleteDir()
                 unstash "Documentation source"
-                sh 'ls -la'
                 input 'Update documentation?'
+
 
             }
 
