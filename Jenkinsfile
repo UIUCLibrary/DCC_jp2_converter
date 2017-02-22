@@ -111,7 +111,7 @@ pipeline {
 //
                                     dir('docs') {
                                         sh 'make latexpdf SPHINXBUILD=$SPHINXBUILD'
-                                        archiveArtifacts artifacts: 'build/latex/DCCJP2Generator.pdf'
+//                                        archiveArtifacts artifacts: 'build/latex/DCCJP2Generator.pdf'
                                     }
 
                                 }
