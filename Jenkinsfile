@@ -97,8 +97,9 @@ pipeline {
                 withEnv(['PYTHON=${env.PYTHON3}']) {
 //
 //                    sh 'make docs'
-                    sh "$SPHINXBUILD -b html 'docs/source' 'docs/build/html'"
-                    sh "$SPHINXBUILD -b pdf 'docs/source' 'docs/build/pdf'"
+                    sh 'cd docs && make html SPHINXBUILD=$SPHINXBUILD'
+//                    sh "$SPHINXBUILD -b html 'docs/source' 'docs/build/html'"
+//                    sh "$SPHINXBUILD -b pdf 'docs/source' 'docs/build/pdf'"
 //                    @$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
                 }
 //                }docs
