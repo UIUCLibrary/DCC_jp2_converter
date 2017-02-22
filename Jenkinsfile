@@ -7,7 +7,6 @@ pipeline {
             agent any
 
             steps {
-                sh("whoami")
                 deleteDir()
                 echo "Cloning source"
                 checkout scm
