@@ -97,18 +97,13 @@ pipeline {
                 withEnv(['PYTHON=${env.PYTHON3}']) {
 //
 //                    sh 'make docs'
-                    sh 'cd docs && make html SPHINXBUILD=$SPHINXBUILD'
-                    sh 'cd docs && make latexpdf SPHINXBUILD=$SPHINXBUILD'
-//                    sh "$SPHINXBUILD -b html 'docs/source' 'docs/build/html'"
-//                    sh "$SPHINXBUILD -b pdf 'docs/source' 'docs/build/pdf'"
-//                    @$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+                    dir('docs') {
+                        sh 'make html SPHINXBUILD=$SPHINXBUILD'
+                        sh 'make latexpdf SPHINXBUILD=$SPHINXBUILD'
+                        // some block
+                    }
+
                 }
-//                }docs
-//                sh '. ./venv_doc/bin/activate && \
-//                          pip install Sphinx==1.5.1 && \
-//                          make clean && \
-//                          make docs'
-//                          python setup.py build_sphinx'
                 stash includes: '**', name: "Documentation source", useDefaultExcludes: false
                 echo "running git dif end"
 
@@ -118,6 +113,8 @@ pipeline {
                 success {
                     sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
                     archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
+                    archiveArtifacts artifacts: 'build/latex/DCCJP2Generator.pdf'
+
                 }
             }
         }
