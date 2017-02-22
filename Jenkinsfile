@@ -83,41 +83,69 @@ pipeline {
 
         }
 
-
         stage("Documentation") {
-            agent any
-
             steps {
-                deleteDir()
-                unstash "Source"
+                parallel(
+                        "html":{
+                            node(label: "!Windows"){
+                                deleteDir()
+                                unstash "Source"
 
-                echo 'Building documentation'
-                echo 'Creating virtualenv for generating docs'
-                sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
-                withEnv(['PYTHON=${env.PYTHON3}']) {
+                                echo 'Building documentation'
+                                echo 'Creating virtualenv for generating docs'
+                                sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
+                                withEnv(['PYTHON=${env.PYTHON3}']) {
 //
-//                    sh 'make docs'
-                    dir('docs') {
-                        sh 'make html SPHINXBUILD=$SPHINXBUILD'
-                        sh 'make latexpdf SPHINXBUILD=$SPHINXBUILD'
-                        // some block
-                    }
+                                    dir('docs') {
+                                        sh 'make html SPHINXBUILD=$SPHINXBUILD'
 
-                }
-                stash includes: '**', name: "Documentation source", useDefaultExcludes: false
-                echo "running git dif end"
+                                        // some block
+                                    }
+                                    stash includes: '**', name: "Documentation source", useDefaultExcludes: false
 
+                                }
 
-            }
-            post {
-                success {
-                    sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
-                    archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
-                    archiveArtifacts artifacts: 'build/latex/DCCJP2Generator.pdf'
-
-                }
+                                sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
+                                archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
+                            }
+                        }
+                )
             }
         }
+//        stage("Documentation") {
+//            agent any
+//
+//            steps {
+//                deleteDir()
+//                unstash "Source"
+//
+//                echo 'Building documentation'
+//                echo 'Creating virtualenv for generating docs'
+//                sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
+//                withEnv(['PYTHON=${env.PYTHON3}']) {
+////
+////                    sh 'make docs'
+//                    dir('docs') {
+//                        sh 'make html SPHINXBUILD=$SPHINXBUILD'
+//                        sh 'make latexpdf SPHINXBUILD=$SPHINXBUILD'
+//                        // some block
+//                    }
+//
+//                }
+//                stash includes: '**', name: "Documentation source", useDefaultExcludes: false
+////                echo "running git dif end"
+//
+//
+//            }
+//            post {
+//                success {
+//                    sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
+//                    archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
+//                    archiveArtifacts artifacts: 'build/latex/DCCJP2Generator.pdf'
+//
+//                }
+//            }
+//        }
         stage("Packaging") {
             steps {
                 parallel(
