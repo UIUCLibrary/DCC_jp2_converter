@@ -90,10 +90,7 @@ pipeline {
                             node(label: "!Windows"){
                                 deleteDir()
                                 unstash "Source"
-
-                                echo 'Building documentation'
-                                echo 'Creating virtualenv for generating docs'
-                                sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
+//                                sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
                                 withEnv(['PYTHON=${env.PYTHON3}']) {
 //
                                     dir('docs') {
