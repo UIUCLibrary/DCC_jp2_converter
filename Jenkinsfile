@@ -98,6 +98,7 @@ pipeline {
 //
 //                    sh 'make docs'
                     sh 'cd docs && make html SPHINXBUILD=$SPHINXBUILD'
+                    sh 'cd docs && make latexpdf SPHINXBUILD=$SPHINXBUILD'
 //                    sh "$SPHINXBUILD -b html 'docs/source' 'docs/build/html'"
 //                    sh "$SPHINXBUILD -b pdf 'docs/source' 'docs/build/pdf'"
 //                    @$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
