@@ -105,6 +105,24 @@ pipeline {
                                 sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
                                 archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
                             }
+                        },
+                        "pdf":{
+                            node(label: "!Windows"){
+                                deleteDir()
+                                unstash "Source"
+//                                sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
+                                withEnv(['PYTHON=${env.PYTHON3}']) {
+//
+                                    dir('docs') {
+                                        sh 'make latexpdf SPHINXBUILD=$SPHINXBUILD'
+
+                                        // some block
+                                    }
+//                                    archiveArtifacts artifacts: 'build/latex/DCCJP2Generator.pdf'
+
+                                }
+
+                            }
                         }
                 )
             }
