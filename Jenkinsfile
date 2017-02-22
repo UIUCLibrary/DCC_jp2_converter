@@ -96,7 +96,9 @@ pipeline {
                 sh "${env.PYTHON3} -m virtualenv -p ${env.PYTHON3} venv_doc"
                 withEnv(['PYTHON=${env.PYTHON3}']) {
 //
-                    sh 'make docs'
+//                    sh 'make docs'
+                    sh "$SPHINXBUILD 'docs/source' 'docs/build/html' html"
+//                    @$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
                 }
 //                }docs
 //                sh '. ./venv_doc/bin/activate && \
