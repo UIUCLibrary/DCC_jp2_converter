@@ -10,7 +10,7 @@ pipeline {
                 deleteDir()
                 echo "Cloning source"
                 checkout scm
-                sh "git config user.name"
+
                 stash includes: '**', name: "Source", useDefaultExcludes: false
 
             }
@@ -144,6 +144,7 @@ pipeline {
 //                        input 'Update documentation?'
 
                         sh "git commit -m 'Build new documentation' -- docs/build/html"
+                        sh "echo `git log --summary`"
 //                        sh "git remote set-url origin https://github.com/UIUCLibrary/DCC_jp2_converter.git"
                         sh "git push"
 //                        sh "git push origin master"
