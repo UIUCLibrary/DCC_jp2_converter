@@ -9,8 +9,8 @@ pipeline {
             steps {
                 deleteDir()
                 echo "Cloning source"
-                checkout scm
-
+//                checkout scm
+                git(branch: 'master', credentialsId: 'ccb29ea2-6d0f-4bfa-926d-6b4edd8995a8', url: 'git@github.com:/UIUCLibrary/DCC_jp2_converter.git')
                 stash includes: '**', name: "Source", useDefaultExcludes: false
 
             }
