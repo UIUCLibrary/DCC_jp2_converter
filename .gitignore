@@ -1,16 +1,14 @@
+# Build and cache files
 __pycache__/
 *.py[cod]
-
-.eggs/
-*.egg-info/
-
-# Build files
 docs/source/_templates/
 build/
+.tox/
+.eggs/
+*.egg-info/
 
 # Jetbrains
 .idea/
 
 # log files
 *.log
-.tox/
