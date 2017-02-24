@@ -148,10 +148,10 @@ pipeline {
                                           passwordVariable: 'GIT_PASSWORD']]) {
 
                             sh "git commit -m 'Build new documentation' -- docs/build/html"
-                        sh "git remote set-url origin https://github.com/UIUCLibrary/DCC_jp2_converter.git"
+//                        sh "git remote set-url origin https://github.com/UIUCLibrary/DCC_jp2_converter.git"
 //                            sh "git push"
-                            sh("git tag -a some_tag -m 'Jenkins'")
-                            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
+//                            sh("git tag -a some_tag -m 'Jenkins'")
+//                            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
                         }
 //                        sh "git push origin master"
                     } else {
