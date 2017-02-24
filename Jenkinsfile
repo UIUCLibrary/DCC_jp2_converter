@@ -10,7 +10,7 @@ pipeline {
                 deleteDir()
                 echo "Cloning source"
 //                checkout scm
-                git(branch: 'master', credentialsId: 'ccb29ea2-6d0f-4bfa-926d-6b4edd8995a8', url: 'git@github.com:UIUCLibrary/DCC_jp2_converter.git')
+                git credentialsId: 'ccb29ea2-6d0f-4bfa-926d-6b4edd8995a8', url: 'https://github.com/UIUCLibrary/DCC_jp2_converter.git'
                 stash includes: '**', name: "Source", useDefaultExcludes: false
 
             }
@@ -148,7 +148,7 @@ pipeline {
                                           passwordVariable: 'GIT_PASSWORD']]) {
 
                             sh "git commit -m 'Build new documentation' -- docs/build/html"
-                        sh "git remote set-url origin git@github.com:UIUCLibrary/DCC_jp2_converter.git"
+//                        sh "git remote set-url origin git@github.com:UIUCLibrary/DCC_jp2_converter.git"
 //                            sh "git push"
                             sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
                         }
