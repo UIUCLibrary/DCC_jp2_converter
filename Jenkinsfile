@@ -15,6 +15,7 @@ pipeline {
             }
 
         }
+
         stage("Unit tests") {
             steps {
                 parallel(
@@ -45,6 +46,7 @@ pipeline {
                 )
             }
         }
+
         stage("Static Analysis") {
             steps {
                 parallel(
@@ -84,41 +86,23 @@ pipeline {
         }
 
         stage("Documentation") {
+            agent any
+
             steps {
-                parallel(
-                        "html": {
-                            node(label: "!Windows") {
-                                deleteDir()
-                                unstash "Source"
-                                withEnv(['PYTHON=${env.PYTHON3}']) {
-//
-                                    dir('docs') {
-                                        sh 'make html SPHINXBUILD=$SPHINXBUILD'
-                                    }
-                                    stash includes: '**', name: "Documentation source", useDefaultExcludes: false
-
-                                }
-
-                                sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
-                                archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
-                            }
-                        },
-                        "pdf": {
-                            node(label: "!Windows") {
-                                deleteDir()
-                                unstash "Source"
-                                withEnv(['PYTHON=${env.PYTHON3}']) {
-//
-                                    dir('docs') {
-                                        sh 'make latexpdf SPHINXBUILD=$SPHINXBUILD'
-//                                        archiveArtifacts artifacts: 'build/latex/DCCJP2Generator.pdf'
-                                    }
-
-                                }
-
-                            }
-                        }
-                )
+                deleteDir()
+                unstash "Source"
+                withEnv(['PYTHON=${env.PYTHON3}']) {
+                    dir('docs') {
+                        sh 'make html SPHINXBUILD=$SPHINXBUILD'
+                    }
+                    stash includes: '**', name: "Documentation source", useDefaultExcludes: false
+                }
+            }
+            post {
+                success {
+                    sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
+                    archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
+                }
             }
         }
 
