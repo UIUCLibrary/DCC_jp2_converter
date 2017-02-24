@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Scripts &#8212; DCC JP2 Generator 0.0.1b1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1b1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Modules" href="modules.html" />
+    <link rel="prev" title="Usage" href="usage.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="scripts">
+<h1>Scripts<a class="headerlink" href="#scripts" title="Permalink to this headline">¶</a></h1>
+<p>This is the API documentation for the scripts package. For instructions on how to use the scripts as an end user, visit
+the <a class="reference internal" href="usage.html#usage"><span class="std std-ref">Usage</span></a> documentation.</p>
+<div class="section" id="module-dcc_jp2_converter.scripts.cli">
+<span id="cli"></span><h2>cli<a class="headerlink" href="#module-dcc_jp2_converter.scripts.cli" title="Permalink to this headline">¶</a></h2>
+<p>Command line interface for DCC jp2 Converter.</p>
+<dl class="function">
+<dt id="dcc_jp2_converter.scripts.cli.configure_logger">
+<code class="descclassname">dcc_jp2_converter.scripts.cli.</code><code class="descname">configure_logger</code><span class="sig-paren">(</span><em>debug_mode=False</em>, <em>log_file=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.scripts.cli.configure_logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the settings for the logger.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>debug_mode</strong> &#8211; Set the package into debug mode.</li>
+<li><strong>log_file</strong> &#8211; If a file name is given, all information presented to the
+screen with be saved into that file.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dcc_jp2_converter.scripts.cli.get_args">
+<code class="descclassname">dcc_jp2_converter.scripts.cli.</code><code class="descname">get_args</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.scripts.cli.get_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the command line arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Parsed command line arguments.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-dcc_jp2_converter.scripts.clean">
+<span id="clean"></span><h2>clean<a class="headerlink" href="#module-dcc_jp2_converter.scripts.clean" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dcc_jp2_converter.scripts.clean.cleanup_path">
+<code class="descclassname">dcc_jp2_converter.scripts.clean.</code><code class="descname">cleanup_path</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.scripts.clean.cleanup_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Command for removing access tiffs that have a matching access jp2.
+:param path: Path to clean.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The command, cleanup_path(), scans the path recursively.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-dcc_jp2_converter.scripts.convert">
+<span id="convert"></span><h2>convert<a class="headerlink" href="#module-dcc_jp2_converter.scripts.convert" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dcc_jp2_converter.scripts.convert.convert_path">
+<code class="descclassname">dcc_jp2_converter.scripts.convert.</code><code class="descname">convert_path</code><span class="sig-paren">(</span><em>path: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.scripts.convert.convert_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>High level. Run conversion.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> &#8211; Path to find items to search for directories and convert them</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-dcc_jp2_converter.scripts.logging_settings">
+<span id="logging-settings"></span><h2>logging_settings<a class="headerlink" href="#module-dcc_jp2_converter.scripts.logging_settings" title="Permalink to this headline">¶</a></h2>
+<p>Any thing to do with logging</p>
+<dl class="class">
+<dt id="dcc_jp2_converter.scripts.logging_settings.InfoFilter">
+<em class="property">class </em><code class="descclassname">dcc_jp2_converter.scripts.logging_settings.</code><code class="descname">InfoFilter</code><span class="sig-paren">(</span><em>name=''</em><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.scripts.logging_settings.InfoFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter anything higher than Info level</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-dcc_jp2_converter.scripts.validation">
+<span id="validation"></span><h2>validation<a class="headerlink" href="#module-dcc_jp2_converter.scripts.validation" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dcc_jp2_converter.scripts.validation.find_arg_errors">
+<code class="descclassname">dcc_jp2_converter.scripts.validation.</code><code class="descname">find_arg_errors</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.scripts.validation.find_arg_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform error check on command line arguments passed in in args to see if
+they are logically valid and return any errors if any are found.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dcc_jp2_converter.scripts.validation.find_settings_errors">
+<code class="descclassname">dcc_jp2_converter.scripts.validation.</code><code class="descname">find_settings_errors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.scripts.validation.find_settings_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Looks for any configuration errors to make sure that the script can operate properly
+with the given settings by the default path lookup or any changes provided by a
+command_paths.ini file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Returns a list of error messages if any. Returns an empty list if found no errors.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/full_mark_horz_bw.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Scripts</a><ul>
+<li><a class="reference internal" href="#module-dcc_jp2_converter.scripts.cli">cli</a></li>
+<li><a class="reference internal" href="#module-dcc_jp2_converter.scripts.clean">clean</a></li>
+<li><a class="reference internal" href="#module-dcc_jp2_converter.scripts.convert">convert</a></li>
+<li><a class="reference internal" href="#module-dcc_jp2_converter.scripts.logging_settings">logging_settings</a></li>
+<li><a class="reference internal" href="#module-dcc_jp2_converter.scripts.validation">validation</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="usage.html" title="previous chapter">Usage</a></li>
+      <li>Next: <a href="modules.html" title="next chapter">Modules</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/scripts.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, University of Illinois at Urbana Champaign.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/scripts.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

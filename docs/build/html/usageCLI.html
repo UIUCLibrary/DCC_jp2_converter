@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Create access jp2 files from access tiffs &#8212; DCC JP2 Generator 0.0.1b1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1b1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>This is a command line script so you will need a terminal window open to use it.</p>
+<div class="section" id="create-access-jp2-files-from-access-tiffs">
+<h1>Create access jp2 files from access tiffs<a class="headerlink" href="#create-access-jp2-files-from-access-tiffs" title="Permalink to this headline">¶</a></h1>
+<p>To convert all the tiff images in the access folders, type <strong class="command">makejp2</strong> followed by the directory of the
+collection to convert.</p>
+<p>For example:</p>
+<blockquote>
+<div><strong class="command">makejp2 /Users/hborcher/Documents/dummyCollection</strong></div></blockquote>
+<p>The script will now generate access jp2 files for every tiff file found inside an access folder.</p>
+</div>
+<div class="section" id="clean-up-extra-files-after-converting">
+<h1>Clean up extra files after converting<a class="headerlink" href="#clean-up-extra-files-after-converting" title="Permalink to this headline">¶</a></h1>
+<p>After you&#8217;ve created all your access jp2 files from the access tiffs, you might want to remove the extra access tiffs.
+To do this, you can clean up this folder using the <strong class="command">--clean</strong> option flag.</p>
+<p>This option will look for access folders for matching jp2 and tiff files. It it finds a match, it will delete the
+access tiff but leave the jp2.</p>
+<p>For example:</p>
+<blockquote>
+<div><strong class="command">makejp2 /Users/hborcher/Documents/dummyCollection --clean</strong></div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Any files not in a folder named &#8220;access&#8221; will be ignored.</p>
+</div>
+</div>
+<div class="section" id="delete-files-automatically-after-converting">
+<h1>Delete files automatically after converting<a class="headerlink" href="#delete-files-automatically-after-converting" title="Permalink to this headline">¶</a></h1>
+<p>You can also combine these steps so that the script automatically delete the access tiff file after it successfully
+generates a jp2 file. To do this, you can use the <strong class="command">--remove</strong> option flag.</p>
+<p>For example:</p>
+<blockquote>
+<div><strong class="command">makejp2 /Users/hborcher/Documents/dummyCollection --remove</strong></div></blockquote>
+</div>
+<div class="section" id="the-help-screen">
+<h1>The Help Screen<a class="headerlink" href="#the-help-screen" title="Permalink to this headline">¶</a></h1>
+<p>This documentation should be up to date. However, you can always type <strong class="command">makejp2 -h</strong> into
+a command prompt to display the script usage instructions along with any additional the options.</p>
+<p><strong class="command">makejp2 -h</strong></p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: makejp2 [path] [options]</span>
+
+<span class="go">Create JP2 files from tiffs for digital Library</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  path               Path to the submission package</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help         show this help message and exit</span>
+<span class="go">  --version          show program&#39;s version number and exit</span>
+<span class="go">  --overwrite        Overwrite any existing jp2 with new ones</span>
+<span class="go">  --clean            Clean up folders by removing any access tiff that have</span>
+<span class="go">                     already been converted into jp2</span>
+<span class="go">  --remove           Removes access tiff files after converting them.</span>
+<span class="go">  --logname LOGNAME  Change the log name.</span>
+<span class="go">  --debug            Run script in debug mode</span>
+</pre></div>
+</div>
+<p>It&#8217;s that simple!</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/full_mark_horz_bw.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Create access jp2 files from access tiffs</a></li>
+<li><a class="reference internal" href="#clean-up-extra-files-after-converting">Clean up extra files after converting</a></li>
+<li><a class="reference internal" href="#delete-files-automatically-after-converting">Delete files automatically after converting</a></li>
+<li><a class="reference internal" href="#the-help-screen">The Help Screen</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/usageCLI.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, University of Illinois at Urbana Champaign.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/usageCLI.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

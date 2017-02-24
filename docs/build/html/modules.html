@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Modules &#8212; DCC JP2 Generator 0.0.1b1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1b1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ImagemagickDriver package" href="dcc_jp2_converter.ImagemagickDriver.html" />
+    <link rel="prev" title="Scripts" href="scripts.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="modules">
+<h1>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-dcc_jp2_converter">
+<span id="dcc-jp2-converter"></span><h2>dcc_jp2_converter<a class="headerlink" href="#module-dcc_jp2_converter" title="Permalink to this headline">¶</a></h2>
+<p>This module contains all the logic for managing and executing the task of
+converting jp2 tiff files into jp2 images for the digital library.</p>
+</div>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dcc_jp2_converter.ImagemagickDriver.html">ImagemagickDriver package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dcc_jp2_converter.ImagemagickDriver.html#module-dcc_jp2_converter.modules.ImagemagickDriver.config">config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcc_jp2_converter.ImagemagickDriver.html#imagemagickcommandbuilder">ImagemagickCommandBuilder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcc_jp2_converter.ImagemagickDriver.html#command-builders">Command Builders</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dcc_jp2_converter.exiv2Driver.html">exiv2Driver package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dcc_jp2_converter.exiv2Driver.html#module-dcc_jp2_converter.modules.exiv2Driver.config">config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcc_jp2_converter.exiv2Driver.html#exiv2commandbuilder">Exiv2CommandBuilder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcc_jp2_converter.exiv2Driver.html#command-builders">Command Builders</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-dcc_jp2_converter.modules.command_runner">
+<span id="command-runner"></span><h2>command_runner<a class="headerlink" href="#module-dcc_jp2_converter.modules.command_runner" title="Permalink to this headline">¶</a></h2>
+<p>Used for running and logging commands.</p>
+<dl class="class">
+<dt id="dcc_jp2_converter.modules.command_runner.CommandRunner">
+<em class="property">class </em><code class="descclassname">dcc_jp2_converter.modules.command_runner.</code><code class="descname">CommandRunner</code><a class="headerlink" href="#dcc_jp2_converter.modules.command_runner.CommandRunner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used for executing commands.</p>
+<dl class="method">
+<dt id="dcc_jp2_converter.modules.command_runner.CommandRunner.get_output">
+<code class="descname">get_output</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &rarr; typing.Tuple[str, str]<a class="headerlink" href="#dcc_jp2_converter.modules.command_runner.CommandRunner.get_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the information written to standard out and standard error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">standard out, standard error</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dcc_jp2_converter.modules.command_runner.CommandRunner.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>command: list</em><span class="sig-paren">)</span><a class="headerlink" href="#dcc_jp2_converter.modules.command_runner.CommandRunner.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute command.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> &#8211; Command with arguments in a list format</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dcc_jp2_converter.modules.file_manager">
+<span id="file-manager"></span><h2>file_manager<a class="headerlink" href="#module-dcc_jp2_converter.modules.file_manager" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dcc_jp2_converter.modules.file_manager.find_access_folders">
+<code class="descclassname">dcc_jp2_converter.modules.file_manager.</code><code class="descname">find_access_folders</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span> &rarr; typing.Iterator[str]<a class="headerlink" href="#dcc_jp2_converter.modules.file_manager.find_access_folders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search a given path recursively for access folders.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> &#8211; starting directory to search folders</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body">Paths to directories with the name &#8220;access&#8221;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dcc_jp2_converter.modules.file_manager.find_converted_pair">
+<code class="descclassname">dcc_jp2_converter.modules.file_manager.</code><code class="descname">find_converted_pair</code><span class="sig-paren">(</span><em>folder: str</em><span class="sig-paren">)</span> &rarr; typing.Iterator[dcc_jp2_converter.modules.file_manager.CollectionPair]<a class="headerlink" href="#dcc_jp2_converter.modules.file_manager.find_converted_pair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search recursively from a path to find matching pairs of jp2 and tiff files with the same basename in the same
+folder.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>folder</strong> &#8211; root directory to search from.</td>
+</tr>
+</tbody>
+</table>
+<p>Yields: Matches, if any.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dcc_jp2_converter.modules.file_manager.get_tiffs">
+<code class="descclassname">dcc_jp2_converter.modules.file_manager.</code><code class="descname">get_tiffs</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span> &rarr; typing.Iterator[str]<a class="headerlink" href="#dcc_jp2_converter.modules.file_manager.get_tiffs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for tiff files in a given folder</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> &#8211; Directory to search for tiff files</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body">Full path to a tiff file</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/full_mark_horz_bw.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Modules</a><ul>
+<li><a class="reference internal" href="#module-dcc_jp2_converter">dcc_jp2_converter</a></li>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#module-dcc_jp2_converter.modules.command_runner">command_runner</a></li>
+<li><a class="reference internal" href="#module-dcc_jp2_converter.modules.file_manager">file_manager</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="scripts.html" title="previous chapter">Scripts</a></li>
+      <li>Next: <a href="dcc_jp2_converter.ImagemagickDriver.html" title="next chapter">ImagemagickDriver package</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/modules.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, University of Illinois at Urbana Champaign.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

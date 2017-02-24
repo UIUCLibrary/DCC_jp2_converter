@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configure &#8212; DCC JP2 Generator 0.0.1b1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1b1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="configure">
+<h1>Configure<a class="headerlink" href="#configure" title="Permalink to this headline">¶</a></h1>
+<p>Since this script works by sending commands to external command line programs, the location of these external
+programs must be known to the script.</p>
+<p>These programs are:</p>
+<ul class="simple">
+<li>Imagemagick 6 (NOT version 7+)</li>
+<li>exiv2</li>
+</ul>
+<p>Without any configuration, the script will default to searching on the path for these programs. However if these
+programs are not found on the path or alternative version of these programs are desired a command_paths.ini
+configuration file must be created.</p>
+<p>A command_paths.ini found in the home directory will override any default settings.</p>
+<div class="admonition-tl-dr admonition">
+<p class="first admonition-title">TL;DR</p>
+<ul class="last simple">
+<li>If Imagemagick 6 &amp; exiv2 are on installed on the path, no configuration is necessary.</li>
+<li>To specify specific paths for these programs, create a command_paths.ini in your home directory.</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Windows has a system level program called convert.exe, located in C:\Windows\System32. This is for converting the
+filesystem of a hard drive. <strong>THIS IS NOT Imagemagick</strong>. Do not configure the command_paths.ini settings files to use
+this program. It will not work.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Only Imagemagick 6 will currently work. Imagemagick 7 made changes to the command and won&#8217;t work.</p>
+</div>
+<div class="section" id="command-paths-ini-format">
+<h2>command_paths.ini format<a class="headerlink" href="#command-paths-ini-format" title="Permalink to this headline">¶</a></h2>
+<p>The command_paths.ini contains:</p>
+<ul class="simple">
+<li>one section: [commands]</li>
+<li>2 optional keys: convert and exiv2</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="59%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+<th class="head">Windows Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>convert</td>
+<td>Imagemagick 6 convert command.</td>
+<td>convert.exe</td>
+</tr>
+<tr class="row-odd"><td>exiv2</td>
+<td>exiv2 command</td>
+<td>exiv2.exe</td>
+</tr>
+</tbody>
+</table>
+<p>A example of this file on Windows would look like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">commands</span><span class="p">]</span>
+<span class="n">convert</span> <span class="o">=</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">hborcher</span>\<span class="n">Downloads</span>\<span class="n">ImageMagick</span><span class="o">-</span><span class="mf">6.9</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="n">portable</span><span class="o">-</span><span class="n">Q16</span><span class="o">-</span><span class="n">x86</span>\<span class="n">convert</span><span class="o">.</span><span class="n">exe</span>
+<span class="n">exiv2</span> <span class="o">=</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">hborcher</span>\<span class="n">Downloads</span>\<span class="n">exiv2</span><span class="o">-</span><span class="mf">0.25</span><span class="o">-</span><span class="n">win</span>\<span class="n">exiv2</span><span class="o">.</span><span class="n">exe</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/full_mark_horz_bw.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Configure</a><ul>
+<li><a class="reference internal" href="#command-paths-ini-format">command_paths.ini format</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/configure.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, University of Illinois at Urbana Champaign.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/configure.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
