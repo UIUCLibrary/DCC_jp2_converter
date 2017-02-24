@@ -142,6 +142,7 @@ pipeline {
                         echo "Online documentation is different than what was generated"
 //                        input 'Update documentation?'
                         sh "git commit -m 'Build new documentation' -- docs/build/html"
+                        sh "git remote set-url origin https://github.com/UIUCLibrary/DCC_jp2_converter.git"
                         sh "git push"
 //                        sh "git push origin master"
                     } else {
