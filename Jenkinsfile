@@ -134,7 +134,7 @@ pipeline {
                 script {
                     unstash "Documentation source"
                     def dif = sh(
-                            script: "git diff --quiet --exit-code docs/build/html/",
+                            script: "git diff --exit-code docs/build/html/",
                             returnStatus: true
                     )
 
