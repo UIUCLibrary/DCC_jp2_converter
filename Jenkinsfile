@@ -132,7 +132,10 @@ pipeline {
             steps {
                 deleteDir()
                 script {
-                    unstash "Documentation source"
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'ccb29ea2-6d0f-4bfa-926d-6b4edd8995a8', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+                        echo("GIT_USERNAME = ${GIT_USERNAME}")
+                    }
+                        unstash "Documentation source"
                     def dif = sh(
                             script: "git diff --quiet --exit-code docs/build/html/",
                             returnStatus: true
@@ -141,6 +144,7 @@ pipeline {
                     if (dif != "0") {
                         echo "Online documentation is different than what was generated"
 //                        input 'Update documentation?'
+
 //                        sh "git commit -m 'Build new documentation' -- docs/build/html"
 //                        sh "git push origin master"
                     } else {
