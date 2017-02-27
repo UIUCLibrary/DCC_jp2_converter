@@ -142,13 +142,8 @@ pipeline {
                     if (dif != "0") {
                         echo "Online documentation is different than what was generated"
 //                        input 'Update documentation?'
-                        withCredentials([[$class          : 'UsernamePasswordMultiBinding',
-                                          credentialsId   : 'GitHub',
-                                          usernameVariable: 'GIT_USERNAME',
-                                          passwordVariable: 'GIT_PASSWORD']]) {
-                            echo "GIT_USERNAME = ${env.GIT_USERNAME}"
+
 //                            sh "git commit -m 'Build new documentation' -- docs/build/html"
-                        }
 //
 //                            sh "git commit -m 'Build new documentation' -- docs/build/html"
 ////                        sh "git remote set-url origin https://github.com/UIUCLibrary/DCC_jp2_converter.git"
