@@ -10,7 +10,7 @@ pipeline {
                 deleteDir()
                 echo "Cloning source"
 //                checkout scm
-                git credentialsId: 'ccb29ea2-6d0f-4bfa-926d-6b4edd8995a8', url: 'https://github.com/UIUCLibrary/DCC_jp2_converter.git'
+                git branch: 'master', credentialsId: 'ccb29ea2-6d0f-4bfa-926d-6b4edd8995a8', url: 'https://github.com/UIUCLibrary/DCC_jp2_converter.git'
                 stash includes: '**', name: "Source", useDefaultExcludes: false
 
             }
@@ -142,10 +142,12 @@ pipeline {
                     if (dif != "0") {
                         echo "Online documentation is different than what was generated"
 //                        input 'Update documentation?'
-//                        withCredentials([[$class          : 'UsernamePasswordMultiBinding',
-//                                          credentialsId   : 'ccb29ea2-6d0f-4bfa-926d-6b4edd8995a8',
-//                                          usernameVariable: 'GIT_USERNAME',
-//                                          passwordVariable: 'GIT_PASSWORD']]) {
+                        withCredentials([[$class          : 'UsernamePasswordMultiBinding',
+                                          credentialsId   : 'ccb29ea2-6d0f-4bfa-926d-6b4edd8995a8',
+                                          usernameVariable: 'GIT_USERNAME',
+                                          passwordVariable: 'GIT_PASSWORD']]) {
+                            sh "git commit -m 'Build new documentation' -- docs/build/html"
+                        }
 //
 //                            sh "git commit -m 'Build new documentation' -- docs/build/html"
 ////                        sh "git remote set-url origin https://github.com/UIUCLibrary/DCC_jp2_converter.git"
