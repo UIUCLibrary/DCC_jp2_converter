@@ -10,7 +10,6 @@ pipeline {
                 deleteDir()
                 echo "Cloning source"
                 checkout scm
-//                git branch: 'master', credentialsId: 'GitHub', url: 'https://github.com/UIUCLibrary/DCC_jp2_converter.git'
                 stash includes: '**', name: "Source", useDefaultExcludes: false
 
             }
@@ -141,17 +140,7 @@ pipeline {
 
                     if (dif != "0") {
                         echo "Online documentation is different than what was generated"
-//                        input 'Update documentation?'
 
-//                            sh "git commit -m 'Build new documentation' -- docs/build/html"
-//
-//                            sh "git commit -m 'Build new documentation' -- docs/build/html"
-////                        sh "git remote set-url origin https://github.com/UIUCLibrary/DCC_jp2_converter.git"
-////                            sh "git push"
-////                            sh("git tag -a some_tag -m 'Jenkins'")
-////                            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
-//                        }
-////                        sh "git push origin master"
                     } else {
                         echo 'No new documentation found'
                     }
