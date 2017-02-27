@@ -9,8 +9,8 @@ pipeline {
             steps {
                 deleteDir()
                 echo "Cloning source"
-//                checkout scm
-                git branch: 'master', credentialsId: 'GitHub', url: 'https://github.com/UIUCLibrary/DCC_jp2_converter.git'
+                checkout scm
+//                git branch: 'master', credentialsId: 'GitHub', url: 'https://github.com/UIUCLibrary/DCC_jp2_converter.git'
                 stash includes: '**', name: "Source", useDefaultExcludes: false
 
             }
@@ -146,7 +146,8 @@ pipeline {
                                           credentialsId   : 'GitHub',
                                           usernameVariable: 'GIT_USERNAME',
                                           passwordVariable: 'GIT_PASSWORD']]) {
-                            sh "git commit -m 'Build new documentation' -- docs/build/html"
+                            echo "GIT_USERNAME = ${env.GIT_USERNAME}"
+//                            sh "git commit -m 'Build new documentation' -- docs/build/html"
                         }
 //
 //                            sh "git commit -m 'Build new documentation' -- docs/build/html"
