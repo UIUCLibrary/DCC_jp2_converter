@@ -137,7 +137,7 @@ pipeline {
                             script: "git diff --exit-code docs/build/html/",
                             returnStatus: true
                     )
-                    sh("scp -ir /var/lib/jenkins/secrets/lib-dccdocs-updater docs/build/html/ lib-dccdocs-updater@apache-ns.library.illinois.edu:/www/dccdocs/dcc_jp2_converter/")
+                    sh("scp -r -i /var/lib/jenkins/secrets/lib-dccdocs-updater docs/build/html/ lib-dccdocs-updater@apache-ns.library.illinois.edu:/www/dccdocs/dcc_jp2_converter/")
 
                     if (dif != "0") {
                         echo "Online documentation is different than what was generated"
