@@ -133,18 +133,8 @@ pipeline {
                 deleteDir()
                 script {
                     unstash "Documentation source"
-                    def dif = sh(
-                            script: "git diff --exit-code docs/build/html/",
-                            returnStatus: true
-                    )
+                    sh("scp -r -i ${env.DCC_DOCS_KEY} docs/build/html/* ${env.DCC_DOCS_SERVER}/dcc_jp2_converter/")
 
-                    if (dif != "0") {
-                        sh("scp -r -i ${env.DCC_DOCS_KEY} docs/build/html/* ${env.DCC_DOCS_SERVER}/dcc_jp2_converter/")
-                        echo "Online documentation is different than what was generated"
-
-                    } else {
-                        echo 'No new documentation found'
-                    }
 
                 }
 
