@@ -18,6 +18,7 @@ setup(
               'dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders',
               'dcc_jp2_converter.modules.ImagemagickDriver',
               'dcc_jp2_converter.modules.ImagemagickDriver.imagemagickCommandBuilders',
+              'dcc_jp2_converter.modules.kakaduDriver',
               'dcc_jp2_converter.scripts'
               ],
     entry_points={
