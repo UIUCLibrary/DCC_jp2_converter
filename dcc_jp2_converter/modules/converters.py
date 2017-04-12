@@ -1,5 +1,6 @@
 """High-level logic for orchestrating a conversion job."""
 
+import abc
 import logging
 import os
 import stat
@@ -12,6 +13,29 @@ from dcc_jp2_converter import imagemagickCommandBuilders as im_cb
 from dcc_jp2_converter import exiv2CommandBuilders as exi2_cb
 
 logger = logging.getLogger("dcc_jp2_converter")
+
+
+class absConverter(metaclass=abc.ABCMeta):
+    @staticmethod
+    def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_success=False):
+        pass
+
+
+class ImageMagickCoverter(absConverter):
+    @staticmethod
+    def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_success=False):
+        convert_tiff_access_folder(path, overwrite_existing, remove_on_success)
+
+
+class KakaduCoverter(absConverter):
+    @staticmethod
+    def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_success=False):
+        raise NotImplementedError
+
+
+CONVERTERS = {
+    "ImageMagick": ImageMagickCoverter
+}
 
 
 def _cleanup_multiple(real_name, path):
@@ -159,3 +183,10 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_suc
             shutil.move(tmp_access_jp2, final_access_jp2)
             total_files_converted += 1
         logger.info("Converted {} file(s) in {}.".format(total_files_converted, path))
+
+
+def get_converter(name):
+    try:
+        return CONVERTERS[name]
+    except KeyError:
+        raise AttributeError("Invalid converter {}".format(name))
