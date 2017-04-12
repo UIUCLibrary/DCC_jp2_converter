@@ -9,7 +9,7 @@ from .modules.exiv2Driver import exiv2CommandBuilders
 from .modules import ImagemagickDriver
 from .modules.ImagemagickDriver import imagemagickCommandBuilders
 from .modules.ImagemagickDriver import ImagemagickCommandBuilder
-from .modules import converter
+from .modules import converters
 
-__version__ = "0.0.3b6"
+__version__ = "0.1.0a"
 __all__ = ['modules']
