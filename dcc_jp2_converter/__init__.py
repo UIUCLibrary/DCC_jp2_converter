@@ -9,6 +9,9 @@ from .modules.exiv2Driver import exiv2CommandBuilders
 from .modules import ImagemagickDriver
 from .modules.ImagemagickDriver import imagemagickCommandBuilders
 from .modules.ImagemagickDriver import ImagemagickCommandBuilder
+from .modules import kakaduDriver
+from .modules.kakaduDriver import KakaduCommandBuilder
+from .modules.kakaduDriver import kakaduCommandBuilders
 from .modules import converters
 
 __version__ = "0.1.0a"
