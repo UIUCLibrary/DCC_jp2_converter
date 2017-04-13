@@ -19,11 +19,16 @@ setup(
               'dcc_jp2_converter.modules.ImagemagickDriver',
               'dcc_jp2_converter.modules.ImagemagickDriver.imagemagickCommandBuilders',
               'dcc_jp2_converter.modules.kakaduDriver',
-              'dcc_jp2_converter.scripts'
+              'dcc_jp2_converter.scripts',
+              'dcc_jp2_converter.thirdparty'
               ],
     entry_points={
         'console_scripts': ['makejp2=dcc_jp2_converter.scripts.cli:main']
     },
+    package_data={
+      'dcc_jp2_converter.thirdparty': ['*'],
+    },
+    include_package_data=True,
     test_suite="tests",
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
