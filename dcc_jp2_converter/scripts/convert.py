@@ -1,4 +1,4 @@
-from dcc_jp2_converter import converters, file_manager
+from dcc_jp2_converter import Converter, file_manager
 import logging
 
 logger = logging.getLogger(__package__)
@@ -22,7 +22,7 @@ def convert_path(path: str, **kwargs):
             "Folder: {} of {}: \"{}\"".format(i + 1, len(folders), folder))
 
         # Do the work!
-        converter = converters.get_converter("ImageMagick")
+        converter = Converter.create("Kakadu")
         converter.convert_tiff_access_folder(
             path=folder,
             overwrite_existing=kwargs['overwrite'],
