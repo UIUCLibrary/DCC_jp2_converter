@@ -161,13 +161,14 @@ def run():
         raise ValueError("{}\n{}".format(error_msg, "\n".join(errors)))
 
     logger.debug("Command line arguments are valid.")
-    errors = validation.find_settings_errors()
-    if errors:
-        for error in errors:
-            logger.error(error)
-        error_msg = "Invalid settings."
-        logger.error(error_msg)
-        raise ValueError("{}\n{}".format(error_msg, "\n".join(errors)))
+    # Fixme:
+    # errors = validation.find_settings_errors()
+    # if errors:
+    #     for error in errors:
+    #         logger.error(error)
+    #     error_msg = "Invalid settings."
+    #     logger.error(error_msg)
+    #     raise ValueError("{}\n{}".format(error_msg, "\n".join(errors)))
 
     # Find all the folders that contain files that need to be converted
 
@@ -207,7 +208,7 @@ def main():
 
         try:
             with open(ERROR_LOGGING_FILE, "w", encoding="utf8") as f:
-                f.write("File: {}\n".format(__file__))
+                f.write("File: {}\n".format(os.path.dirname(sys.argv[0])))
 
                 f.write("Version: {}\n".format(dcc_jp2_converter.__version__))
 
@@ -226,7 +227,7 @@ def main():
         if "DEVMODE" in os.environ:
             raise
 
-        exit(1)
+        sys.exit(1)
 
 
 if __name__ == '__main__':
