@@ -7,6 +7,7 @@ class AbsBuilder(metaclass=abc.ABCMeta):
 
     def set_executable_path(self, path):
         self._kakadu_command.append(path)
+        self._kakadu_command.append("-quiet")
 
     def set_src(self, src):
         self._kakadu_command.append("-i")
@@ -37,7 +38,7 @@ class HathiPreset(AbsBuilder):
         self._kakadu_command.append("Corder=RLCP")
         self._kakadu_command.append("Cuse_sop=yes")
         self._kakadu_command.append("Cuse_eph=yes")
-        self._kakadu_command.append("'Cmodes=RESET|RESTART|CAUSAL|ERTERM|SEGMARK'")
+        self._kakadu_command.append("Cmodes=RESET|RESTART|CAUSAL|ERTERM|SEGMARK")
         self._kakadu_command.append("-no_weights")
         self._kakadu_command.append("-slope")
         self._kakadu_command.append("42988")
