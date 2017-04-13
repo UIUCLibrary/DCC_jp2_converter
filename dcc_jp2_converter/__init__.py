@@ -13,5 +13,5 @@ from .modules import kakaduDriver
 from .modules.kakaduDriver import KakaduCommandBuilder
 from .modules.kakaduDriver import kakaduCommandBuilders
 from .modules.converters import Converter
-__version__ = "0.1.0a"
+__version__ = "0.1.0"
 __all__ = ['modules']
