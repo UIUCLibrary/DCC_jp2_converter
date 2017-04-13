@@ -1,10 +1,11 @@
 import abc
 
+from dcc_jp2_converter import kakaduDriver
+
 
 class AbsBuilder(metaclass=abc.ABCMeta):
     def new_command(self):
-        # FIXME: look up command dynamically
-        self._kakadu_command = ["/usr/local/bin/kdu_compress"]
+        self._kakadu_command = [kakaduDriver.get_kdu_compress_path()]
 
     def set_src(self, src):
         self._kakadu_command.append("-i")
