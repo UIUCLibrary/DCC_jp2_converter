@@ -1,11 +1,12 @@
 import abc
 
-from dcc_jp2_converter import kakaduDriver
-
 
 class AbsBuilder(metaclass=abc.ABCMeta):
     def new_command(self):
-        self._kakadu_command = [kakaduDriver.get_kdu_compress_path()]
+        self._kakadu_command = []
+
+    def set_executable_path(self, path):
+        self._kakadu_command.append(path)
 
     def set_src(self, src):
         self._kakadu_command.append("-i")
