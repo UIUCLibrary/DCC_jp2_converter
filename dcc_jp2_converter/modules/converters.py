@@ -45,7 +45,7 @@ class KakaduConverter(Converter):
     @staticmethod
     def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_success=False):
         total_files_converted = 0
-        image_convert_command = KakaduCommandBuilder(builder=kd_cb.Simple())
+        image_convert_command = KakaduCommandBuilder(builder=kd_cb.HathiPreset())
         with tempfile.TemporaryDirectory(prefix="convert_") as tmp_folder:
             print()
             command_runner = CommandRunner()
@@ -88,12 +88,11 @@ class KakaduConverter(Converter):
                 except RuntimeError as e:
                     logger.error(e)
                     raise
-                    # exit(1)
                 finally:
                     pass
                     stdout, stderr = command_runner.get_output()
                     if stdout:
-                        logger.debug(stdout)
+                        logger.info(stdout)
                     if stderr:
                         logger.warning(stderr)
                 logger.debug("Moving \"{}\" into \"{}\"".format(tmp_access_jp2, path))
