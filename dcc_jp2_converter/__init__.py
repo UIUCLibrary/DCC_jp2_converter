@@ -12,7 +12,6 @@ from .modules.ImagemagickDriver import ImagemagickCommandBuilder
 from .modules import kakaduDriver
 from .modules.kakaduDriver import KakaduCommandBuilder
 from .modules.kakaduDriver import kakaduCommandBuilders
-from .modules import converters
-
+from .modules.converters import Converter
 __version__ = "0.1.0a"
 __all__ = ['modules']
