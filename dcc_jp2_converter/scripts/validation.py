@@ -16,7 +16,7 @@ def is_executable(path):
     else:
         return os.access(path, os.X_OK)
 
-
+# FIXME
 def find_settings_errors():
     """
     Looks for any configuration errors to make sure that the script can operate properly
