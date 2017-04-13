@@ -1,8 +1,10 @@
 import os
 
+from dcc_jp2_converter.modules.kakaduDriver import config
+
 
 class KakaduCommandBuilder:
-    def __init__(self, builder, program_path):
+    def __init__(self, builder, program_path=config.get_kdu_compress_path()):
         self.program_path = program_path
         self._builder = builder
 
@@ -12,6 +14,7 @@ class KakaduCommandBuilder:
 
     def build_command(self, src: str, dst: str) -> list:
         self._builder.new_command()
+        self._builder.set_executable_path(self.program_path)
         self._builder.set_src(src)
         self._builder.set_dst(dst)
         self._builder.set_args()
