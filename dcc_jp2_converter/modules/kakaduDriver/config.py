@@ -30,8 +30,8 @@ def get_kdu_compress_path():
             raise FileNotFoundError
 
     def check_bundled():
-
-        path = shutil.which("kdu_compress", path=dcc_jp2_converter.thirdparty.__path__[0])
+        third_party_path = dcc_jp2_converter.thirdparty.__path__[0]
+        path = shutil.which("kdu_compress", path=third_party_path)
         if path:
             return path
         else:
@@ -44,6 +44,7 @@ def get_kdu_compress_path():
         else:
             raise FileNotFoundError
 
+    # =================================================
     # Check the location in the config file setting
     try:
         return check_config()
