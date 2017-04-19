@@ -33,10 +33,10 @@ def test_simple(monkeypatch):
     command_builder = KakaduCommandBuilder(builder=builders.Simple(), program_path=KAKADU_COMPRESS)
     command = command_builder.build_command(src=src_file1, dst=dst_file1)
 
-    assert command == [KAKADU_COMPRESS, "-i", src_file1, "-o", dst_file1]
+    assert command == [KAKADU_COMPRESS, "-quiet", "-i", src_file1, "-o", dst_file1]
 
     command = command_builder.build_command(src=src_file2, dst=dst_file2)
-    assert command == [KAKADU_COMPRESS, "-i", src_file2, "-o", dst_file2]
+    assert command == [KAKADU_COMPRESS, "-quiet", "-i", src_file2, "-o", dst_file2]
 
 
 def test_HathiPreset(monkeypatch):
@@ -58,11 +58,11 @@ def test_HathiPreset(monkeypatch):
     command_builder = KakaduCommandBuilder(builder=builders.HathiPreset(), program_path=KAKADU_COMPRESS)
     command = command_builder.build_command(src=src_file1, dst=dst_file1)
 
-    assert command == [KAKADU_COMPRESS, "-i", src_file1, "-o", dst_file1, "Clevels=5", "Clayers=8", "Corder=RLCP",
-                       "Cuse_sop=yes", "Cuse_eph=yes", "'Cmodes=RESET|RESTART|CAUSAL|ERTERM|SEGMARK'", "-no_weights",
+    assert command == [KAKADU_COMPRESS, "-quiet", "-i", src_file1, "-o", dst_file1, "Clevels=5", "Clayers=8", "Corder=RLCP",
+                       "Cuse_sop=yes", "Cuse_eph=yes", "Cmodes=RESET|RESTART|CAUSAL|ERTERM|SEGMARK", "-no_weights",
                        "-slope", "42988"]
 
     command = command_builder.build_command(src=src_file2, dst=dst_file2)
-    assert command == [KAKADU_COMPRESS, "-i", src_file2, "-o", dst_file2, "Clevels=5", "Clayers=8", "Corder=RLCP",
-                       "Cuse_sop=yes", "Cuse_eph=yes", "'Cmodes=RESET|RESTART|CAUSAL|ERTERM|SEGMARK'", "-no_weights",
+    assert command == [KAKADU_COMPRESS, "-quiet", "-i", src_file2, "-o", dst_file2, "Clevels=5", "Clayers=8", "Corder=RLCP",
+                       "Cuse_sop=yes", "Cuse_eph=yes", "Cmodes=RESET|RESTART|CAUSAL|ERTERM|SEGMARK", "-no_weights",
                        "-slope", "42988"]
