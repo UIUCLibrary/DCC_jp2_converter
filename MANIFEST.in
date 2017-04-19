@@ -1,1 +1,2 @@
 recursive-include settings *
+recursive-include dcc_jp2_converter/thirdparty *
