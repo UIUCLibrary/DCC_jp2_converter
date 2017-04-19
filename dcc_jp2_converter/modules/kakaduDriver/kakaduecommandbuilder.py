@@ -4,7 +4,9 @@ from dcc_jp2_converter.modules.kakaduDriver import config
 
 
 class KakaduCommandBuilder:
-    def __init__(self, builder, program_path=config.get_kdu_compress_path()):
+    def __init__(self, builder, program_path=None):
+        if not program_path:
+            program_path = config.get_kdu_compress_path()
         self.program_path = program_path
         self._builder = builder
 
