@@ -20,15 +20,13 @@ metadata = {"name": 'DCC_jp2_converter',
             "author_email": 'hborcher@illinois.edu',
             "description": 'DCC tool for building JP2 access files from Tiff files', "options": {
         "build_exe": {
-            "includes": ["queue", "atexit"],
+            "includes": ["queue", "atexit", "six", "pyparsing", "appdirs"],
             "packages": ["os"],
             "excludes": ["tkinter"],
+            "include_msvcr": True
         }
     }, 'executables': [Executable("dcc_jp2_converter/scripts/cli.py",
                                   targetName=("makejp2.exe" if platform.system() == "Windows" else "makejp2"))]}
 
-# metadata['options'] = {
-#
-# }
 
 setup(**metadata)
