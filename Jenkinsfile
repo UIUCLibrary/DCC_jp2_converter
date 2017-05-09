@@ -18,7 +18,9 @@ pipeline {
         stage("Adding 3rd party files") {
           steps{
             node(label: "!Windows"){
-              echo "I'm not a Windows machine"
+              deleteDir()
+              sh "wget https://jenkins.library.illinois.edu/jenkins/userContent/binary/kdu_compress/kdu_compress.exe"
+
             }
           }
         }
