@@ -15,11 +15,13 @@ pipeline {
             }
 
         }
-        stage("Adding 3rd party files") {
+        stage("Prepping 3rd party files") {
           steps{
             node(label: "!Windows"){
               deleteDir()
               sh "wget https://jenkins.library.illinois.edu/jenkins/userContent/binary/kdu_compress/kdu_compress.exe"
+              sh "wget https://jenkins.library.illinois.edu/jenkins/userContent/binary/kdu_compress/kdu_v79R.dll"
+              stash "kdu_compress"
 
             }
           }
