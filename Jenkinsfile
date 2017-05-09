@@ -15,6 +15,13 @@ pipeline {
             }
 
         }
+        stage("Adding 3rd party files") {
+          steps{
+            node(label: "!Windows"){
+              echo "I'm not a Windows machine"
+            }
+          }
+        }
 
         stage("Unit tests") {
             steps {
