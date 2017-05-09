@@ -20,7 +20,7 @@ metadata = {"name": 'DCC_jp2_converter',
             "author_email": 'hborcher@illinois.edu',
             "description": 'DCC tool for building JP2 access files from Tiff files', "options": {
         "build_exe": {
-            "includes": ["queue", "atexit", "six", "pyparsing", "appdirs"],
+            "includes": ["queue", "atexit", "six", "pyparsing", "appdirs", "packaging"],
             "packages": ["os"],
             "excludes": ["tkinter"],
             "include_msvcr": True
