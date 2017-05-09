@@ -128,6 +128,17 @@ pipeline {
                                 archiveArtifacts artifacts: "dist/**", fingerprint: true
                             }
                         },
+                        "Windows CX_Freeze MSI": {
+                            node(label: "Windows") {
+                                deleteDir()
+                                unstash "Source"
+                                dir("dcc_jp2_converter/thirdparty"){
+                                  unstash "kdu_compress"
+                                }
+                                bat "${env.PYTHON3} cx_setup.py bdist_msi"
+                                archiveArtifacts artifacts: "dist/**", fingerprint: true
+                            }
+                        },
                         "Source Release": {
                             deleteDir()
                             unstash "Source"
