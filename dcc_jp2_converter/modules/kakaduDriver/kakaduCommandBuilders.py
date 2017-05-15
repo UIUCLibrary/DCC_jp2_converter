@@ -42,3 +42,5 @@ class HathiPreset(AbsBuilder):
         self._kakadu_command.append("-no_weights")
         self._kakadu_command.append("-slope")
         self._kakadu_command.append("42988")
+        self._kakadu_command.append("-jp2_space")
+        self._kakadu_command.append("sRGB")
