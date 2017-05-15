@@ -60,9 +60,9 @@ def test_HathiPreset(monkeypatch):
 
     assert command == [KAKADU_COMPRESS, "-quiet", "-i", src_file1, "-o", dst_file1, "Clevels=5", "Clayers=8", "Corder=RLCP",
                        "Cuse_sop=yes", "Cuse_eph=yes", "Cmodes=RESET|RESTART|CAUSAL|ERTERM|SEGMARK", "-no_weights",
-                       "-slope", "42988"]
+                       "-slope", "42988", "-jp2_space", "sRGB"]
 
     command = command_builder.build_command(src=src_file2, dst=dst_file2)
     assert command == [KAKADU_COMPRESS, "-quiet", "-i", src_file2, "-o", dst_file2, "Clevels=5", "Clayers=8", "Corder=RLCP",
                        "Cuse_sop=yes", "Cuse_eph=yes", "Cmodes=RESET|RESTART|CAUSAL|ERTERM|SEGMARK", "-no_weights",
-                       "-slope", "42988"]
+                       "-slope", "42988", "-jp2_space", "sRGB"]
