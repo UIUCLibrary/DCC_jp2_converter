@@ -135,7 +135,7 @@ pipeline {
                                 dir("dcc_jp2_converter/thirdparty"){
                                   unstash "kdu_compress"
                                 }
-                                bat "${env.PYTHON3} cx_setup.py bdist_msi --add-to-path"
+                                bat "${env.PYTHON3} cx_setup.py bdist_msi --add-to-path=true"
                                 archiveArtifacts artifacts: "dist/**", fingerprint: true
                             }
                         },
