@@ -12,8 +12,8 @@ pipeline {
             steps {
                 deleteDir()
                 echo "Cloning source"
-                sh "printenv"
                 checkout scm
+                sh "printenv"
                 stash includes: '**', name: "Source", useDefaultExcludes: false
 
             }
