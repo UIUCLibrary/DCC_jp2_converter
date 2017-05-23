@@ -36,7 +36,6 @@ pipeline {
                             node(label: 'Windows') {
                                 deleteDir()
                                 unstash "Source"
-                                echo "Running Tox: Python 3.5 Unit tests"
                                 bat "${env.TOX}  --skip-missing-interpreters"
                                 junit 'reports/junit-*.xml'
 
@@ -49,8 +48,6 @@ pipeline {
                                 echo "Running Tox: Unit tests"
                                 withEnv(["PATH=${env.PYTHON3}/..:${env.PATH}"]) {
 
-                                    echo "PATH = ${env.PATH}"
-                                    echo "Running: ${env.TOX}  --skip-missing-interpreters -e py35"
                                     sh "${env.TOX}  --skip-missing-interpreters -e py35"
                                 }
                                 junit 'reports/junit-*.xml'
