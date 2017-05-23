@@ -1,8 +1,8 @@
 #!groovy
 pipeline {
     agent any
-    environment {
-      branch = "$env.BRANCH_NAME"
+    parameters {
+      booleanParam(name: "UPDATE_DOCS", defaultValue: false, description: "Update the documentation")
     }
 
     stages {
