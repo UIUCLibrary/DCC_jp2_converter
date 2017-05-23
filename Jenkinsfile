@@ -154,6 +154,9 @@ pipeline {
         }
         stage("Update online documentation") {
             agent any
+            when{
+              expression{params.UPDATE_DOCS == true}
+            }
 
             steps {
                 deleteDir()
