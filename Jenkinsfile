@@ -2,7 +2,7 @@
 pipeline {
     agent any
     environment {
-      branch = "asdfasdfasdfadsf"
+      branch = "$env.BRANCH_NAME"
     }
 
     stages {
