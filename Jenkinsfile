@@ -8,7 +8,7 @@ pipeline {
 
             steps {
                 deleteDir()
-                echo "git branch = ${GIT_BRANCH}"
+                echo "BRANCH_NAME = ${env.BRANCH_NAME}"
                 echo "Cloning source"
                 checkout scm
                 stash includes: '**', name: "Source", useDefaultExcludes: false
