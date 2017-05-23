@@ -1,6 +1,9 @@
 #!groovy
 pipeline {
     agent any
+    environment {
+      branch = "asdfasdfasdfadsf"
+    }
 
     stages {
         stage("Cloning Source") {
@@ -8,8 +11,8 @@ pipeline {
 
             steps {
                 deleteDir()
-                sh "echo $BRANCH_NAME"
                 echo "Cloning source"
+                sh "printenv"
                 checkout scm
                 stash includes: '**', name: "Source", useDefaultExcludes: false
 
