@@ -8,7 +8,7 @@ pipeline {
 
             steps {
                 deleteDir()
-                echo "BRANCH_NAME = ${BRANCH_NAME}"
+                sh "echo $BRANCH_NAME"
                 echo "Cloning source"
                 checkout scm
                 stash includes: '**', name: "Source", useDefaultExcludes: false
