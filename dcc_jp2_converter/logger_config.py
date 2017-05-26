@@ -19,8 +19,8 @@ def configure_logger(debug_mode=False, log_file=None):
 
     logger.setLevel(logging.DEBUG)
 
-    logging_formatter_friendly = logging.Formatter('%(asctime)s: %(message)s', datefmt='%I:%M:%S %p')
-    logging_formatter_verbose = logging.Formatter(
+    friendly_format = logging.Formatter('%(asctime)s: %(message)s', datefmt='%I:%M:%S %p')
+    debug_format = logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
     std_handler = logging.StreamHandler(sys.stdout)
@@ -33,16 +33,16 @@ def configure_logger(debug_mode=False, log_file=None):
     if log_file:
         fl_handler = logging.FileHandler(log_file)
         fl_handler.setLevel(logging.INFO)
-        fl_handler.setFormatter(logging_formatter_verbose)
+        fl_handler.setFormatter(debug_format)
         logger.addHandler(fl_handler)
     if debug_mode:
         std_handler.setLevel(logging.DEBUG)
 
-        std_handler.setFormatter(logging_formatter_verbose)
-        err_handler.setFormatter(logging_formatter_verbose)
+        std_handler.setFormatter(debug_format)
+        err_handler.setFormatter(debug_format)
     else:
-        err_handler.setFormatter(logging_formatter_friendly)
-        std_handler.setFormatter(logging_formatter_friendly)
+        err_handler.setFormatter(friendly_format)
+        std_handler.setFormatter(friendly_format)
 
     logger.addHandler(std_handler)
     logger.addHandler(err_handler)
