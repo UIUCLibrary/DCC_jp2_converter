@@ -7,10 +7,11 @@ import sys
 import traceback
 
 import dcc_jp2_converter
+from dcc_jp2_converter.logger_config import configure_logger
 from dcc_jp2_converter.scripts import clean
 from dcc_jp2_converter.scripts import convert
-from dcc_jp2_converter.scripts import logging_settings
 from dcc_jp2_converter.scripts import validation
+
 # find_settings_errors, find_arg_errors
 
 ERROR_LOGGING_FILE = "errors.log"
@@ -95,48 +96,6 @@ def get_args():
     args = parser.parse_args()
 
     return args
-
-
-def configure_logger(debug_mode=False, log_file=None):
-    """
-    Configure the settings for the logger.
-
-    Args:
-        debug_mode: Set the package into debug mode.
-        log_file: If a file name is given, all information presented to the
-         screen with be saved into that file.
-
-    """
-
-    logger.setLevel(logging.DEBUG)
-
-    logging_formatter_friendly = logging.Formatter('%(asctime)s: %(message)s', datefmt='%I:%M:%S %p')
-    logging_formatter_verbose = logging.Formatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-    std_handler = logging.StreamHandler(sys.stdout)
-    std_handler.setLevel(logging.INFO)
-    std_handler.addFilter(logging_settings.InfoFilter())
-
-    err_handler = logging.StreamHandler()
-    err_handler.setLevel(logging.WARNING)
-
-    if log_file:
-        fl_handler = logging.FileHandler(log_file)
-        fl_handler.setLevel(logging.INFO)
-        fl_handler.setFormatter(logging_formatter_verbose)
-        logger.addHandler(fl_handler)
-    if debug_mode:
-        std_handler.setLevel(logging.DEBUG)
-
-        std_handler.setFormatter(logging_formatter_verbose)
-        err_handler.setFormatter(logging_formatter_verbose)
-    else:
-        err_handler.setFormatter(logging_formatter_friendly)
-        std_handler.setFormatter(logging_formatter_friendly)
-
-    logger.addHandler(std_handler)
-    logger.addHandler(err_handler)
 
 
 def run():
@@ -231,4 +190,10 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == "--pytest":
+        import pytest
+
+        sys.exit(pytest.main(sys.argv[2:]))
+    else:
+        main()
+
