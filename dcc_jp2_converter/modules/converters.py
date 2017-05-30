@@ -13,8 +13,6 @@ from dcc_jp2_converter import imagemagickCommandBuilders as im_cb
 from dcc_jp2_converter import kakaduCommandBuilders as kd_cb
 from dcc_jp2_converter import exiv2CommandBuilders as exi2_cb
 
-logger = logging.getLogger("dcc_jp2_converter")
-
 
 class Converter(metaclass=abc.ABCMeta):
     @staticmethod
@@ -44,6 +42,7 @@ class ImageMagickConverter(Converter):
 class KakaduConverter(Converter):
     @staticmethod
     def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_success=False):
+        logger = logging.getLogger(__name__)
         total_files_converted = 0
         image_convert_command = KakaduCommandBuilder(builder=kd_cb.HathiPreset())
         with tempfile.TemporaryDirectory(prefix="convert_") as tmp_folder:
@@ -145,6 +144,7 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_suc
 
 
     """
+    logger = logging.getLogger(__name__)
     image_convert_command = ImagemagickCommandBuilder(builder=im_cb.Standard())
     metadata_extractor = Exiv2CommandBuilder(exi2_cb.ExtractIPTCCommand())
     metadata_injector = Exiv2CommandBuilder(exi2_cb.InsertIPTCCommand())
