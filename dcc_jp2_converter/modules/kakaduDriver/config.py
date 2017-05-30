@@ -4,6 +4,40 @@ import shutil
 
 from dcc_jp2_converter.modules.utils import get_config_files
 import dcc_jp2_converter.thirdparty
+from dcc_jp2_converter.modules import abs_driver_config
+import warnings
+
+
+class KduCompressPath(abs_driver_config.AbsDriverConfig):
+    """
+    Attempts to retrieve the location to kakadu_compress command. If a path is
+     specified in the settings ini file, that path will be used. Otherwise,
+     the function will search for it on the path.
+
+    Returns:
+        Full path to kdu command if found.
+
+    """
+    @staticmethod
+    def check_config():
+        config = configparser.ConfigParser()
+        for config_file in get_config_files():
+            config.read(config_file)
+        return config['commands']['kdu_compress']
+
+    @staticmethod
+    def driver_name() -> str:
+        return "kdu_compress"
+
+    @staticmethod
+    def check_path():
+        return shutil.which("kdu_compress")
+
+    @staticmethod
+    def check_bundled():
+        third_party_path = dcc_jp2_converter.thirdparty.__path__[0]
+        kdu_compress_path = os.path.join(third_party_path, "kdu_compress")
+        return shutil.which("kdu_compress", path=kdu_compress_path)
 
 
 def get_kdu_compress_path():
@@ -16,6 +50,7 @@ def get_kdu_compress_path():
         Full path to exiv2 command if found.
 
     """
+    warnings.warn("get_kdu_compress_path is deprecated. Use KduCompressPath class instead", DeprecationWarning)
 
     def check_config():
         config = configparser.ConfigParser()
