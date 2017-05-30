@@ -21,13 +21,11 @@ pipeline {
           steps{
             node(label: "!Windows"){
               deleteDir()
-              // sh "wget https://jenkins.library.illinois.edu/jenkins/userContent/binary/kdu_compress/kdu_compress.exe"
-              // sh "wget https://jenkins.library.illinois.edu/jenkins/userContent/binary/kdu_compress/kdu_v79R.dll"
-              // sh "wget https://jenkins.library.illinois.edu/jenkins/userContent/binary/kdu_compress/kdu_v97_compress.zip"
               sh "wget ${env.KDU_COMPRESS_WIN_URL}"
-              unzip dir: '', glob: '', zipFile: 'kdu_v97_compress.zip'
-              stash "kdu_compress"
-
+              unzip dir: 'thirdparty', glob: '', zipFile: 'kdu_v97_compress.zip'
+              dir('thirdparty') {
+                stash "thirdparty"
+              }
             }
           }
         }
@@ -133,7 +131,7 @@ pipeline {
                                 deleteDir()
                                 unstash "Source"
                                 dir("dcc_jp2_converter/thirdparty"){
-                                  unstash "kdu_compress"
+                                  unstash "thirdparty"
                                 }
                                 bat "${env.PYTHON3} cx_setup.py bdist_msi --add-to-path=true"
                                 archiveArtifacts artifacts: "dist/**", fingerprint: true
