@@ -1,17 +1,17 @@
 import os
 
-from .config import get_imagemagick_path
+# from .config import get_imagemagick_path
 
 from .imagemagickCommandBuilders.abs_builder import AbsBuilder
 from .imagemagickCommandBuilders import DefaultCommandBuilder
-
+from dcc_jp2_converter.modules.ImagemagickDriver import config
 
 class ImagemagickCommandBuilder:
     """Use this to generate commands for sending to imagemagick"""
 
     def __init__(self,
                  builder: AbsBuilder = DefaultCommandBuilder(),
-                 program_path=get_imagemagick_path()):
+                 program_path=None):
         """
         Configure how the director should configure the builders. All args
         are for overriding the defaults.
@@ -27,9 +27,17 @@ class ImagemagickCommandBuilder:
         self._src = None
         self._dst = None
 
-        if not os.path.exists(program_path):
-            raise FileNotFoundError(
-                "Unable to find {} program.".format(program_path))
+        if not program_path:
+            path_finder = config.ImagemagickPath()
+            try:
+                program_path = path_finder.get_path()
+                assert os.path.exists(program_path)
+            except FileNotFoundError:
+                raise FileNotFoundError("Imagemagick convert not found")
+
+        # if not os.path.exists(program_path):
+        #     raise FileNotFoundError(
+        #         "Unable to find {} program.".format(program_path))
 
         self._builder.set_program_command(program_path)
 
