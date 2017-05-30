@@ -23,7 +23,8 @@ pipeline {
               deleteDir()
               sh "wget https://jenkins.library.illinois.edu/jenkins/userContent/binary/kdu_compress/kdu_compress.exe"
               sh "wget https://jenkins.library.illinois.edu/jenkins/userContent/binary/kdu_compress/kdu_v79R.dll"
-              sh "wget ${env.KDU_COMPRESS_WIN_URL}"
+              sh "wget https://jenkins.library.illinois.edu/jenkins/userContent/binary/kdu_compress/kdu_v97_compress.zip"
+              // sh "wget ${env.KDU_COMPRESS_WIN_URL}"
               stash "kdu_compress"
 
             }
