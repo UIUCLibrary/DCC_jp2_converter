@@ -5,7 +5,7 @@ from dcc_jp2_converter.modules.utils import get_config_files
 import dcc_jp2_converter.thirdparty
 import os
 import warnings
-
+import logging
 
 class Exiv2Path(abs_driver_config.AbsDriverConfig):
     @staticmethod
@@ -28,6 +28,13 @@ class Exiv2Path(abs_driver_config.AbsDriverConfig):
         third_party_path = dcc_jp2_converter.thirdparty.__path__[0]
         kdu_compress_path = os.path.join(third_party_path, "exiv2")
         return shutil.which("exiv2", path=kdu_compress_path)
+
+    def get_path(self):
+        logger = logging.getLogger(__name__)
+        path = super().get_path()
+        logger.debug("Using {} for {}".format(path, self.driver_name()))
+        return path
+
 
 
 def get_exiv2_path():

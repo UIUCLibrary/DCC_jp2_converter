@@ -2,6 +2,8 @@ import configparser
 import os
 import shutil
 
+import logging
+
 from dcc_jp2_converter.modules.utils import get_config_files
 import dcc_jp2_converter.thirdparty
 from dcc_jp2_converter.modules import abs_driver_config
@@ -38,6 +40,12 @@ class KduCompressPath(abs_driver_config.AbsDriverConfig):
         third_party_path = dcc_jp2_converter.thirdparty.__path__[0]
         kdu_compress_path = os.path.join(third_party_path, "kdu_compress")
         return shutil.which("kdu_compress", path=kdu_compress_path)
+
+    def get_path(self):
+        logger = logging.getLogger(__name__)
+        path = super().get_path()
+        logger.debug("Using {} for {}".format(path, self.driver_name()))
+        return path
 
 
 def get_kdu_compress_path():
