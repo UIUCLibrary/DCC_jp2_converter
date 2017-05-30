@@ -195,7 +195,6 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_suc
             except RuntimeError as e:
                 logger.error(e)
                 raise
-                # exit(1)
             finally:
                 stdout, stderr = command_runner.get_output()
                 if stdout:
@@ -217,7 +216,7 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_suc
 
             except RuntimeError as e:
                 logger.error(e)
-                exit(1)
+                raise
             finally:
                 stdout, stderr = command_runner.get_output()
                 if stdout:
@@ -235,7 +234,7 @@ def convert_tiff_access_folder(path: str, overwrite_existing=True, remove_on_suc
 
             except RuntimeError as e:
                 logger.error(e)
-                exit(1)
+                raise
             finally:
                 stdout, stderr = command_runner.get_output()
                 if stdout:
