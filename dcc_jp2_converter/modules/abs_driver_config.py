@@ -33,7 +33,7 @@ class AbsDriverConfig(metaclass=abc.ABCMeta):
     def get_path(self):
         for path_search in self.search_order():
             path = path_search()
-            if os.path.exists(path):
+            if path is not None and os.path.exists(path):
                 return path
 
         raise FileNotFoundError("Unable to locate {}".format(self.driver_name))
