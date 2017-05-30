@@ -12,7 +12,7 @@ def get_config_files():
         config_files.append(pkg_resources.resource_filename(pkg_resources.Requirement.parse("DCC_jp2_converter"),
                                                             "settings/command_paths.ini"), )
     except pkg_resources.DistributionNotFound:
-        print("Default command_paths.ini settings file not found", file=sys.stderr)
+        # print("Default command_paths.ini settings file not found", file=sys.stderr)
         pass
 
     # Get Any alternative settings
