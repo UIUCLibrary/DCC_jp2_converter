@@ -24,6 +24,9 @@ pipeline {
               sh "wget ${env.IMAGEMAGICK6_WIN_URL}"
               unzip dir: 'thirdparty/imagemagick', glob: '', zipFile: 'ImageMagick-6.9.8-6-portable-Q16-x64.zip'
 
+              sh "wget ${env.EXIV2_WIN_URL}"
+              unzip dir: 'thirdparty', glob: '', zipFile: 'exiv2.zip'
+
               sh "wget ${env.KDU_COMPRESS_WIN_URL}"
               unzip dir: 'thirdparty', glob: '', zipFile: 'kdu_v97_compress.zip'
 
