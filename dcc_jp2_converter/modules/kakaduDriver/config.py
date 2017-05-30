@@ -31,7 +31,8 @@ def get_kdu_compress_path():
 
     def check_bundled():
         third_party_path = dcc_jp2_converter.thirdparty.__path__[0]
-        path = shutil.which("kdu_compress", path=third_party_path)
+        kdu_compress_path = os.path.join(third_party_path, "kdu_compress")
+        path = shutil.which("kdu_compress", path=kdu_compress_path)
         if path:
             return path
         else:
