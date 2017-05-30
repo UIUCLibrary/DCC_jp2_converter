@@ -4,8 +4,6 @@ import logging
 import subprocess
 from typing import Tuple
 
-logger = logging.getLogger("dcc_jp2_converter")
-
 
 class CommandRunner:
     """Used for executing commands."""
@@ -21,6 +19,7 @@ class CommandRunner:
             command: Command with arguments in a list format
 
         """
+        logger = logging.getLogger(__name__)
         logger.debug("Running command \"{}\"".format(" ".join(command)))
         p = subprocess.Popen(
             command,
