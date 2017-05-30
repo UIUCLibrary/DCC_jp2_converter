@@ -13,7 +13,7 @@ class ProfileFactory:
         classes = getmembers(profiles, lambda m: isclass(m) and not isabstract(m))
         for name, _type in classes:
             if isclass(_type) and issubclass(_type, profiles.profile.AbsProfile):
-                self.profiles.update([[name, _type]])
+                self.profiles.update([[name.lower(), _type]])
 
     def create_instance(self, profile_name):
         return self.profiles[profile_name]()
