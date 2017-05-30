@@ -1,7 +1,33 @@
 import configparser
 import shutil
-
+from dcc_jp2_converter.modules import abs_driver_config
 from dcc_jp2_converter.modules.utils import get_config_files
+import dcc_jp2_converter.thirdparty
+import os
+import warnings
+
+
+class Exiv2Path(abs_driver_config.AbsDriverConfig):
+    @staticmethod
+    def check_config():
+        config = configparser.ConfigParser()
+        for config_file in get_config_files():
+            config.read(config_file)
+        return config['commands'].get('exiv2')
+
+    @staticmethod
+    def driver_name() -> str:
+        return "exiv2"
+
+    @staticmethod
+    def check_path():
+        return shutil.which("exiv2")
+
+    @staticmethod
+    def check_bundled():
+        third_party_path = dcc_jp2_converter.thirdparty.__path__[0]
+        kdu_compress_path = os.path.join(third_party_path, "exiv2")
+        return shutil.which("exiv2", path=kdu_compress_path)
 
 
 def get_exiv2_path():
@@ -14,6 +40,7 @@ def get_exiv2_path():
         Full path to exiv2 command if found.
 
     """
+    warnings.warn("get_exiv2_path is deprecated. Use Exiv2Path class instead", DeprecationWarning)
     config = configparser.ConfigParser()
     try:
         for config_file in get_config_files():
