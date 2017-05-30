@@ -18,7 +18,10 @@ def convert_path(path: str, **kwargs):
             path))
 
     folders = list(file_manager.find_access_folders(path))
-    profile = profiles.get_profile("Hathi")
+    try:
+        profile = profiles.get_profile(kwargs["profile"].lower())
+    except KeyError as e:
+        raise ValueError("Unknown profile {}.".format(e))
     profile.configure(overwrite=kwargs['overwrite'], remove_on_success=kwargs['remove'])
     for i, folder in enumerate(folders):
         logger.info(
