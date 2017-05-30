@@ -16,7 +16,7 @@ from dcc_jp2_converter.scripts import validation
 
 ERROR_LOGGING_FILE = "errors.log"
 DEFAULT_LOG_FILE = "processing.log"
-logger = logging.getLogger("dcc_jp2_converter")
+
 
 DESCRIPTION = "Script for creating JP2 files from tiffs for the Medusa Digital Library."
 
@@ -62,7 +62,10 @@ def get_args():
             config_files[-1]))
 
     parser.add_argument('path', help="Path to the submission package")
-
+    parser.add_argument(
+        "--profile",
+        default="default",
+        help="Set the conversion profile preset")
     parser.add_argument(
         '--version',
         action='version',
@@ -99,6 +102,7 @@ def get_args():
 
 
 def run():
+    logger = logging.getLogger(__name__)
     # Get user args
     args = get_args()
     print_banner()
@@ -137,9 +141,14 @@ def run():
         else:
             command_args = vars(args).copy()
             del command_args['path']
-            convert.convert_path(args.path, **command_args)
+            try:
+                convert.convert_path(args.path, **command_args)
+            except ValueError as e:
+                logger.error("Error: {}".format(e))
+            except FileNotFoundError as e:
+                logger.error("Error: {}".format(e))
 
-        print("\n\nAll Done!\n")
+        # print("\n\nAll Done!\n")
     except KeyboardInterrupt:
         logger.warning("Job Terminated")
     print("Log file located at {}".format(os.path.abspath(args.logname)))
