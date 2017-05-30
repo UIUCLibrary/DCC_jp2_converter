@@ -1,26 +1,31 @@
 import os
 
 from .exiv2CommandBuilders.abs_builder import AbsBuilder
-from .config import get_exiv2_path
+# from .config import get_exiv2_path
+from dcc_jp2_converter.modules.exiv2Driver import config
 
 
 class Exiv2CommandBuilder:
     """Use this to generate commands for sending to exiv2. """
 
     def __init__(
-            self, builder: AbsBuilder, program_path: str = get_exiv2_path()):
+            self, builder: AbsBuilder, program_path=None):
         """Configure how the director should configure the builders.
 
         Args:
             builder: Choose which type of command to build.
             program_path: Override the location of exiv2 utility.
         """
+        if not program_path:
+            path_finder = config.Exiv2Path()
+            try:
+                program_path = path_finder.get_path()
+                assert os.path.exists(program_path)
+            except FileNotFoundError:
+                raise FileNotFoundError("exiv2 not found")
+
         self._builder = builder
         self._src = None
-
-        if not os.path.exists(program_path):
-            raise FileNotFoundError(
-                "Unable to find {} program.".format(program_path))
 
         self._builder.set_program_command(program_path)
 
