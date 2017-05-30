@@ -7,6 +7,7 @@ import os
 import warnings
 import logging
 
+
 class Exiv2Path(abs_driver_config.AbsDriverConfig):
     @staticmethod
     def check_config():
