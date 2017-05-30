@@ -29,7 +29,7 @@ def test_simple(monkeypatch):
         dst_file2 = "/Users/Documents/output2.jp2"
 
     monkeypatch.setattr(os.path, "exists", lambda x: True)
-    monkeypatch.setattr(dcc_jp2_converter.kakaduDriver, "get_kdu_compress_path", lambda: KAKADU_COMPRESS)
+    monkeypatch.setattr(dcc_jp2_converter.kakaduDriver, "KduCompressPath", lambda: KAKADU_COMPRESS)
     command_builder = KakaduCommandBuilder(builder=builders.Simple(), program_path=KAKADU_COMPRESS)
     command = command_builder.build_command(src=src_file1, dst=dst_file1)
 
@@ -52,7 +52,7 @@ def test_HathiPreset(monkeypatch):
         dst_file1 = "/Users/Documents/output.jp2"
         dst_file2 = "/Users/Documents/output2.jp2"
 
-    monkeypatch.setattr(dcc_jp2_converter.kakaduDriver, "get_kdu_compress_path", lambda: KAKADU_COMPRESS)
+    monkeypatch.setattr(dcc_jp2_converter.kakaduDriver, "KduCompressPath", lambda: KAKADU_COMPRESS)
     monkeypatch.setattr(os.path, "exists", lambda x: True)
 
     command_builder = KakaduCommandBuilder(builder=builders.HathiPreset(), program_path=KAKADU_COMPRESS)
