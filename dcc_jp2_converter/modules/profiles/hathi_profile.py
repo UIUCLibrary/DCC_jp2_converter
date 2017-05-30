@@ -11,11 +11,16 @@ class HathiProfile(AbsProfile):
 
     def configure(self, *args, **kwargs):
         if "overwrite" in kwargs:
+            if kwargs['overwrite'] is True:
+                self.logger.debug("Configuring setting to overwrite existing files.")
             self.overwrite = kwargs['overwrite']
         if "remove_on_success" in kwargs:
+            if kwargs['remove_on_success'] is True:
+                self.logger.debug("Configuring setting to remove original file on success.")
             self.remove_on_success = kwargs['remove_on_success']
 
     def convert_access_folder(self, path):
+        self.logger.debug("Converting access folder of {} with the HathiProfile".format(path))
         self.converter.convert_tiff_access_folder(
             path=path,
             overwrite_existing=self.overwrite,
