@@ -1,6 +1,9 @@
 #!groovy
 pipeline {
     agent any
+    parameters {
+      booleanParam(name: "UPDATE_DOCS", defaultValue: false, description: "Update the documentation")
+    }
 
     stages {
         stage("Cloning Source") {
@@ -8,12 +11,31 @@ pipeline {
 
             steps {
                 deleteDir()
-                echo "Cloning source"
                 checkout scm
                 stash includes: '**', name: "Source", useDefaultExcludes: false
 
             }
 
+        }
+        stage("Prepping 3rd party files") {
+          steps{
+            node(label: "!Windows"){
+              deleteDir()
+              sh "wget ${env.IMAGEMAGICK6_WIN_URL}"
+              unzip dir: 'thirdparty/imagemagick', glob: '', zipFile: 'ImageMagick-6.9.8-6-portable-Q16-x64.zip'
+
+              sh "wget ${env.EXIV2_WIN_URL}"
+              unzip dir: 'thirdparty', glob: '', zipFile: 'exiv2.zip'
+
+              sh "wget ${env.KDU_COMPRESS_WIN_URL}"
+              unzip dir: 'thirdparty', glob: '', zipFile: 'kdu_v97_compress.zip'
+
+
+              dir('thirdparty') {
+                stash "thirdparty"
+              }
+            }
+          }
         }
 
         stage("Unit tests") {
@@ -23,7 +45,6 @@ pipeline {
                             node(label: 'Windows') {
                                 deleteDir()
                                 unstash "Source"
-                                echo "Running Tox: Python 3.5 Unit tests"
                                 bat "${env.TOX}  --skip-missing-interpreters"
                                 junit 'reports/junit-*.xml'
 
@@ -33,11 +54,7 @@ pipeline {
                             node(label: "!Windows") {
                                 deleteDir()
                                 unstash "Source"
-                                echo "Running Tox: Unit tests"
                                 withEnv(["PATH=${env.PYTHON3}/..:${env.PATH}"]) {
-
-                                    echo "PATH = ${env.PATH}"
-                                    echo "Running: ${env.TOX}  --skip-missing-interpreters -e py35"
                                     sh "${env.TOX}  --skip-missing-interpreters -e py35"
                                 }
                                 junit 'reports/junit-*.xml'
@@ -117,6 +134,17 @@ pipeline {
                                 archiveArtifacts artifacts: "dist/**", fingerprint: true
                             }
                         },
+                        "Windows CX_Freeze MSI": {
+                            node(label: "Windows") {
+                                deleteDir()
+                                unstash "Source"
+                                dir("dcc_jp2_converter/thirdparty"){
+                                  unstash "thirdparty"
+                                }
+                                bat "${env.PYTHON3} cx_setup.py bdist_msi --add-to-path=true"
+                                archiveArtifacts artifacts: "dist/**", fingerprint: true
+                            }
+                        },
                         "Source Release": {
                             deleteDir()
                             unstash "Source"
@@ -128,10 +156,14 @@ pipeline {
         }
         stage("Update online documentation") {
             agent any
+            when{
+              expression{params.UPDATE_DOCS == true}
+            }
 
             steps {
                 deleteDir()
                 script {
+                    echo "Updating online documentation"
                     unstash "Documentation source"
                     sh("scp -r -i ${env.DCC_DOCS_KEY} docs/build/html/* ${env.DCC_DOCS_SERVER}/dcc_jp2_converter/")
 
