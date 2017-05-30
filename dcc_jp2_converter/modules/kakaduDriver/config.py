@@ -25,7 +25,7 @@ class KduCompressPath(abs_driver_config.AbsDriverConfig):
         config = configparser.ConfigParser()
         for config_file in get_config_files():
             config.read(config_file)
-        return config['commands']['kdu_compress']
+        return config['commands'].get('kdu_compress')
 
     @staticmethod
     def driver_name() -> str:
