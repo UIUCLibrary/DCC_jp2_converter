@@ -14,6 +14,14 @@ For example:
 
 The script will now generate access jp2 files for every tiff file found inside an access folder.
 
+Creating HathiTrust jp2 files
+-----------------------------
+
+To make jp2 files that conform to the specs required by HathiTrust, use the "hathi" profile.
+
+    :command:`makejp2 /Users/hborcher/Documents/dummyCollection --profile=hathi`
+
+
 Clean up extra files after converting
 -------------------------------------
 
