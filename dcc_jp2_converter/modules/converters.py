@@ -46,7 +46,6 @@ class KakaduConverter(Converter):
         total_files_converted = 0
         image_convert_command = KakaduCommandBuilder(builder=kd_cb.HathiPreset())
         with tempfile.TemporaryDirectory(prefix="convert_") as tmp_folder:
-            print()
             command_runner = CommandRunner()
             tiffs = list(get_tiffs(path))
             for i, tiff in enumerate(tiffs):
