@@ -7,3 +7,8 @@ def get_profile(factory_name) -> profile.AbsProfile:
     new_profile.configure()
     return new_profile
 
+
+def get_all_profiles():
+    factory = profile_factory.ProfileFactory()
+    return factory.profiles.keys()
+

@@ -8,6 +8,7 @@ import traceback
 
 import dcc_jp2_converter
 from dcc_jp2_converter.logger_config import configure_logger
+from dcc_jp2_converter.modules.profiles.utils import get_all_profiles
 from dcc_jp2_converter.scripts import clean
 from dcc_jp2_converter.scripts import convert
 from dcc_jp2_converter.scripts import validation
@@ -62,10 +63,16 @@ def get_args():
             config_files[-1]))
 
     parser.add_argument('path', help="Path to the submission package")
-    parser.add_argument(
+    profile_group = parser.add_mutually_exclusive_group()
+    profile_group.add_argument(
         "--profile",
         default="default",
         help="Set the conversion profile preset")
+    profile_group.add_argument(
+        "--list_profiles",
+        action="store_true",
+        help="List available profiles"
+    )
     parser.add_argument(
         '--version',
         action='version',
@@ -76,12 +83,13 @@ def get_args():
         action="store_true",
         help="Overwrite any existing jp2 with new ones")
 
-    parser.add_argument(
+    post_work_group = parser.add_mutually_exclusive_group()
+    post_work_group.add_argument(
         '--clean',
         action="store_true",
         help="Clean up folders by removing any access tiff that have already been converted into jp2")
 
-    parser.add_argument(
+    post_work_group.add_argument(
         '--remove',
         action="store_true",
         help="Removes access tiff files after converting them.")
@@ -138,6 +146,15 @@ def run():
     try:
         if args.clean:
             clean.cleanup_path(args.path)
+        elif args.list_profiles:
+            profiles = get_all_profiles()
+            print("Available profiles:")
+            for profile in profiles:
+                print("  {}".format(profile))
+
+            print()
+
+
         else:
             command_args = vars(args).copy()
             del command_args['path']
