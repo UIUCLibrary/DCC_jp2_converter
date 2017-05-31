@@ -12,3 +12,9 @@ build/
 
 # log files
 *.log
+.cache/
+.coverage
+dcc_jp2_converter/thirdparty/
+dist/
+flake8.txt
+scripts/
