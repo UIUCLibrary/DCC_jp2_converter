@@ -4,7 +4,7 @@ import shutil
 
 import logging
 
-from dcc_jp2_converter.modules.utils import get_config_files
+from dcc_jp2_converter.utils import get_config_files
 import dcc_jp2_converter.thirdparty
 from dcc_jp2_converter.modules import abs_driver_config
 import warnings
