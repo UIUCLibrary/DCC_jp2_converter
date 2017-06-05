@@ -75,16 +75,14 @@ def find_arg_errors(args):
 
     errors = []
 
-    # You shouldn't be able to use both the remove and the clean option together.
-    if args.clean and args.remove:
-        errors.append("You can't use --clean and --remove options at the same time.")
 
     # Make sure that the source directory is valid
-    if not os.path.exists(args.path):
-        errors.append("Unable to find directory, \"{}\"".format(args.path))
+    if args.path:
+        if not os.path.exists(args.path):
+            errors.append("Unable to find directory, \"{}\"".format(args.path))
 
-    # Make sure that a path is given, not a file
-    if os.path.isfile(args.path):
-        errors.append("\"{}\" is not a directory.".format(args.path))
+        # Make sure that a path is given, not a file
+        if os.path.isfile(args.path):
+            errors.append("\"{}\" is not a directory.".format(args.path))
 
     return errors
