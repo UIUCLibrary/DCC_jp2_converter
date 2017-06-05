@@ -45,7 +45,11 @@ class ConfigSearcherBundled(AbsConfigSearcherStrategy):
     """
 
     def find(self) -> str:
-        datadir = os.path.dirname(__file__)
+        if getattr(sys, 'frozen', False):
+            datadir = os.path.dirname(sys.executable)
+        else:
+            datadir = os.path.abspath(os.path.dirname(__file__))
+
         bundled_config = os.path.join(datadir, "command_paths.ini")
 
         if os.path.exists(bundled_config):
