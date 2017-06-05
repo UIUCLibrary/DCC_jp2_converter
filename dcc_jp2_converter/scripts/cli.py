@@ -7,6 +7,7 @@ import sys
 import traceback
 
 import dcc_jp2_converter
+
 from dcc_jp2_converter.logger_config import configure_logger
 from dcc_jp2_converter.modules.profiles.utils import get_all_profiles
 from dcc_jp2_converter.scripts import clean
@@ -17,7 +18,6 @@ from dcc_jp2_converter.scripts import validation
 
 ERROR_LOGGING_FILE = "errors.log"
 DEFAULT_LOG_FILE = "processing.log"
-
 
 DESCRIPTION = "Script for creating JP2 files from tiffs for the Medusa Digital Library."
 
@@ -51,7 +51,7 @@ def get_args():
 
     """
     try:
-        config_files = dcc_jp2_converter.modules.get_config_files()
+        config_files = dcc_jp2_converter.utils.get_config_files()
     except FileNotFoundError:
         print("No command_paths.ini config file found.", file=sys.stderr)
         raise
@@ -62,37 +62,61 @@ def get_args():
         epilog="Settings for this script can be configured at {}: ".format(
             config_files[-1]))
 
-    parser.add_argument('path', help="Path to the submission package")
-    profile_group = parser.add_mutually_exclusive_group()
-    profile_group.add_argument(
-        "--profile",
-        default="default",
-        help="Set the conversion profile preset")
-    profile_group.add_argument(
+    # -----------------------------------------
+    command_group = parser.add_mutually_exclusive_group()
+    command_group.add_argument(
         "--list_profiles",
         action="store_true",
         help="List available profiles"
     )
-    parser.add_argument(
+    command_group.add_argument(
+        "--list_all_configs",
+        action="store_true",
+        help="List all command_paths.ini settings."
+    )
+    command_group.add_argument(
         '--version',
         action='version',
         version=dcc_jp2_converter.__version__)
+    # -----------------------------------------
 
-    parser.add_argument(
+    process_path_group = command_group.add_argument_group()
+    process_path_group.add_argument('path', nargs="?", help="Path to the submission package")
+    process_path_args_group = process_path_group.add_mutually_exclusive_group()
+
+    # ++++++++++++++++++++++++++++++++++++++++ 
+    # Arguments related to doing something 
+    # with a path 
+    # ++++++++++++++++++++++++++++++++++++++++ 
+    convert_path_group = process_path_args_group.add_argument_group()
+    
+    # ======================================== 
+    # Optional arguments to manage converting
+    # ========================================
+    convert_path_group.add_argument(
+        "--profile",
+        default="default",
+        help="Set the conversion profile preset")
+
+    convert_path_group.add_argument(
         '--overwrite',
         action="store_true",
         help="Overwrite any existing jp2 with new ones")
+    convert_path_group.add_argument(
+        '--remove',
+        action="store_true",
+        help="Removes access tiff files after converting them.")
+    # ========================================
 
-    post_work_group = parser.add_mutually_exclusive_group()
-    post_work_group.add_argument(
+    process_path_args_group.add_argument(
         '--clean',
         action="store_true",
         help="Clean up folders by removing any access tiff that have already been converted into jp2")
 
-    post_work_group.add_argument(
-        '--remove',
-        action="store_true",
-        help="Removes access tiff files after converting them.")
+    # ++++++++++++++++++++++++++++++++++++++++ 
+
+
+
 
     parser.add_argument(
         '--logname',
@@ -132,16 +156,6 @@ def run():
         raise ValueError("{}\n{}".format(error_msg, "\n".join(errors)))
 
     logger.debug("Command line arguments are valid.")
-    # Fixme:
-    # errors = validation.find_settings_errors()
-    # if errors:
-    #     for error in errors:
-    #         logger.error(error)
-    #     error_msg = "Invalid settings."
-    #     logger.error(error_msg)
-    #     raise ValueError("{}\n{}".format(error_msg, "\n".join(errors)))
-
-    # Find all the folders that contain files that need to be converted
 
     try:
         if args.clean:
@@ -154,18 +168,27 @@ def run():
 
             print()
 
+        elif args.list_all_configs:
+            print("All config files being uses. Note: Any setting configured in files "
+                  "lower on this list will overwrite a setting set in a higher config")
+            for i, config in enumerate(dcc_jp2_converter.get_config_files()):
+                print("{})  {}".format(i + 1, os.path.normcase(config)))
 
+            print()
+
+        # Normal operations
         else:
             command_args = vars(args).copy()
             del command_args['path']
             try:
+                # Find all the folders that contain files that need to be converted
                 convert.convert_path(args.path, **command_args)
             except ValueError as e:
                 logger.error("Error: {}".format(e))
             except FileNotFoundError as e:
                 logger.error("Error: {}".format(e))
 
-        # print("\n\nAll Done!\n")
+                    # print("\n\nAll Done!\n")
     except KeyboardInterrupt:
         logger.warning("Job Terminated")
     print("Log file located at {}".format(os.path.abspath(args.logname)))
@@ -222,4 +245,3 @@ if __name__ == '__main__':
         sys.exit(pytest.main(sys.argv[2:]))
     else:
         main()
-
