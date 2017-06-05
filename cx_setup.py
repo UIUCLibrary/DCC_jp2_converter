@@ -28,12 +28,12 @@ setup(
     author=dcc_jp2_converter.__author__,
     author_email=dcc_jp2_converter.__author_email__,
     options={"build_exe": {
-        "includes": ["queue", "atexit", "six", "pyparsing", "appdirs"],
-        "packages": ["os", "packaging"],
-        "excludes": ["tkinter"],
-        "include_files": INCLUDE_FILES,
-        "include_msvcr": True
-    }
+                "includes": ["queue", "atexit", "six", "pyparsing", "appdirs"],
+                "packages": ["os", "packaging"],
+                "excludes": ["tkinter"],
+                "include_files": INCLUDE_FILES,
+                "include_msvcr": True
+            }
     },
     executables=[Executable("dcc_jp2_converter/scripts/cli.py",
                             targetName=("makejp2.exe" if platform.system() == "Windows" else "makejp2"))]
