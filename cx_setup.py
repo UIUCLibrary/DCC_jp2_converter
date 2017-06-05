@@ -18,7 +18,7 @@ metadata = {
     ],
 }
 
-INCLUDE_FILES = ["settings/command_paths.ini"]
+INCLUDE_FILES = [("settings/command_paths.ini", "settings/command_paths.ini")]
 # "options":
 setup(
     **metadata,
