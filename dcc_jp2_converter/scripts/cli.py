@@ -50,18 +50,23 @@ def get_args():
         Parsed command line arguments.
 
     """
+    parser = build_parser()
+    args = parser.parse_args()
+
+    return args
+
+
+def build_parser():
     try:
         config_files = dcc_jp2_converter.utils.get_config_files()
     except FileNotFoundError:
         print("No command_paths.ini config file found.", file=sys.stderr)
         raise
-
     parser = argparse.ArgumentParser(
         description=DESCRIPTION,
         usage='%(prog)s [path] [options]',
         epilog="Settings for this script can be configured at {}: ".format(
             config_files[-1]))
-
     # -----------------------------------------
     command_group = parser.add_mutually_exclusive_group()
     command_group.add_argument(
@@ -79,25 +84,21 @@ def get_args():
         action='version',
         version=dcc_jp2_converter.__version__)
     # -----------------------------------------
-
     process_path_group = command_group.add_argument_group()
     process_path_group.add_argument('path', nargs="?", help="Path to the submission package")
     process_path_args_group = process_path_group.add_mutually_exclusive_group()
-
-    # ++++++++++++++++++++++++++++++++++++++++ 
-    # Arguments related to doing something 
-    # with a path 
-    # ++++++++++++++++++++++++++++++++++++++++ 
+    # ++++++++++++++++++++++++++++++++++++++++
+    # Arguments related to doing something
+    # with a path
+    # ++++++++++++++++++++++++++++++++++++++++
     convert_path_group = process_path_args_group.add_argument_group()
-    
-    # ======================================== 
+    # ========================================
     # Optional arguments to manage converting
     # ========================================
     convert_path_group.add_argument(
         "--profile",
         default="default",
         help="Set the conversion profile preset")
-
     convert_path_group.add_argument(
         '--overwrite',
         action="store_true",
@@ -107,36 +108,27 @@ def get_args():
         action="store_true",
         help="Removes access tiff files after converting them.")
     # ========================================
-
     process_path_args_group.add_argument(
         '--clean',
         action="store_true",
         help="Clean up folders by removing any access tiff that have already been converted into jp2")
-
-    # ++++++++++++++++++++++++++++++++++++++++ 
-
-
-
-
+    # ++++++++++++++++++++++++++++++++++++++++
     parser.add_argument(
         '--logname',
         default=get_logging_name(config_files),
         help="Change the log name.")
-
     parser.add_argument(
         '--debug',
         action="store_true",
         help="Run script in debug mode")
-
-    args = parser.parse_args()
-
-    return args
+    return parser
 
 
 def run():
     logger = logging.getLogger(__name__)
     # Get user args
-    args = get_args()
+    parser = build_parser()
+    args = parser.parse_args()
     print_banner()
 
     if args.debug:
@@ -177,7 +169,7 @@ def run():
             print()
 
         # Normal operations
-        else:
+        elif args.path:
             command_args = vars(args).copy()
             del command_args['path']
             try:
@@ -187,6 +179,8 @@ def run():
                 logger.error("Error: {}".format(e))
             except FileNotFoundError as e:
                 logger.error("Error: {}".format(e))
+        else:
+            parser.print_help()
 
                     # print("\n\nAll Done!\n")
     except KeyboardInterrupt:
