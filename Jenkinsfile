@@ -182,9 +182,12 @@ pipeline {
                 script {
                     echo "Updating online documentation"
                     unstash "Documentation source"
-                    sh("scp -r -i ${env.DCC_DOCS_KEY} docs/build/html/* ${env.DCC_DOCS_SERVER}/dcc_jp2_converter/")
-
-
+                    try {
+                      sh("rsync -rv -e \"ssh -i ${env.DCC_DOCS_KEY}\" docs/build/html/ ${env.DCC_DOCS_SERVER}/${params.URL_SUBFOLDER}/ --delete")
+                    } catch(error) {
+                      echo "Error with uploading docs"
+                      throw error
+                    }
                 }
 
 
