@@ -1,4 +1,4 @@
 pytest
 tox
 sphinx
-cx-freeze
+cx_Freeze
