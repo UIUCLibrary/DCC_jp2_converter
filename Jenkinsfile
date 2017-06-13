@@ -2,7 +2,13 @@
 pipeline {
     agent any
     parameters {
+      booleanParam(name: "UNIT_TESTS", defaultValue: true, description: "Run Automated Unit Tests")
+      booleanParam(name: "STATIC_ANALYSIS", defaultValue: true, description: "Run static analysis tests")
+      booleanParam(name: "PACKAGE", defaultValue: true, description: "Create a Packages")
+      booleanParam(name: "BUILD_DOCS", defaultValue: true, description: "Build documentation")
       booleanParam(name: "UPDATE_DOCS", defaultValue: false, description: "Update the documentation")
+      string(name: 'URL_SUBFOLDER', defaultValue: "dcc_jp2_converter", description: 'The directory that the docs should be saved under')
+
     }
 
     stages {
@@ -39,72 +45,80 @@ pipeline {
         }
 
         stage("Unit tests") {
-            steps {
-                parallel(
-                        "Windows": {
-                            node(label: 'Windows') {
-                                deleteDir()
-                                unstash "Source"
-                                bat "${env.TOX}  --skip-missing-interpreters"
-                                junit 'reports/junit-*.xml'
+          when{
+            expression{params.UNIT_TESTS == true}
+          }
+          steps {
+              parallel(
+                "Windows": {
+                    node(label: 'Windows') {
+                        deleteDir()
+                        unstash "Source"
+                        bat "${env.TOX}  --skip-missing-interpreters"
+                        junit 'reports/junit-*.xml'
 
-                            }
-                        },
-                        "Linux": {
-                            node(label: "!Windows") {
-                                deleteDir()
-                                unstash "Source"
-                                withEnv(["PATH=${env.PYTHON3}/..:${env.PATH}"]) {
-                                    sh "${env.TOX}  --skip-missing-interpreters -e py35"
-                                }
-                                junit 'reports/junit-*.xml'
-                            }
+                    }
+                },
+                "Linux": {
+                    node(label: "!Windows") {
+                        deleteDir()
+                        unstash "Source"
+                        withEnv(["PATH=${env.PYTHON3}/..:${env.PATH}"]) {
+                            sh "${env.TOX}  --skip-missing-interpreters -e py35"
                         }
-                )
-            }
+                        junit 'reports/junit-*.xml'
+                    }
+                }
+              )
+          }
         }
 
         stage("Static Analysis") {
-            steps {
-                parallel(
-                        "flake8": {
-                            node(label: "!Windows") {
-                                deleteDir()
-                                unstash "Source"
-                                sh "${env.TOX} -e flake8"
-                                publishHTML target: [
-                                        allowMissing         : false,
-                                        alwaysLinkToLastBuild: false,
-                                        keepAll              : true,
-                                        reportDir            : "reports",
-                                        reportFiles          : "flake8.html",
-                                        reportName           : "Flake8 Report"
-                                ]
-                            }
-                        },
-                        "coverage": {
-                            node(label: "!Windows") {
-                                deleteDir()
-                                unstash "Source"
-                                sh "${env.TOX} -e coverage"
-                                publishHTML target: [
-                                        allowMissing         : false,
-                                        alwaysLinkToLastBuild: false,
-                                        keepAll              : true,
-                                        reportDir            : "reports/coverage",
-                                        reportFiles          : "index.html",
-                                        reportName           : "Coverage Report"
-                                ]
-                            }
-                        }
-                )
+          when{
+            expression{params.STATIC_ANALYSIS == true}
+          }
+          steps {
+              parallel(
+                  "flake8": {
+                      node(label: "!Windows") {
+                          deleteDir()
+                          unstash "Source"
+                          sh "${env.TOX} -e flake8"
+                          publishHTML target: [
+                                  allowMissing         : false,
+                                  alwaysLinkToLastBuild: false,
+                                  keepAll              : true,
+                                  reportDir            : "reports",
+                                  reportFiles          : "flake8.html",
+                                  reportName           : "Flake8 Report"
+                          ]
+                      }
+                  },
+                  "coverage": {
+                      node(label: "!Windows") {
+                          deleteDir()
+                          unstash "Source"
+                          sh "${env.TOX} -e coverage"
+                          publishHTML target: [
+                                  allowMissing         : false,
+                                  alwaysLinkToLastBuild: false,
+                                  keepAll              : true,
+                                  reportDir            : "reports/coverage",
+                                  reportFiles          : "index.html",
+                                  reportName           : "Coverage Report"
+                          ]
+                      }
+                  }
+              )
             }
 
         }
 
         stage("Documentation") {
             agent any
-
+            when{
+              expression{params.BUILD_DOCS == true}
+            }
             steps {
                 deleteDir()
                 unstash "Source"
@@ -124,40 +138,43 @@ pipeline {
         }
 
         stage("Packaging") {
-            steps {
-                parallel(
-                        "Windows Wheel": {
-                            node(label: "Windows") {
-                                deleteDir()
-                                unstash "Source"
-                                bat "${env.PYTHON3} setup.py bdist_wheel --universal"
-                                archiveArtifacts artifacts: "dist/**", fingerprint: true
-                            }
-                        },
-                        "Windows CX_Freeze MSI": {
-                            node(label: "Windows") {
-                                deleteDir()
-                                unstash "Source"
-                                dir("dcc_jp2_converter/thirdparty"){
-                                  unstash "thirdparty"
-                                }
-                                bat "${env.PYTHON3} cx_setup.py bdist_msi --add-to-path=true"
-                                archiveArtifacts artifacts: "dist/**", fingerprint: true
-                            }
-                        },
-                        "Source Release": {
-                            deleteDir()
-                            unstash "Source"
-                            sh "${env.PYTHON3} setup.py sdist"
-                            archiveArtifacts artifacts: "dist/**", fingerprint: true
-                        }
-                )
-            }
+          when{
+            expression{params.PACKAGE == true}
+          }
+          steps {
+            parallel(
+              "Windows Wheel": {
+                  node(label: "Windows") {
+                      deleteDir()
+                      unstash "Source"
+                      bat "${env.PYTHON3} setup.py bdist_wheel --universal"
+                      archiveArtifacts artifacts: "dist/**", fingerprint: true
+                  }
+              },
+              "Windows CX_Freeze MSI": {
+                  node(label: "Windows") {
+                      deleteDir()
+                      unstash "Source"
+                      dir("dcc_jp2_converter/thirdparty"){
+                        unstash "thirdparty"
+                      }
+                      bat "${env.PYTHON3} cx_setup.py bdist_msi --add-to-path=true"
+                      archiveArtifacts artifacts: "dist/**", fingerprint: true
+                  }
+              },
+              "Source Release": {
+                  deleteDir()
+                  unstash "Source"
+                  sh "${env.PYTHON3} setup.py sdist"
+                  archiveArtifacts artifacts: "dist/**", fingerprint: true
+              }
+            )
+          }
         }
         stage("Update online documentation") {
             agent any
             when{
-              expression{params.UPDATE_DOCS == true}
+              expression{params.UPDATE_DOCS == true && params.BUILD_DOCS == true}
             }
 
             steps {
