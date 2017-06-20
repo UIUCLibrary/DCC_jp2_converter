@@ -162,7 +162,9 @@ pipeline {
                       }
                       bat "${env.PYTHON3} cx_setup.py bdist_msi --add-to-path=true"
                       archiveArtifacts artifacts: "dist/**", fingerprint: true
-                      stash includes: "*.msi", name: "msi"
+                      dir("dist"){
+                        stash includes: "*.msi", name: "msi"
+                      }
 
                   }
               },
