@@ -2,9 +2,11 @@
 pipeline {
     agent any
     parameters {
+      string(name: "PROJECT_NAME", defaultValue: "JP2 Converter", description: "Name given to the project")
       booleanParam(name: "UNIT_TESTS", defaultValue: true, description: "Run Automated Unit Tests")
       booleanParam(name: "STATIC_ANALYSIS", defaultValue: true, description: "Run static analysis tests")
       booleanParam(name: "PACKAGE", defaultValue: true, description: "Create a Packages")
+      booleanParam(name: "DEPLOY", defaultValue: false, description: "Deploy SCCM")
       booleanParam(name: "BUILD_DOCS", defaultValue: true, description: "Build documentation")
       booleanParam(name: "UPDATE_DOCS", defaultValue: false, description: "Update the documentation")
       string(name: 'URL_SUBFOLDER', defaultValue: "dcc_jp2_converter", description: 'The directory that the docs should be saved under')
@@ -160,6 +162,8 @@ pipeline {
                       }
                       bat "${env.PYTHON3} cx_setup.py bdist_msi --add-to-path=true"
                       archiveArtifacts artifacts: "dist/**", fingerprint: true
+                      stash includes: "*.msi", name: "msi"
+
                   }
               },
               "Source Release": {
@@ -189,10 +193,31 @@ pipeline {
                       throw error
                     }
                 }
-
-
             }
+        }
+        stage("Deploy - Staging"){
+          agent any
+          when {
+            expression{params.DEPLOY == true && params.PACKAGE == true}
+          }
+          steps {
+            deleteDir()
+            unstash "msi"
+            sh "rsync -rv ./ \"${env.SCCM_STAGING_FOLDER}/${params.PROJECT_NAME}/\""
+            input("Deploy to production?")
+          }
+        }
 
+        stage("Deploy - SCCM upload"){
+          agent any
+          when {
+            expression{params.DEPLOY == true && params.PACKAGE == true}
+          }
+          steps {
+            deleteDir()
+            unstash "msi"
+            sh "rsync -rv ./ ${env.SCCM_UPLOAD_FOLDER}/"
+          }
         }
     }
 }
