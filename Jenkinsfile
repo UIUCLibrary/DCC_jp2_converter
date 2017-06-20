@@ -161,11 +161,34 @@ pipeline {
                         unstash "thirdparty"
                       }
                       bat "${env.PYTHON3} cx_setup.py bdist_msi --add-to-path=true"
-                      archiveArtifacts artifacts: "dist/**", fingerprint: true
+
                       dir("dist"){
                         stash includes: "*.msi", name: "msi"
                       }
 
+                  }
+                  node(label: "Windows") {
+                    deleteDir()
+                    git url: 'https://github.com/UIUCLibrary/ValidateMSI.git'
+                    unstash "msi"
+                    // validate_msi.py
+
+                    bat """
+                      ${env.PYTHON3} -m venv .env
+                      call .env/Scripts/activate.bat
+                      pip install -r requirements.txt
+                      python setup.py install
+
+                      echo Validating msi file(s)
+                      FOR %%A IN (*.msi) DO (
+                        python validate_msi.py %%A frozen.yml
+                        if not %errorlevel%==0 (
+                          echo errorlevel=%errorlevel%
+                          exit /b %errorlevel%
+                          )
+                        )
+                      """
+                  archiveArtifacts artifacts: "*.msi", fingerprint: true
                   }
               },
               "Source Release": {
