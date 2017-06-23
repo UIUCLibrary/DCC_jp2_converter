@@ -180,8 +180,8 @@ pipeline {
                       python setup.py install
 
                       echo Validating msi file(s)
-                      FOR /f "delims=" %%A IN (*.msi) DO (
-                        python validate_msi.py %%A frozen.yml
+                      FOR /f "delims=" %%MSI_FILE  IN ('dir /b /s *.msi') DO (
+                        python validate_msi.py ^"%%MSI_FILE^" frozen.yml
                         if not %errorlevel%==0 (
                           echo errorlevel=%errorlevel%
                           exit /b %errorlevel%
