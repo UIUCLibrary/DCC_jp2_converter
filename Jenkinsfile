@@ -205,26 +205,6 @@ pipeline {
             )
           }
         }
-        stage("Update online documentation") {
-            agent any
-            when{
-              expression{params.UPDATE_DOCS == true && params.BUILD_DOCS == true}
-            }
-
-            steps {
-                deleteDir()
-                script {
-                    echo "Updating online documentation"
-                    unstash "Documentation source"
-                    try {
-                      sh("rsync -rv -e \"ssh -i ${env.DCC_DOCS_KEY}\" docs/build/html/ ${env.DCC_DOCS_SERVER}/${params.URL_SUBFOLDER}/ --delete")
-                    } catch(error) {
-                      echo "Error with uploading docs"
-                      throw error
-                    }
-                }
-            }
-        }
         stage("Deploy - Staging"){
           agent any
           when {
@@ -248,6 +228,26 @@ pipeline {
             unstash "msi"
             sh "rsync -rv ./ ${env.SCCM_UPLOAD_FOLDER}/"
           }
+        }
+        stage("Update online documentation") {
+            agent any
+            when{
+              expression{params.UPDATE_DOCS == true && params.BUILD_DOCS == true}
+            }
+
+            steps {
+                deleteDir()
+                script {
+                    echo "Updating online documentation"
+                    unstash "Documentation source"
+                    try {
+                      sh("rsync -rv -e \"ssh -i ${env.DCC_DOCS_KEY}\" docs/build/html/ ${env.DCC_DOCS_SERVER}/${params.URL_SUBFOLDER}/ --delete")
+                    } catch(error) {
+                      echo "Error with uploading docs"
+                      throw error
+                    }
+                }
+            }
         }
     }
 }
