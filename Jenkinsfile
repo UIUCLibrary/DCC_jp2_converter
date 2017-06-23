@@ -180,6 +180,7 @@ pipeline {
                     bat """
                       ${env.PYTHON3} -m venv .env
                       call .env/Scripts/activate.bat
+                      pip install setuptools --upgrade
                       pip install -r requirements.txt
                       python setup.py install
 
