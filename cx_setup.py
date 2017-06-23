@@ -15,8 +15,8 @@ metadata = {
         'dcc_jp2_converter.modules',
         'dcc_jp2_converter.modules.exiv2Driver',
         'dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders',
-        'dcc_jp2_converter.modules.ImagemagickDriver',
-        'dcc_jp2_converter.modules.ImagemagickDriver.imagemagickCommandBuilders',
+        'dcc_jp2_converter.modules.imagemagick_driver',
+        'dcc_jp2_converter.modules.imagemagick_driver.imagemagick_command_builders',
         'dcc_jp2_converter.modules.kakaduDriver',
         'dcc_jp2_converter.scripts',
         'dcc_jp2_converter.thirdparty'
@@ -50,11 +50,15 @@ shortcut_table = [
         'TARGETDIR'                 # WkDir
     ),
 ]
+PYTHON_INSTALL_DIR = os.path.dirname(os.path.dirname(os.__file__))
+MSVC = os.path.join(PYTHON_INSTALL_DIR, 'vcruntime140.dll')
 
 INCLUDE_FILES = [
     "settings/command_paths.ini",
-    "documentation.url"
+    "documentation.url",
 ]
+if os.path.exists(MSVC):
+    INCLUDE_FILES.append(MSVC)
 
 setup(
     **metadata,
@@ -69,7 +73,7 @@ setup(
                 "packages": ["os", "packaging"],
                 "excludes": ["tkinter"],
                 "include_files": INCLUDE_FILES,
-                "include_msvcr": True
+                # "include_msvcr": True
             },
         "bdist_msi": {
             "data": {

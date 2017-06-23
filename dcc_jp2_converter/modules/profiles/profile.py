@@ -11,3 +11,8 @@ class AbsProfile(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def convert_access_folder(self, path):
         pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def find_access_folders(path)->str:
+        pass

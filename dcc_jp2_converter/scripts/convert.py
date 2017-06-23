@@ -17,11 +17,12 @@ def convert_path(path: str, **kwargs):
         "Searching \"{}\" for object folders with access tiffs.".format(
             path))
 
-    folders = list(file_manager.find_access_folders(path))
+    # folders = list(file_manager.find_access_folders(path))
     try:
         profile = profiles.get_profile(kwargs["profile"].lower())
     except KeyError as e:
         raise ValueError("Unknown profile {}.".format(e))
+    folders = list(profile.find_access_folders(path))
     profile.configure(overwrite=kwargs['overwrite'], remove_on_success=kwargs['remove'])
     for i, folder in enumerate(folders):
         logger.info(

@@ -9,7 +9,7 @@ import tempfile
 from .file_manager import get_tiffs
 from .command_runner import CommandRunner
 from dcc_jp2_converter import ImagemagickCommandBuilder, Exiv2CommandBuilder, KakaduCommandBuilder
-from dcc_jp2_converter import imagemagickCommandBuilders as im_cb
+from dcc_jp2_converter import imagemagick_command_builders as im_cb
 from dcc_jp2_converter import kakaduCommandBuilders as kd_cb
 from dcc_jp2_converter import exiv2CommandBuilders as exi2_cb
 

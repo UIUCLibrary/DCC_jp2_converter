@@ -1,6 +1,6 @@
 import abc
 
-from dcc_jp2_converter.modules.ImagemagickDriver.imagemagickcommand import ImagemagickCommand
+from dcc_jp2_converter.modules.imagemagick_driver.imagemagickcommand import ImagemagickCommand
 
 
 class AbsBuilder(metaclass=abc.ABCMeta):

@@ -2,9 +2,9 @@ import os
 
 # from .config import get_imagemagick_path
 
-from .imagemagickCommandBuilders.abs_builder import AbsBuilder
-from .imagemagickCommandBuilders import DefaultCommandBuilder
-from dcc_jp2_converter.modules.ImagemagickDriver import config
+from .imagemagick_command_builders.abs_builder import AbsBuilder
+from .imagemagick_command_builders import DefaultCommandBuilder
+from dcc_jp2_converter.modules.imagemagick_driver import config
 
 class ImagemagickCommandBuilder:
     """Use this to generate commands for sending to imagemagick"""

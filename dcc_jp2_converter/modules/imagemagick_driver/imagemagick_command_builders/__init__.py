@@ -1,6 +1,6 @@
 from .default_command_builder import DefaultCommandBuilder
 from .jp2_access_command_builder import Jp2AccessCommandBuilder
-from .ignoreExif_command_builder import IgnoreExif
+from .ignore_exif_command_builder import IgnoreExif
 from .standard_command_builder import Standard
 
 __all__ = [

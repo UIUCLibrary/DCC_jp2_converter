@@ -1,3 +1,5 @@
+import os
+
 from dcc_jp2_converter.modules.profiles.profile import AbsProfile
 import logging
 from dcc_jp2_converter import Converter
@@ -26,3 +28,25 @@ class HathiProfile(AbsProfile):
             overwrite_existing=self.overwrite,
             remove_on_success=self.remove_on_success
         )
+
+    @staticmethod
+    def find_access_folders(path)->str:
+        """
+        Searches the path recursively for a folder named "access" and yields every folder within that access folder.
+
+        Args:
+            path: starting directory to search folders
+
+        Yields:
+            Paths to directories with the name "access"
+        """
+
+        def find_root_access():
+            for root, dirs, files in os.walk(path):
+                for _dir in dirs:
+                    if _dir == "access":
+                        yield os.path.join(root, _dir)
+
+        for root_access in find_root_access():
+            for access_folder in filter(lambda x: os.path.isdir(x), os.scandir(root_access)):
+                yield access_folder.path
