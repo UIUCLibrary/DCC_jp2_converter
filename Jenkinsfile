@@ -160,7 +160,11 @@ pipeline {
                       dir("dcc_jp2_converter/thirdparty"){
                         unstash "thirdparty"
                       }
-                      bat "${env.PYTHON3} cx_setup.py bdist_msi --add-to-path=true"
+                      bat """ ${env.PYTHON3} -m venv .env
+                              call .env/Scripts/activate.bat
+                              pip install -r requirements.txt
+                              ${env.PYTHON3} cx_setup.py bdist_msi --add-to-path=true
+                              """
 
                       dir("dist"){
                         stash includes: "*.msi", name: "msi"
