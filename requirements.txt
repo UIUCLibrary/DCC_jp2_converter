@@ -4,3 +4,4 @@ sphinx
 cx-Freeze
 pyparsing
 appdirs
+packaging

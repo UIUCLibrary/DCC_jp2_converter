@@ -70,7 +70,7 @@ setup(
     options={
         "build_exe": {
                 "includes": ["queue", "atexit", "six", "pyparsing", "appdirs"],
-                "packages": ["os"],
+                "packages": ["os", "packaging"],
                 "excludes": ["tkinter"],
                 "include_files": INCLUDE_FILES,
                 # "include_msvcr": True
