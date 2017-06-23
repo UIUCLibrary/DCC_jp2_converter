@@ -7,8 +7,8 @@ metadata = {
                  'dcc_jp2_converter.modules',
                  'dcc_jp2_converter.modules.exiv2Driver',
                  'dcc_jp2_converter.modules.exiv2Driver.exiv2CommandBuilders',
-                 'dcc_jp2_converter.modules.ImagemagickDriver',
-                 'dcc_jp2_converter.modules.ImagemagickDriver.imagemagickCommandBuilders',
+                 'dcc_jp2_converter.modules.imagemagick_driver',
+                 'dcc_jp2_converter.modules.imagemagick_driver.imagemagick_command_builders',
                  'dcc_jp2_converter.modules.kakaduDriver',
                  'dcc_jp2_converter.scripts',
                  'dcc_jp2_converter.thirdparty'
