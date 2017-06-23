@@ -50,11 +50,15 @@ shortcut_table = [
         'TARGETDIR'                 # WkDir
     ),
 ]
+PYTHON_INSTALL_DIR = os.path.dirname(os.path.dirname(os.__file__))
+MSVC = os.path.join(PYTHON_INSTALL_DIR, 'vcruntime140.dll')
 
 INCLUDE_FILES = [
     "settings/command_paths.ini",
-    "documentation.url"
+    "documentation.url",
 ]
+if os.path.exists(MSVC):
+    INCLUDE_FILES.append(MSVC)
 
 setup(
     **metadata,
@@ -66,10 +70,10 @@ setup(
     options={
         "build_exe": {
                 "includes": ["queue", "atexit", "six", "pyparsing", "appdirs"],
-                "packages": ["os", "packaging"],
+                "packages": ["os"],
                 "excludes": ["tkinter"],
                 "include_files": INCLUDE_FILES,
-                "include_msvcr": True
+                # "include_msvcr": True
             },
         "bdist_msi": {
             "data": {
