@@ -3,8 +3,8 @@ import sys
 
 import pytest
 
-from dcc_jp2_converter import imagemagickCommandBuilders as builders
-from dcc_jp2_converter import ImagemagickDriver as driver
+from dcc_jp2_converter import imagemagick_command_builders as builders
+from dcc_jp2_converter import imagemagick_driver as driver
 
 if sys.platform == "win32":
     IMAGEMAGICK = "C:\\Program Files\\ImageMagick-6\\bin\convert.exe"
