@@ -2,7 +2,7 @@ import typing
 from collections import namedtuple
 from typing import Iterator
 import os
-
+import warnings
 CollectionPair = namedtuple("CollectionPair", ['tiff', 'jp2'])
 
 
@@ -17,6 +17,7 @@ def find_access_folders(path) -> Iterator[str]:
         Paths to directories with the name "access"
 
     """
+    warnings.warn("Use find_access_folders in the profile instead", DeprecationWarning)
     for root, dirs, files in os.walk(path):
         for _dir in dirs:
             if _dir == "access":
