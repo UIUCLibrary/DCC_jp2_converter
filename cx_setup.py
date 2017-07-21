@@ -1,6 +1,7 @@
 import platform
 import os
 import dcc_jp2_converter.thirdparty
+import pytest
 from cx_Freeze import setup, Executable
 import dcc_jp2_converter
 
@@ -69,13 +70,14 @@ setup(
     author_email=dcc_jp2_converter.__author_email__,
     options={
         "build_exe": {
-                "includes": ["queue", "atexit", "six", "pyparsing", "appdirs"],
+                "includes": ["queue", "atexit", "six", "pyparsing", "appdirs"] + pytest.freeze_includes(),
                 "packages": ["os", "packaging"],
                 "excludes": ["tkinter"],
                 "include_files": INCLUDE_FILES,
                 # "include_msvcr": True
             },
         "bdist_msi": {
+            "upgrade_code": "{C2DB9F7A-55E3-4EF4-8E15-731CC263AE4C}",
             "data": {
                 "Shortcut": shortcut_table,
                 "Directory": directory_table
