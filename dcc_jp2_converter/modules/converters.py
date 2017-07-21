@@ -45,6 +45,8 @@ class KakaduConverter(Converter):
         logger = logging.getLogger(__name__)
         total_files_converted = 0
         image_convert_command = KakaduCommandBuilder(builder=kd_cb.HathiPreset())
+        metadata_extractor = Exiv2CommandBuilder(exi2_cb.ExtractIPTCCommand())
+        metadata_injector = Exiv2CommandBuilder(exi2_cb.InsertIPTCCommand())
         with tempfile.TemporaryDirectory(prefix="convert_") as tmp_folder:
             command_runner = CommandRunner()
             tiffs = list(get_tiffs(path))
@@ -77,7 +79,6 @@ class KakaduConverter(Converter):
                     tmp_access_tif, tmp_access_jp2)
 
                 try:
-
                     command_runner.run(im_command)
                     if remove_on_success:
                         logger.info("Deleting file, \"{}\".".format(tiff))
@@ -93,6 +94,42 @@ class KakaduConverter(Converter):
                         logger.info(stdout)
                     if stderr:
                         logger.warning(stderr)
+
+                logger.debug(
+                    "Extracting metadata from \"{}\"".format(tmp_access_tif))
+
+                mde_command = metadata_extractor.build_command(tmp_access_tif)
+                try:
+                    command_runner.run(mde_command)
+
+                except RuntimeError as e:
+                    logger.error(e)
+                    raise
+                finally:
+                    stdout, stderr = command_runner.get_output()
+                    if stdout:
+                        logger.info(stdout)
+                    if stderr:
+                        logger.warning(stderr)
+
+                # Insert sidecar metadata files into jp2
+                logger.debug(
+                    "Injecting metadata into \"{}\"".format(tmp_access_jp2))
+
+                mdi_command = metadata_injector.build_command(tmp_access_jp2)
+                try:
+                    command_runner.run(mdi_command)
+
+                except RuntimeError as e:
+                    logger.error(e)
+                    raise
+                finally:
+                    stdout, stderr = command_runner.get_output()
+                    if stdout:
+                        logger.info(stdout)
+                    if stderr:
+                        logger.warning(stderr)
+
                 logger.debug("Moving \"{}\" into \"{}\"".format(tmp_access_jp2, path))
                 shutil.move(tmp_access_jp2, final_access_jp2)
                 total_files_converted += 1
