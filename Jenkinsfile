@@ -210,7 +210,7 @@ pipeline {
 
         stage("Packaging") {
             when {
-                expression { params.PACKAGE == true }
+                expression { params.PACKAGE == true || params.DEPLOY == true }
             }
             steps {
                 parallel(
