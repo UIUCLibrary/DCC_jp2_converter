@@ -10,7 +10,8 @@ pipeline {
     parameters {
         string(name: "PROJECT_NAME", defaultValue: "JP2 Converter", description: "Name given to the project")
         booleanParam(name: "UNIT_TESTS", defaultValue: true, description: "Run Automated Unit Tests")
-        booleanParam(name: "STATIC_ANALYSIS", defaultValue: true, description: "Run static analysis tests")
+//        booleanParam(name: "STATIC_ANALYSIS", defaultValue: true, description: "Run static analysis tests")
+        booleanParam(name: "ADDITIONAL_TESTS", defaultValue: true, description: "Run additional tests")
         booleanParam(name: "PACKAGE", defaultValue: true, description: "Create a Packages")
         booleanParam(name: "DEPLOY", defaultValue: false, description: "Deploy SCCM")
         booleanParam(name: "BUILD_DOCS", defaultValue: true, description: "Build documentation")
@@ -108,10 +109,15 @@ pipeline {
             }
         }
 
-        stage("Static Analysis") {
+//        stage("Static Analysis") {
+//            when {
+//                expression { params.STATIC_ANALYSIS == true }
+//            }
+        stage("Additional tests") {
             when {
-                expression { params.STATIC_ANALYSIS == true }
+                expression { params.ADDITIONAL_TESTS == true }
             }
+
             steps {
                 parallel(
                         "flake8": {
