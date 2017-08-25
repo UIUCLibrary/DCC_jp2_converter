@@ -1,6 +1,12 @@
 #!groovy
+@Library("ds-utils")
+import org.ds.*
 pipeline {
     agent any
+    environment {
+        mypy_args = "--junit-xml=mypy.xml"
+        pytest_args = "--junitxml=reports/junit-{env:OS:UNKNOWN_OS}-{envname}.xml --junit-prefix={env:OS:UNKNOWN_OS}  --basetemp={envtmpdir}"
+    }
     parameters {
         string(name: "PROJECT_NAME", defaultValue: "JP2 Converter", description: "Name given to the project")
         booleanParam(name: "UNIT_TESTS", defaultValue: true, description: "Run Automated Unit Tests")
@@ -54,24 +60,50 @@ pipeline {
             steps {
                 parallel(
                         "Windows": {
-                            node(label: 'Windows') {
-                                deleteDir()
-                                unstash "Source"
-                                bat "${env.TOX}  --skip-missing-interpreters"
-                                junit 'reports/junit-*.xml'
-
-                            }
-                        },
-                        "Linux": {
-                            node(label: "!Windows") {
-                                deleteDir()
-                                unstash "Source"
-                                withEnv(["PATH=${env.PYTHON3}/..:${env.PATH}"]) {
-                                    sh "${env.TOX}  --skip-missing-interpreters -e py35"
+                            script {
+                                def runner = new Tox(this)
+                                runner.env = "pytest"
+                                runner.windows = true
+                                runner.stash = "Source"
+                                runner.label = "Windows"
+                                runner.post = {
+                                    junit 'reports/junit-*.xml'
                                 }
-                                junit 'reports/junit-*.xml'
+                                runner.run()
                             }
                         }
+                        "Linux": {
+                            script {
+                                def runner = new Tox(this)
+                                runner.env = "pytest"
+                                runner.windows = false
+                                runner.stash = "Source"
+                                runner.label = "!Windows"
+                                runner.post = {
+                                    junit 'reports/junit-*.xml'
+                                }
+                                runner.run()
+                            }
+                        }
+//                        "Windows": {
+//                            node(label: 'Windows') {
+//                                deleteDir()
+//                                unstash "Source"
+//                                bat "${env.TOX}  --skip-missing-interpreters"
+//                                junit 'reports/junit-*.xml'
+//
+//                            }
+//                        },
+//                        "Linux": {
+//                            node(label: "!Windows") {
+//                                deleteDir()
+//                                unstash "Source"
+//                                withEnv(["PATH=${env.PYTHON3}/..:${env.PATH}"]) {
+//                                    sh "${env.TOX}  --skip-missing-interpreters -e py35"
+//                                }
+//                                junit 'reports/junit-*.xml'
+//                            }
+//                        }
                 )
             }
         }
