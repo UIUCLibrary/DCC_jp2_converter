@@ -28,7 +28,7 @@ pipeline {
                 deleteDir()
                 checkout scm
                 stash includes: '**', name: "Source", useDefaultExcludes: false
-                stash includes: 'deployment.yml', name: "Deployment"
+//                stash includes: 'deployment.yml', name: "Deployment"
 
             }
 
@@ -185,28 +185,28 @@ pipeline {
 
         }
 
-        stage("Documentation") {
-            agent any
-            when {
-                expression { params.BUILD_DOCS == true }
-            }
-            steps {
-                deleteDir()
-                unstash "Source"
-                withEnv(['PYTHON=${env.PYTHON3}']) {
-                    dir('docs') {
-                        sh 'make html SPHINXBUILD=$SPHINXBUILD'
-                    }
-                    stash includes: '**', name: "Documentation source", useDefaultExcludes: false
-                }
-            }
-            post {
-                success {
-                    sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
-                    archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
-                }
-            }
-        }
+//        stage("Documentation") {
+//            agent any
+//            when {
+//                expression { params.BUILD_DOCS == true }
+//            }
+//            steps {
+//                deleteDir()
+//                unstash "Source"
+//                withEnv(['PYTHON=${env.PYTHON3}']) {
+//                    dir('docs') {
+//                        sh 'make html SPHINXBUILD=$SPHINXBUILD'
+//                    }
+//                    stash includes: '**', name: "Documentation source", useDefaultExcludes: false
+//                }
+//            }
+//            post {
+//                success {
+//                    sh 'tar -czvf sphinx_html_docs.tar.gz -C docs/build/html .'
+//                    archiveArtifacts artifacts: 'sphinx_html_docs.tar.gz'
+//                }
+//            }
+//        }
 
         stage("Packaging") {
             when {
