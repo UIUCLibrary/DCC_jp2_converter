@@ -71,7 +71,7 @@ pipeline {
                                 }
                                 runner.run()
                             }
-                        }
+                        },
                         "Linux": {
                             script {
                                 def runner = new Tox(this)
