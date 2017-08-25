@@ -136,20 +136,20 @@ pipeline {
 
                             }
                         },
-                        "MyPy": {
-                            script {
-                                def runner = new Tox(this)
-                                runner.env = "mypy"
-                                runner.windows = false
-                                runner.stash = "Source"
-                                runner.label = "!Windows"
-                                runner.post = {
-                                    junit 'mypy.xml'
-                                }
-                                runner.run()
-
-                            }
-                        },
+//                        "MyPy": {
+//                            script {
+//                                def runner = new Tox(this)
+//                                runner.env = "mypy"
+//                                runner.windows = false
+//                                runner.stash = "Source"
+//                                runner.label = "!Windows"
+//                                runner.post = {
+//                                    junit 'mypy.xml'
+//                                }
+//                                runner.run()
+//
+//                            }
+//                        },
                         "flake8": {
                             node(label: "!Windows") {
                                 deleteDir()
