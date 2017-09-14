@@ -11,7 +11,7 @@ class ImagemagickCommandBuilder:
 
     def __init__(self,
                  builder: AbsBuilder = DefaultCommandBuilder(),
-                 program_path=None):
+                 program_path=None) -> None:
         """
         Configure how the director should configure the builders. All args
         are for overriding the defaults.

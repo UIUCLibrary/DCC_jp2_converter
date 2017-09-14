@@ -1,4 +1,5 @@
 import abc
+import typing
 
 
 class AbsProfile(metaclass=abc.ABCMeta):
@@ -9,10 +10,11 @@ class AbsProfile(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def convert_access_folder(self, path):
+    def convert_access_folder(self, path, destination=None):
         pass
 
     @staticmethod
     @abc.abstractmethod
-    def find_access_folders(path)->str:
+    def find_access_folders(path)->typing.Iterator[str]:
         pass
+

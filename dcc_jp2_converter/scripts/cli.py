@@ -64,9 +64,13 @@ def build_parser():
         raise
     parser = argparse.ArgumentParser(
         description=DESCRIPTION,
+
         usage='%(prog)s [path] [options]',
-        epilog="Settings for this script can be configured at {}: ".format(
-            config_files[-1]))
+        epilog="Note 1: {}\n Note 2: {}".format("To add a different path to save new files to, use the --prefix argument. "
+                               "For example, to save newly created images to C:\\my_new_packages add the "
+                               "following argument to the command: \"--prefix=C:\\my_new_packages\\\". ",
+                               "Settings for this script can be configured at {}: ".format(config_files[-1])),
+    )
     # -----------------------------------------
     command_group = parser.add_mutually_exclusive_group()
     command_group.add_argument(
@@ -103,6 +107,10 @@ def build_parser():
         '--overwrite',
         action="store_true",
         help="Overwrite any existing jp2 with new ones")
+    convert_path_group.add_argument(
+        '--prefix',
+        default=None,
+        help="Provide an alternative destination for the files instead of converting them inplace")
     convert_path_group.add_argument(
         '--remove',
         action="store_true",
@@ -182,7 +190,7 @@ def run():
         else:
             parser.print_help()
 
-                    # print("\n\nAll Done!\n")
+            # print("\n\nAll Done!\n")
     except KeyboardInterrupt:
         logger.warning("Job Terminated")
     print("Log file located at {}".format(os.path.abspath(args.logname)))
@@ -234,7 +242,7 @@ def main():
 
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == "--pytest":
-        import pytest
+        import pytest  # type: ignore
 
         sys.exit(pytest.main(sys.argv[2:]))
     else:

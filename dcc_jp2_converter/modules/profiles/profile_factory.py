@@ -3,7 +3,7 @@ from dcc_jp2_converter.modules import profiles
 
 
 class ProfileFactory:
-    profiles = {}
+    profiles = {}  # type: ignore
 
     def __init__(self):
         self.load_packages()
