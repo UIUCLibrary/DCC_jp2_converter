@@ -84,5 +84,11 @@ def find_arg_errors(args):
         # Make sure that a path is given, not a file
         if os.path.isfile(args.path):
             errors.append("\"{}\" is not a directory.".format(args.path))
+    if args.prefix:
+
+        if not os.path.exists(args.prefix):
+            errors.append("Invalid selection for prefix, {}".format(args.prefix))
+        if not os.path.isdir(args.prefix):
+            errors.append('Prefix, "{}", is not a valid path'.format(args.prefix))
 
     return errors
