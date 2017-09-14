@@ -104,6 +104,10 @@ def build_parser():
         action="store_true",
         help="Overwrite any existing jp2 with new ones")
     convert_path_group.add_argument(
+        '--prefix',
+        default=None,
+        help="Provide an alternative destination for the files instead of converting them inplace")
+    convert_path_group.add_argument(
         '--remove',
         action="store_true",
         help="Removes access tiff files after converting them.")
@@ -234,7 +238,7 @@ def main():
 
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == "--pytest":
-        import pytest
+        import pytest  # type: ignore
 
         sys.exit(pytest.main(sys.argv[2:]))
     else:
