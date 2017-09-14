@@ -9,7 +9,7 @@ class Exiv2CommandBuilder:
     """Use this to generate commands for sending to exiv2. """
 
     def __init__(
-            self, builder: AbsBuilder, program_path=None):
+            self, builder: AbsBuilder, program_path=None) -> None:
         """Configure how the director should configure the builders.
 
         Args:
