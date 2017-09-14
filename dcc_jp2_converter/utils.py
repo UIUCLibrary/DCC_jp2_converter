@@ -59,7 +59,7 @@ class ConfigSearcherBundled(AbsConfigSearcherStrategy):
 
 
 class ConfigSearcher:
-    def __init__(self, strategy: AbsConfigSearcherStrategy):
+    def __init__(self, strategy: AbsConfigSearcherStrategy) -> None:
         self._strategy = strategy
 
     def locate_config(self):
