@@ -15,3 +15,5 @@ deployment:
     - LIBSTFDCC08
     - LIBSTFDCC09
     - LIBSTFDCC013
+    - LIBSTFPRE10
+    - LIBLAPPRE11
