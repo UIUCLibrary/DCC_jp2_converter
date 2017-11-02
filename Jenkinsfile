@@ -65,7 +65,7 @@ pipeline {
                     "Windows": {
                         node(label: "Windows") {
                             script {
-                            checkout scm
+                                unstash "Source"
                                 try {
                                     bat "${tool 'Python3.6.3_Win64'} -m tox"
                                 } catch (exc) {
@@ -78,10 +78,11 @@ pipeline {
                     "Linux": {
                         node(label: "Linux") {
                             script {
-                                checkout scm
+                                unstash "Source"
                                 try {
                                     sh "${ENV.PYTHON3} -m tox"
                                 } catch (exc) {
+                                    echo "error ${exec}"
                                     junit 'reports/junit-*.xml'
                                     error("Unit test Failed on Linux")
                                 }
@@ -172,6 +173,9 @@ pipeline {
                             deleteDir()
                             checkout scm
                             bat "${tool 'Python3.6.3_Win64'} -m venv venv"
+                            dir("dcc_jp2_converter/thirdparty") {
+                                    unstash "thirdparty"
+                                }
                             bat "make freeze"
                             dir("dist") {
                                 stash includes: "*.msi", name: "msi"
