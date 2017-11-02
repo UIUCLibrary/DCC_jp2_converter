@@ -80,7 +80,7 @@ pipeline {
                             script {
                                 checkout scm
                                 try {
-                                    sh "${ENV.PYTHON3'} -m tox"
+                                    sh "${ENV.PYTHON3} -m tox"
                                 } catch (exc) {
                                     junit 'reports/junit-*.xml'
                                     error("Unit test Failed on Linux")
