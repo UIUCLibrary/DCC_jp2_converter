@@ -70,7 +70,7 @@ pipeline {
                                     bat "${tool 'Python3.6.3_Win64'} -m tox"
                                 } catch (exc) {
                                     junit 'reports/junit-*.xml'
-                                    throw
+                                    error("Unit test Failed on Windows")
                                 }
                             }
                         }
@@ -83,7 +83,7 @@ pipeline {
                                     sh "${ENV.PYTHON3'} -m tox"
                                 } catch (exc) {
                                     junit 'reports/junit-*.xml'
-                                    throw
+                                    error("Unit test Failed on Linux")
                                 }
                             }
                         }
