@@ -1,2 +1,7 @@
-recursive-include settings *
+include LICENSE README.rst requirements-dev.txt tox.ini mypy.ini
+recursive-include settings *.ini
+recursive-exclude __pycache__
 recursive-include dcc_jp2_converter/thirdparty *
+recursive-include dcc_jp2_converter *.py
+recursive-include tests *.py
+recursive-include docs *
