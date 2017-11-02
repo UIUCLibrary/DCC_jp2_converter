@@ -57,7 +57,7 @@ goto :eof
     call:venv
     setlocal
     echo Installing development requirements
-    call venv\Scripts\activate.bat && pip install -r requirements.txt --upgrade-strategy only-if-needed
+    call venv\Scripts\activate.bat && pip install -r requirements-dev.txt --upgrade-strategy only-if-needed
     endlocal
 goto :eof
 
