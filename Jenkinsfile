@@ -64,26 +64,28 @@ pipeline {
                 parallel(
                     "Windows": {
                         node(label: "Windows") {
+                            script {
                             checkout scm
-                            try {
-                                bat "${tool 'Python3.6.3_Win64'} -m tox"
-                            } catch (exc) {
-                                junit 'reports/junit-*.xml'
-                                throw
+                                try {
+                                    bat "${tool 'Python3.6.3_Win64'} -m tox"
+                                } catch (exc) {
+                                    junit 'reports/junit-*.xml'
+                                    throw
+                                }
                             }
-                            
                         }
                     },
                     "Linux": {
                         node(label: "Linux") {
-                            checkout scm
-                            try {
-                                sh "${ENV.PYTHON3'} -m tox"
-                            } catch (exc) {
-                                junit 'reports/junit-*.xml'
-                                throw
+                            script {
+                                checkout scm
+                                try {
+                                    sh "${ENV.PYTHON3'} -m tox"
+                                } catch (exc) {
+                                    junit 'reports/junit-*.xml'
+                                    throw
+                                }
                             }
-                            
                         }
                     }
                 )
