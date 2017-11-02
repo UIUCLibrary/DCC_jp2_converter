@@ -112,13 +112,13 @@ pipeline {
                             }
                           
                     },
-                    "MyPy": {
-                        node(label: "Windows") {
-                            checkout scm
-                            bat "make test-mypy --html-report reports/mypy_report --junit-xml reports/mypy.xml"
-                            junit 'reports/mypy.xml'
-                        }
-                    },
+                    // "MyPy": {
+                    //     node(label: "Windows") {
+                    //         checkout scm
+                    //         bat "make test-mypy --html-report reports/mypy_report --junit-xml reports/mypy.xml"
+                    //         junit 'reports/mypy.xml'
+                    //     }
+                    // },
                     "flake8": {
                         node(label: "Linux") {
                             deleteDir()
