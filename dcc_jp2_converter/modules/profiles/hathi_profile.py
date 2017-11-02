@@ -5,11 +5,19 @@ import logging
 from dcc_jp2_converter import Converter
 import typing
 
-class HathiProfile(AbsProfile):
-    logger = logging.getLogger(__name__)
-    overwrite = False
-    remove_on_success = False
+
+class HathiBase(AbsProfile):
+    @staticmethod
+    def find_access_folders(path) -> typing.Iterator[str]:
+        raise NotImplementedError
+
     converter = Converter.create("Kakadu")
+    remove_on_success = False
+    overwrite = False
+    logger = logging.getLogger(__name__)
+
+    def __init__(self):
+        pass
 
     def configure(self, *args, **kwargs):
         if "overwrite" in kwargs:
@@ -30,6 +38,9 @@ class HathiProfile(AbsProfile):
             overwrite_existing=self.overwrite,
             remove_on_success=self.remove_on_success
         )
+
+
+class HathiProfile(HathiBase):
 
     @staticmethod
     def find_access_folders(path)->typing.Iterator[str]:
@@ -52,3 +63,19 @@ class HathiProfile(AbsProfile):
         for root_access in find_root_access():
             for access_folder in filter(lambda x: os.path.isdir(x), os.scandir(root_access)):
                 yield access_folder.path
+
+
+class HathiFlatProfile(HathiProfile):
+
+    @staticmethod
+    def find_access_folders(path) -> typing.Iterator[str]:
+        def has_tiff_files(sub_path):
+            for file in os.scandir(sub_path):
+                if os.path.splitext(file.name)[1] == ".tif":
+                    return True
+            else:
+                return False
+
+        for directory in filter(lambda i: i.is_dir(), os.scandir(path)):
+            if has_tiff_files(directory):
+                yield directory.path

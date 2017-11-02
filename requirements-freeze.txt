@@ -1,6 +1,3 @@
-pytest
-tox
-sphinx
 cx-Freeze
 pyparsing
 appdirs
