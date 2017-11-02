@@ -14,7 +14,7 @@ pipeline {
         string(name: "PROJECT_NAME", defaultValue: "JP2 Converter", description: "Name given to the project")
         booleanParam(name: "UNIT_TESTS", defaultValue: true, description: "Run Automated Unit Tests")
         booleanParam(name: "ADDITIONAL_TESTS", defaultValue: true, description: "Run additional tests")
-        booleanParam(name: "PACKAGE", defaultValue: true, description: "Create a Packages")
+        // booleanParam(name: "PACKAGE", defaultValue: true, description: "Create a Packages")
         // booleanParam(name: "DEPLOY", defaultValue: false, description: "Deploy SCCM")
         booleanParam(name: "DEPLOY_DEVPI", defaultValue: true, description: "Deploy to devpi on http://devpy.library.illinois.edu/DS_Jenkins/${env.BRANCH_NAME}")
         choice(choices: 'None\nRelease_to_devpi_only\nRelease_to_devpi_and_sccm\n', description: "Release the build to production. Only available in the Master branch", name: 'RELEASE')
@@ -156,7 +156,7 @@ pipeline {
 
         stage("Packaging") {
             when {
-                expression { params.PACKAGE == true || params.DEPLOY == true }
+                expression { params.DEPLOY_DEVPI == true || params.RELEASE != "None"}
             }
             steps {
                 parallel(
@@ -258,7 +258,7 @@ pipeline {
               }
             }
         }
-        stage("Deploying to Devpi") {
+        stage("Deploying to Devpi staging") {
             when {
                 expression { params.DEPLOY_DEVPI == true }
             }
@@ -351,13 +351,17 @@ pipeline {
                 expression { params.RELEASE != "None" && env.BRANCH_NAME == "master" }
             }
             steps {
+                
+
                 script {
+                    
                     def name = bat(returnStdout: true, script: "@${tool 'Python3.6.3_Win64'} setup.py --name").trim()
                     def version = bat(returnStdout: true, script: "@${tool 'Python3.6.3_Win64'} setup.py --version").trim()
+                    input("Are you sure you want to push ${name} version ${version} to production? This version cannot be overwritten.")
                     withCredentials([usernamePassword(credentialsId: 'DS_devpi', usernameVariable: 'DEVPI_USERNAME', passwordVariable: 'DEVPI_PASSWORD')]) {
                         bat "${tool 'Python3.6.3_Win64'} -m devpi login ${DEVPI_USERNAME} --password ${DEVPI_PASSWORD}"
                         bat "${tool 'Python3.6.3_Win64'} -m devpi use /${DEVPI_USERNAME}/${env.BRANCH_NAME}_staging"
-                        bat "${tool 'Python3.6.3_Win64'} -m devpi push ${name}==${version} production/${params.RELEASE}"
+                        bat "${tool 'Python3.6.3_Win64'} -m devpi push ${name}==${version} production/release"
                     }
 
                 }
@@ -375,7 +379,7 @@ pipeline {
                 node("Linux"){
                     unstash "msi"
                     deployStash("msi", "${env.SCCM_STAGING_FOLDER}/${params.PROJECT_NAME}/")
-                    input("Deploy to production?")
+                    input("Push a SCCM release?")
                     deployStash("msi", "${env.SCCM_UPLOAD_FOLDER}")
                 }
 
