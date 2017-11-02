@@ -1,0 +1,4 @@
+cx-Freeze
+pyparsing
+appdirs
+packaging
