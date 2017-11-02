@@ -258,7 +258,7 @@ pipeline {
               }
             }
         }
-        stage("Deploying to Devpi http://devpi.library.illinois.edu/DS_Jenkins/${env.BRANCH_NAME}_staging") {
+        stage("Deploying to Devpi staging") {
             when {
                 expression { params.DEPLOY_DEVPI == true }
             }
