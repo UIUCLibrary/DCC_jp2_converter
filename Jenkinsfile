@@ -65,7 +65,7 @@ pipeline {
                     "Windows": {
                         node(label: "Windows") {
                             script {
-                                unstash "Source"
+                                checkout scm
                                 try {
                                     bat "${tool 'Python3.6.3_Win64'} -m tox"
                                 } catch (exc) {
@@ -78,7 +78,7 @@ pipeline {
                     "Linux": {
                         node(label: "Linux") {
                             script {
-                                unstash "Source"
+                                checkout scm
                                 try {
                                     sh "${env.PYTHON3} -m tox"
                                 } catch (exc) {
