@@ -82,7 +82,6 @@ pipeline {
                                 try {
                                     sh "${ENV.PYTHON3} -m tox"
                                 } catch (exc) {
-                                    echo "error ${exec}"
                                     junit 'reports/junit-*.xml'
                                     error("Unit test Failed on Linux")
                                 }
