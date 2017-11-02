@@ -125,7 +125,7 @@ pipeline {
 //                            }
 //                        },
                         "flake8": {
-                            node(label: "!Windows") {
+                            node(label: "Linux") {
                                 deleteDir()
                                 unstash "Source"
                                 sh "${env.TOX} -e flake8"
@@ -140,7 +140,7 @@ pipeline {
                             }
                         },
                         "coverage": {
-                            node(label: "!Windows") {
+                            node(label: "Linux") {
                                 deleteDir()
                                 unstash "Source"
                                 sh "${env.TOX} -e coverage"
@@ -169,7 +169,7 @@ pipeline {
                             node(label: "Windows") {
                                 deleteDir()
                                 unstash "Source"
-                                bat "${env.PYTHON3} setup.py bdist_wheel --universal"
+                                bat "${tool 'Python3.6.3_Win64'} setup.py bdist_wheel"
                                 archiveArtifacts artifacts: "dist/**", fingerprint: true
                             }
                         },
@@ -180,10 +180,10 @@ pipeline {
                                 dir("dcc_jp2_converter/thirdparty") {
                                     unstash "thirdparty"
                                 }
-                                bat """ ${env.PYTHON3} -m venv .env
-                              call .env/Scripts/activate.bat
+                                bat """ ${tool 'Python3.6.3_Win64'} -m venv venv
+                              call venv/Scripts/activate.bat
                               pip install -r requirements.txt
-                              ${env.PYTHON3} cx_setup.py bdist_msi --add-to-path=true
+                              ${tool 'Python3.6.3_Win64'} cx_setup.py bdist_msi --add-to-path=true
                               """
 
                                 dir("dist") {
@@ -198,7 +198,7 @@ pipeline {
                                 // validate_msi.py
 
                                 bat """
-                      ${env.PYTHON3} -m venv .env
+                      ${tool 'Python3.6.3_Win64'} -m venv .env
                       call .env/Scripts/activate.bat
                       pip install setuptools --upgrade
                       pip install -r requirements.txt
