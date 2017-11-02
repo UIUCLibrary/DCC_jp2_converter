@@ -295,8 +295,8 @@ pipeline {
                                     bat "${tool 'Python3.6.3_Win64'} -m devpi use /${DEVPI_USERNAME}/${env.BRANCH_NAME}_staging"
                                     echo "Testing Source package in devpi"
                                     script {
-                                            def devpi_test = bat(returnStdout: true, script: "${tool 'Python3.6.3_Win64'} -m devpi test --index http://devpy.library.illinois.edu/${DEVPI_USERNAME}/${env.BRANCH_NAME}_staging ${name} -s tar.gz").trim()
-                                            if(devpi_test =~ 'tox command failed') {
+                                        def devpi_test = bat(returnStdout: true, script: "${tool 'Python3.6.3_Win64'} -m devpi test --index http://devpy.library.illinois.edu/${DEVPI_USERNAME}/${env.BRANCH_NAME}_staging ${name} -s tar.gz").trim()
+                                        if(devpi_test =~ 'tox command failed') {
                                             error("Tox command failed")
                                         }
                                     }
