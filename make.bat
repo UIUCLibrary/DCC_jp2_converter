@@ -125,7 +125,7 @@ goto :eof
     call:install-dev
     setlocal
     call venv\Scripts\activate.bat
-    ::python -m pip install -r requirements-freeze.txt
+    python -m pip install -r requirements-freeze.txt
     python cx_setup.py bdist_msi --add-to-path=true -k --bdist-dir build/msi
     call build\\msi\\makejp2.exe --pytest
     endlocal
