@@ -14,7 +14,7 @@ pipeline {
         string(name: "PROJECT_NAME", defaultValue: "JP2 Converter", description: "Name given to the project")
         booleanParam(name: "UNIT_TESTS", defaultValue: true, description: "Run Automated Unit Tests")
         booleanParam(name: "ADDITIONAL_TESTS", defaultValue: true, description: "Run additional tests")
-        booleanParam(name: "PACKAGE", defaultValue: true, description: "Create a Packages")
+        // booleanParam(name: "PACKAGE", defaultValue: true, description: "Create a Packages")
         // booleanParam(name: "DEPLOY", defaultValue: false, description: "Deploy SCCM")
         booleanParam(name: "DEPLOY_DEVPI", defaultValue: true, description: "Deploy to devpi on http://devpy.library.illinois.edu/DS_Jenkins/${env.BRANCH_NAME}")
         choice(choices: 'None\nRelease_to_devpi_only\nRelease_to_devpi_and_sccm\n', description: "Release the build to production. Only available in the Master branch", name: 'RELEASE')
@@ -156,7 +156,7 @@ pipeline {
 
         stage("Packaging") {
             when {
-                expression { params.PACKAGE == true || params.DEPLOY == true }
+                expression { params.DEPLOY_DEVPI == true || params.RELEASE != "None"}
             }
             steps {
                 parallel(
