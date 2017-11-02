@@ -2,3 +2,4 @@ pytest
 tox
 sphinx
 wheel
+lxml
