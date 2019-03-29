@@ -33,6 +33,11 @@ pipeline {
                 stash includes: '**', name: "Source", useDefaultExcludes: false
 
             }
+            post{
+                always{
+                    deleteDir()
+                }
+            }
 
         }
         stage("Prepping 3rd party files") {
